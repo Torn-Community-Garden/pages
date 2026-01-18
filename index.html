@@ -20,47 +20,47 @@
                 <button id="homePageBtn"
                     class="w3-bar-item w3-btn w3-xlarge fa fa-home
                         w3-orange w3-text-white w3-hover-orange w3-hover-text-white"
-                    onclick="subPageNavBtnClick(this, 0)"></button>
+                    onclick="//subPageNavBtnClick(this, 0)"></button>
                 <button id="rulesPageBtn"
                     class="w3-bar-item w3-button w3-hide-small w3-disabled
                         w3-hover-text-white w3-hover-orange"
-                    onclick="subPageNavBtnClick(this, 1)">Rules</button>
+                    onclick="//subPageNavBtnClick(this, 1)">Rules</button>
                 <button id="calendarPageBtn"
                     class="w3-bar-item w3-button w3-hide-small w3-disabled
                         w3-hover-text-white w3-hover-orange"
-                    onclick="subPageNavBtnClick(this, 2)">Calendar</button>
+                    onclick="//subPageNavBtnClick(this, 2)">Calendar</button>
                 <button id="repPageBtn"
                     class="w3-bar-item w3-button w3-hide-small
                         w3-hover-text-white w3-hover-orange w3-disabled"
-                    onclick="/*urlNavBtnClick('rw_reports')*/">RW
+                    onclick="//urlNavBtnClick('rw_reports')">RW
                     Reports</button>
                 <button id="collapseBtn"
                     class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
                         fa fa-bars w3-xlarge
                         w3-hover-text-white w3-hover-orange"
-                    onclick="/*toggleCollapse('collapsedNav')*/"></button>
+                    onclick="//toggleCollapse('collapsedNav')"></button>
                 <button id="themeBtn"
                     class="w3-bar-item w3-button w3-right w3-xlarge fa fa-moon-o
                         w3-hover-text-white w3-hover-orange"
                     style="display: none;"
-                    onclick="switchTheme(this)"></button>
+                    onclick="//switchTheme(this)"></button>
             </div>
-            <div id="collapsedNav"
+            <div id="navCollapse" style="display: none;"
                 class="mainUiTheme w3-bar-block w3-card w3-hide-large w3-hide-medium
                     w3-animate-right w3-hide w3-2025-orangeade">
                 <button id="rulesBtn"
                     class="w3-bar-item w3-button w3-hover-orange"
-                    onclick="subPageNavBtnClick(this, 1)">Rules</button>
+                    onclick="//subPageNavBtnClick(this, 1)">Rules</button>
                 <button id="calendarBtn"
                     class="w3-bar-item w3-button w3-hover-orange"
-                    onclick="subPageNavBtnClick(this, 2)">Calendar</button>
+                    onclick="//subPageNavBtnClick(this, 2)">Calendar</button>
                 <button id="repBtn"
                     class="w3-bar-item w3-button w3-hover-orange"
-                    onclick="/*urlNavBtnClick('rw_reports')*/">RW
+                    onclick="//urlNavBtnClick('rw_reports')">RW
                     Reports</button>
             </div>
         </nav>
-        <img src="Graphics/graphic_day.svg" alt="TCGGraphic">
+        <img src="Graphics/graphic_day.svg" alt="TCGGraphic" class="w3-center">
         <div id="mainTopDelimiter" style="height: 10px;"
             class="w3-container w3-card w3-2025-orangeade">
             <span id="uiGradFilter"

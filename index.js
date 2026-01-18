@@ -6,6 +6,7 @@ let activeScene = 0;
 
 if (this.location.href.endsWith("pages") || this.location.href.endsWith("pages/") ||
     this.location.href.endsWith("github.io") || this.location.href.endsWith("github.io/")) {
+    this.location.href = "";
     this.location.assign(`${baseUrl}index.html?page=0`);
 }
 var urlParams = new URLSearchParams(window.location.search);
@@ -14,7 +15,7 @@ if (urlParams.has('page')) {
     if (pageParam) {
         var pageIndex = parseInt(pageParam);
         if (!isNaN(pageIndex) && pageIndex >= 0 && pageIndex < homeSubPage.length) {
-            navSubPage(pageIndex);
+            if (pageIndex === 0) navSubPage(pageIndex);
         }
     }
 }
