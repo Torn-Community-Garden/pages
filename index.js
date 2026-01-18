@@ -1,13 +1,12 @@
 // @ts-check
-const baseUrl = "torn-community-garden.github.io/pages/";
 const homeSubPage = ["homePage", "rulesPage", "calendarPage"];
 const result = { "win": 2, "loss": 1, "empty": 0 };
 let activeScene = 0;
 
 if (this.location.href.endsWith("pages") || this.location.href.endsWith("pages/") ||
     this.location.href.endsWith("github.io") || this.location.href.endsWith("github.io/")) {
-    this.location.href = "";
-    this.location.assign(`${baseUrl}index.html?page=0`);
+    var urlString = this.location.href.endsWith("/") ? `index.html?page=0` : `/index.html?page=0`;
+    this.location.assign(urlString);
 }
 var urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has('page')) {
@@ -58,7 +57,7 @@ function subPageNavBtnClick(btn, pageIndex) {
  * @param {string} urlPage
  */
 function urlNavBtnClick(urlPage) {
-    location.assign(`${baseUrl}${urlPage}.html`);
+    location.assign(`${urlPage}.html`);
 }
 /**
  * @param {HTMLButtonElement} btn
