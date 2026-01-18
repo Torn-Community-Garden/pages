@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Home | TCG</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <base href="https://torn-community-garden.github.io/pages/">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="w3.css">
+        <link rel="stylesheet"
+            href="https://www.w3schools.com/lib/w3-colors-2025.css">
+
+    </head>
+    <body class="w3-pale-blue">
+        <script src="index.js" async defer></script>
+        <br><br>
+        <nav class="w3-top w3-mobile">
+            <div class="w3-bar w3-card w3-bold w3-2025-orangeade">
+                <button id="homePageBtn"
+                    class="w3-bar-item w3-btn w3-xlarge fa fa-home
+                        w3-orange w3-text-white w3-hover-orange w3-hover-text-white"
+                    onclick="subPageNavBtnClick(this, 0)"></button>
+                <button id="rulesPageBtn"
+                    class="w3-bar-item w3-button w3-hide-small w3-disabled
+                        w3-hover-text-white w3-hover-orange"
+                    onclick="subPageNavBtnClick(this, 1)">Rules</button>
+                <button id="calendarPageBtn"
+                    class="w3-bar-item w3-button w3-hide-small w3-disabled
+                        w3-hover-text-white w3-hover-orange"
+                    onclick="subPageNavBtnClick(this, 2)">Calendar</button>
+                <button id="repPageBtn"
+                    class="w3-bar-item w3-button w3-hide-small
+                        w3-hover-text-white w3-hover-orange w3-disabled"
+                    onclick="/*urlNavBtnClick('rw_reports')*/">RW
+                    Reports</button>
+                <button id="collapseBtn"
+                    class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
+                        fa fa-bars w3-xlarge
+                        w3-hover-text-white w3-hover-orange"
+                    onclick="/*toggleCollapse('collapsedNav')*/"></button>
+                <button id="themeBtn"
+                    class="w3-bar-item w3-button w3-right w3-xlarge fa fa-moon-o
+                        w3-hover-text-white w3-hover-orange"
+                    style="display: none;"
+                    onclick="switchTheme(this)"></button>
+            </div>
+            <div id="collapsedNav"
+                class="mainUiTheme w3-bar-block w3-card w3-hide-large w3-hide-medium
+                    w3-animate-right w3-hide w3-2025-orangeade">
+                <button id="rulesBtn"
+                    class="w3-bar-item w3-button w3-hover-orange"
+                    onclick="subPageNavBtnClick(this, 1)">Rules</button>
+                <button id="calendarBtn"
+                    class="w3-bar-item w3-button w3-hover-orange"
+                    onclick="subPageNavBtnClick(this, 2)">Calendar</button>
+                <button id="repBtn"
+                    class="w3-bar-item w3-button w3-hover-orange"
+                    onclick="/*urlNavBtnClick('rw_reports')*/">RW
+                    Reports</button>
+            </div>
+        </nav>
+        <img src="Graphics/graphic_day.svg" alt="TCGGraphic">
+        <div id="mainTopDelimiter" style="height: 10px;"
+            class="w3-container w3-card w3-2025-orangeade">
+            <span id="uiGradFilter"
+                style="display:block;
+                background-image:linear-gradient(to right, rgba(255,0,0,0), orange, rgba(255,0,0,0));
+                height:100%;">
+            </span>
+        </div>
+        <div id="pages" class="w3-container w3-margin-left w3-margin-right">
+            <div id="homePage"
+                class="scene w3-container w3-bold w3-center w3-2025-bright-white"
+                style="height: 400px;">
+                <p>Welcome to Torn Community Garden!</p>
+            </div>
+            <div id="rulesPage"
+                class="scene w3-container w3-bold w3-center w3-2025-bright-white"
+                style="height: 400px;display: none;">
+                <p>Coming Soon</p>
+            </div>
+            <div id="calendarPage"
+                class="scene w3-container w3-bold w3-center w3-2025-bright-white"
+                style="height: 400px;display: none;">
+                <p>Coming Soon</p>
+            </div>
+        </div>
+        <footer id="footer"
+            class="w3-container w3-center w3-card-4 w3-cursive w3-margin-top
+            w3-2025-orangeade">
+            <p>Torn Community Garden 2026 - A faction and community @
+                https://www.torn.com</p>
+            <img style="width: 200px;" alt="Logo" src="Graphics/logo.svg">
+            <p style="color:lightgray">For help or questions regarding the
+                website, contact Scatterbean on Discord or
+                <a style="color: rgb(72, 128, 233);"
+                    href="https://www.torn.com/users.php?XID=3383329">Scatterbean[3383329]</a>
+                on Torn.</p>
+        </footer>
+    </body>
+</html>

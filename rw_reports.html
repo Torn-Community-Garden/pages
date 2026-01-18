@@ -1,97 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<title>TGF War Reports</title>
+	<title>War Reports | TCG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <base href="https://torn-community-garden.github.io/pages/">
-    <style>
-		body {
-			background-color: darkseagreen;
-		}
-		header {
-			background-color: sandybrown;
-			border: 1px solid lightsalmon;
-		}
-		nav {
-			background-color: mediumaquamarine;
-		}
-		nav > button {
-			background-color: powderblue;
-			color: tomato;
-			height: 100%;
-			width: 20%;
-			border: none;
-			border-bottom: 1px solid white;
-			cursor: pointer;
-			font-size: 15px;
-		}
-		nav > button:hover {
-			background-color: azure;
-		}
-		.mainC {
-			background-color: mediumaquamarine;
-			display: flex;
-		}
-		.repTableC {
-			background-color: powderblue;
-			padding: 10px;
-		}
-		table, th, td {
-			background-color: inherit;
-			text-align: left;
-		}
-		table {
-			border: 2px solid white;
-		}
-		th, td {
-			border-bottom: 2px solid white;
-			padding: 3px;
-			padding-right: 5px;
-		}
-		th:nth-child(odd), td:nth-child(odd) {
-			background-color: azure;
-		}
-		td:has(button) {
-			padding-right: 0px;
-		}
-		.repBtn {
-			background-color: inherit;
-			border: none;
-			color: inherit;
-			height: 100%;
-			width: 100%;
-		}
-		.repBtn:hover {
-			background-color: white;
-		}
-		.frameC {
-			background-color: darkseagreen;
-			width: 80%;
-			height: auto;
-		}
-		iframe {
-			width: 98%;
-			height: 100%;
-		}
-    </style>
-  </head>
+	<link rel="stylesheet" href="w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
   <body>
-    <header>
-      <h2>War Reports</h2>
-    </header>
-    <nav>
-      <button><a href="main.html">Back</a></button>
-    </nav>
-    <div class="mainC">
-	  <span class="repTableC">
-		<h2>2025</h2>
+	<script src="index.js" async defer></script>
+	<br><br>
+	<div class="w3-top w3-mobile">
+		<nav class="w3-bar w3-flat-carrot w3-card w3-bold">
+			<button
+				class="w3-bar-item w3-button w3-mobile w3-hover-sand fa fa-home w3-xlarge w3-hide-small navBtn"
+				onclick="navBtnClick(this)"></button>
+			<button class="w3-bar-item w3-button w3-mobile w3-hover-sand w3-hide-small navBtn"
+				onclick="navBtnClick(this)">Rules</button>
+			<button class="w3-bar-item w3-button w3-mobile w3-hover-sand w3-hide-small navBtn"
+				onclick="navBtnClick(this)">Calendar</button>
+			<button class="w3-bar-item w3-button w3-mobile w3-text-white w3-orange 
+			w3-hover-orange w3-border-bottom w3-border-orange w3-hover-text-white w3-hide-small navBtn"
+				onclick="navBtnClick(this)">RW Reports</button>
+				<button
+					class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium fa fa-bars w3-xlarge w3-hover-sand navBtn"
+					onclick="toggleCollapse('collapsedNav')"></button>
+				<button
+					class="w3-bar-item w3-button w3-right fa fa-moon-o w3-xlarge w3-hover-sand"
+					onclick="switchTheme(this)"></button>
+		</nav>
+		<div class="w3-bar w3-orange w3-card">
+			<button class="w3-bar-item w3-button w3-mobile w3-hover-sand"
+				onclick="switchTableYear('2026')">2026 Reports</button>
+		</div>
+	</div>
+    <div class="w3-container w3-margin w3-mobile">
+	  <span class="w3-table w3-mobile">
 		<br>
-		<table>
+		<table class="w3-table" id="rw2026">
+			<tr class="">
+				<th>Faction (Tag)</th>
+				<th>Date (dd/mm)</th>
+				<th>Report</th>
+			</tr>
+			<tr>
+				<td>The Rebel Army (M)</td>
+				<td>09/01</td>
+				<td>
+				<button class="w3-button">
+					<a href="WarReports/M0109.html" target="repFrame">View</a>
+				</button>
+				</td>
+			</tr>
+		</table>
+		<table class="w3-table" id="rw2025">
 			<tr>
 				<th>Faction (Tag)</th>
 				<th>Date (dd/mm)</th>
 				<th>Report</th>
+			</tr>
+			<tr>
+				<td>The Rebel Army (M)</td>
+				<td>09/01</td>
+				<td>
+				<button class="repBtn">
+					<a href="WarReports/M1115.html" target="repFrame">View</a>
+				</button>
+				</td>
 			</tr>
 			<tr>
 				<td>Kushindo Luscious (KUSH)</td>
@@ -234,5 +210,14 @@
 			<iframe name="repFrame" title="War Reports Frame"></iframe>
 		</span>
     </div>
+	<footer class="w3-container w3-flat-carrot w3-center w3-card w3-cursive">
+		<p>Torn Community Garden 2026 - A faction and community @ https://www.torn.com</p>
+		<img class="w3-center" style="width: 150px;" src="Graphics/logo_v1.png">
+		<p style="color:lightgray">For help or questions, contact
+			Scatterbean on Discord or <a
+				style="color: rgb(72, 128, 233);"
+				href="https://www.torn.com/users.php?XID=3383329">Scatterbean[3383329]</a>
+			on Torn.</p>
+	</footer>
   </body>
 </html>

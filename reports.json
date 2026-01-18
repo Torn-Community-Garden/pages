@@ -1,0 +1,17 @@
+{
+    "reports": [
+        {
+            "file_name": "",
+            "result": 0,
+            "opponent": {
+                "name": "",
+                "tag": ""
+            },
+            "war_date": {
+                "day": 0,
+                "month": 0,
+                "year": 0
+            }
+        }
+    ]
+}
