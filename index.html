@@ -24,18 +24,18 @@
                 <button id="homePageBtn"
                     class="w3-bar-item w3-btn w3-xlarge fa fa-home
                         w3-orange w3-text-white w3-hover-orange w3-hover-text-white"
-                    onclick="navToSubPage(this, 0)"></button>
+                    onclick="subPageOnClick(this, 0)"></button>
                 <button id="rulesPageBtn"
                     class="w3-bar-item w3-button w3-hide-small
                         w3-hover-text-white w3-hover-orange"
-                    onclick="navToSubPage(this, 1)">Rules</button>
+                    onclick="subPageOnClick(this, 1)">Rules</button>
                 <button id="calendarPageBtn"
                     class="w3-bar-item w3-button w3-hide-small
                         w3-hover-text-white w3-hover-orange"
-                    onclick="navToSubPage(this, 2)">Calendar</button>
+                    onclick="subPageOnClick(this, 2)">Calendar</button>
                 <button id="repPageBtn"
                     class="w3-bar-item w3-button w3-hide-small
-                        w3-hover-text-white w3-hover-orange w3-disabled"
+                        w3-hover-text-white w3-hover-orange"
                     onclick="window.location.assign('rw_reports.html')">RW
                     Reports</button>
                 <button id="collapseBtn"
@@ -55,17 +55,17 @@
                     w3-animate-right w3-hide w3-2025-orangeade">
                 <button id="rulesBtn"
                     class="w3-bar-item w3-button w3-hover-orange"
-                    onclick="navToSubPage(this, 1)">Rules</button>
+                    onclick="subPageOnClick(this, 1)">Rules</button>
                 <button id="calendarBtn"
                     class="w3-bar-item w3-button w3-hover-orange"
-                    onclick="navToSubPage(this, 2)">Calendar</button>
+                    onclick="subPageOnClick(this, 2)">Calendar</button>
                 <button id="repBtn"
-                    class="w3-bar-item w3-button w3-hover-orange w3-disabled"
+                    class="w3-bar-item w3-button w3-hover-orange"
                     onclick="window.location.assign('rw_reports.html')">RW
                     Reports</button>
             </div>
         </nav>
-        <div class="w3-mobile w3-round-small w3-animate-top">
+        <div class="w3-mobile w3-round-small w3-center w3-animate-top">
             <img class="w3-image" src="Graphics/graphic_day.svg" alt="TCGGraphic">
             <div id="mainTopDelimiter" style="height: 10px;"
                 class="w3-container w3-card w3-2025-orangeade">

@@ -90,6 +90,11 @@ class Nav {
     }
 }
 Nav.catchUrlParams(window.location.search);
+/**
+ * @param {HTMLButtonElement} btn
+ * @param {number} index
+ */
+function subPageOnClick(btn, index) { Nav.navToSubPage(btn, index); }
 class ReportController {
     static years = [2025, 2026]
 /**
