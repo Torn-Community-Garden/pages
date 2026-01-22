@@ -27,7 +27,7 @@ if (window.location.href.endsWith("rw_reports.html")) {
     }
 }
 const nav = document.getElementsByTagName("nav").item(0);
-const navBtns = nav ? nav.getElementsByTagName("button") : null;
+const navBtns = nav ? nav.querySelectorAll("button") : null;
 const loadingModal = document.getElementById("loadingModal");
 var activeSub = 0;
 if (!navBtns || !loadingModal) throw "Elements missing.";
@@ -80,7 +80,7 @@ function toggleCollapse(id) {
 function navToSubPage(btn) {
     if (!navBtns) return;
     for (var navBtn of navBtns) {
-        if (navBtn.id.includes('Page')) {
+        if (navBtn.id.includes("Page")) {
             var page = document.getElementById(navBtn.id.split("-")[0]);
             if (page) page.style.display = "none";
         }
