@@ -7,217 +7,87 @@
     <base href="https://torn-community-garden.github.io/pages/">
 	<link rel="stylesheet" href="w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet"
+		href="https://www.w3schools.com/lib/w3-colors-2025.css">
 </head>
-  <body>
-	<script src="index.js" async defer></script>
-	<br><br>
-	<div class="w3-top w3-mobile">
-		<nav class="w3-bar w3-flat-carrot w3-card w3-bold">
-			<button
-				class="w3-bar-item w3-button w3-mobile w3-hover-sand fa fa-home w3-xlarge w3-hide-small navBtn"
-				onclick="navBtnClick(this)"></button>
-			<button class="w3-bar-item w3-button w3-mobile w3-hover-sand w3-hide-small navBtn"
-				onclick="navBtnClick(this)">Rules</button>
-			<button class="w3-bar-item w3-button w3-mobile w3-hover-sand w3-hide-small navBtn"
-				onclick="navBtnClick(this)">Calendar</button>
-			<button class="w3-bar-item w3-button w3-mobile w3-text-white w3-orange 
-			w3-hover-orange w3-border-bottom w3-border-orange w3-hover-text-white w3-hide-small navBtn"
-				onclick="navBtnClick(this)">RW Reports</button>
-				<button
-					class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium fa fa-bars w3-xlarge w3-hover-sand navBtn"
-					onclick="toggleCollapse('collapsedNav')"></button>
-				<button
-					class="w3-bar-item w3-button w3-right fa fa-moon-o w3-xlarge w3-hover-sand"
-					onclick="switchTheme(this)"></button>
-		</nav>
-		<div class="w3-bar w3-orange w3-card">
-			<button class="w3-bar-item w3-button w3-mobile w3-hover-sand"
-				onclick="switchTableYear('2026')">2026 Reports</button>
+<body class="w3-pale-blue w3-mobile">
+	<script src="index.js" defer></script>
+	<div id="loadingModal" class="w3-modal" style="display:none;">
+		<div class="w3-modal-content w3-center w3-display-middle w3-round-large">
+			<span class="fa fa-spinner w3-spin w3-xxxlarge"></span>
 		</div>
 	</div>
-    <div class="w3-container w3-margin w3-mobile">
-	  <span class="w3-table w3-mobile">
-		<br>
-		<table class="w3-table" id="rw2026">
-			<tr class="">
-				<th>Faction (Tag)</th>
-				<th>Date (dd/mm)</th>
-				<th>Report</th>
-			</tr>
-			<tr>
-				<td>The Rebel Army (M)</td>
-				<td>09/01</td>
-				<td>
-				<button class="w3-button">
-					<a href="WarReports/M0109.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-		</table>
-		<table class="w3-table" id="rw2025">
-			<tr>
-				<th>Faction (Tag)</th>
-				<th>Date (dd/mm)</th>
-				<th>Report</th>
-			</tr>
-			<tr>
-				<td>The Rebel Army (M)</td>
-				<td>09/01</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/M1115.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Kushindo Luscious (KUSH)</td>
-				<td>15/11</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/KUSH1115.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Crimson Tech (CTEC)</td>
-				<td>04/10</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/CTEC0410.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>The Mad Order (TMO)</td>
-				<td>13/09</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/TMO1309.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Die Blade (DB)</td>
-				<td>23/08</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/DB2308.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Minervan Vanguard (MV)</td>
-				<td>02/08</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/MV0802.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>TSFTS Microbrewery (BEER)</td>
-				<td>10/07</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/BEER0710.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Trash Bandits (TB)</td>
-				<td>20/06</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/TB0620.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Heathen Saints (HS)</td>
-				<td>07/06</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/HS0607.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Organised Chaos (OC)</td>
-				<td>24/05</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/OC0524.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Frogs of Fortune (GoA)</td>
-				<td>26/04</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/GOA0426.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Veloce (Veloce)</td>
-				<td>05/04</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/Veloce0405.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>DJ-BIRDS OF PASSAGE (DJ)</td>
-				<td>22/03</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/DJ0322.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Voidbringers (Void)</td>
-				<td>08/03</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/Void0308.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Black Lotus Society (BLS)</td>
-				<td>20/02</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/BLS0220.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-			<tr>
-				<td>Cyber Warfare (CW)</td>
-				<td>31/01</td>
-				<td>
-				<button class="repBtn">
-					<a href="WarReports/CW0131.html" target="repFrame">View</a>
-				</button>
-				</td>
-			</tr>
-				</table>
-		</span>
-		<span class="frameC">
-			<iframe name="repFrame" title="War Reports Frame"></iframe>
-		</span>
-    </div>
-	<footer class="w3-container w3-flat-carrot w3-center w3-card w3-cursive">
-		<p>Torn Community Garden 2026 - A faction and community @ https://www.torn.com</p>
-		<img class="w3-center" style="width: 150px;" src="Graphics/logo_v1.png">
-		<p style="color:lightgray">For help or questions, contact
-			Scatterbean on Discord or <a
-				style="color: rgb(72, 128, 233);"
+	<br><br>
+	<nav class="w3-top w3-mobile">
+		<div class="w3-bar w3-card w3-bold w3-2025-orangeade">
+			<button
+				id="homePage-Btn"
+				class="w3-bar-item w3-btn w3-xlarge fa fa-home
+				w3-hover-text-white w3-hover-orange"></button>
+			<button 
+				id="rulesPage-Btn"
+				class="w3-bar-item w3-button w3-hide-small
+				w3-hover-text-white w3-hover-orange">Rules</button>
+			<button
+				id="calendarPage-Btn"
+				class="w3-bar-item w3-button w3-hide-small
+				w3-hover-text-white w3-hover-orange">Calendar</button>
+			<button
+				id="repPage-Btn"
+				style="border-bottom: solid #ff9800 1px;"
+				class="w3-bar-item w3-button w3-hide-small w3-orange bean-cornerfold-topright
+				w3-text-white w3-hover-orange w3-hover-text-white">RW Reports</button>
+			<button
+				id="collapse-Btn"
+				class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
+				fa fa-bars w3-xlarge w3-hover-text-white w3-hover-orange"></button>
+			<button
+				id="theme-Btn"
+				class="w3-bar-item w3-button w3-right w3-xlarge fa fa-moon-o
+				w3-hover-text-white w3-hover-orange"
+				style="display: none;"></button>
+		</div>
+		<div id="navCollapse"
+			class="w3-bar-block w3-card w3-hide-large w3-hide-medium
+				w3-animate-right w3-hide w3-2025-orangeade">
+			<button 
+				id="rulesPage-CollapseBtn"
+				class="w3-bar-item w3-button w3-hover-orange">Rules</button>
+			<button
+				id="calendarPage-CollapseBtn"
+				class="w3-bar-item w3-button w3-hover-orange">Calendar</button>
+			<button
+				id="repPage-CollapseBtn"
+				class="w3-bar-item w3-button w3-hover-orange w3-orange
+				w3-text-white w3-hover-orange w3-hover-text-white">RW Reports</button>
+		</div>
+	</nav>
+	<div class="w3-container w3-section w3-padding-16 w3-card">
+		<div class="w3-container">
+			<p class="w3-left">Viewing reports from 2026</p>
+		</div>
+		<div class="w3-quarter w3-content">
+			<div id="reportMenu" class="w3-bar-block w3-flat-amethyst">
+			</div>
+		</div>
+    	<div class="w3-content w3-threequarter w3-right w3-card w3-padding"
+			style="height: 100%;">
+			<iframe id="repFrame" class="w3-padding w3-center" style="width: 100%;height: 500px;"
+		 	title="War Reports Frame"></iframe>
+		</div>
+	</div>
+	<footer class="w3-container w3-center w3-card-4 w3-cursive w3-margin-top
+		w3-2025-orangeade bean-bottom-gradient">
+		<div class="w3-content">
+		<p>Torn Community Garden 2023-2026<br> A faction and community @
+			<a class="bean-hyperlink" href="https://www.torn.com">https://www.torn.com</a></p>
+		<img style="width: 200px;" alt="Logo" src="Graphics/logo.svg">
+		<p style="color:grey">For help or questions regarding the
+			website, contact Scatterbean on Discord or
+			<a class="bean-hyperlink"
 				href="https://www.torn.com/users.php?XID=3383329">Scatterbean[3383329]</a>
 			on Torn.</p>
+		</div>
 	</footer>
   </body>
 </html>

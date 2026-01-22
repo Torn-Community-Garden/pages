@@ -1,110 +1,107 @@
 // @ts-check
-import ReportList from "./reports.json" with { type: "json" };
+import ReportList from "./resources/reports.json" with { type: "json" };
 
-window.onloadstart = () => {
-    var modal = document.getElementById("loadingModal");
-    if (modal) modal.style.display = "block";
-}
-window.onload = () => {
-    var modal = document.getElementById("loadingModal");
-    if (modal) modal.style.display = "none";
-}
+window.addEventListener("loadstart", () =>{if (loadingModal)loadingModal.style.display="block"});
+window.addEventListener("load", () =>{if (loadingModal)loadingModal.style.display="none"});
+
+catchUrlParams(window.location.search);
 if (window.location.href.endsWith("pages") || window.location.href.endsWith("pages/")) {
-    var urlString = window.location.href.endsWith("/") ? `index.html?subpage=0` : `/index.html?subpage=0`;
-    window.location.assign(urlString);
+    var queryString = window.location.href.endsWith("/") ? `index.html?subpage=0` : `/index.html?subpage=0`;
+    window.location.assign(queryString);
+    activeSub = 0;
 }
-class Nav {
-    static subPages = ["homePage", "rulesPage", "calendarPage"];
-    static mainPages = ["index.html", "rw_reports.html"];
-    static navBtns = ["homePageBtn", "rulesPageBtn", "calendarPageBtn", "repPageBtn"];
-    constructor() {return this;}
+if (window.location.href.endsWith("rw_reports.html")) {
+    const menu = document.getElementById("reportMenu");
+    if (menu) {
+        for (var report of ReportList.reports[2026]) {
+            var elem = document.createElement("li");
+            elem.className = "w3-bar-item w3-button w3-hover-opacity";
+            elem.textContent = 
+            `${report.war_date.day}${report.war_date.month} - ${report.opponent.name} (${report.opponent.tag})`;
+            menu.appendChild(elem);
+            elem.addEventListener("click", () => {
+                var frame = document.getElementById("repFrame");
+                if (frame) frame.setAttribute("src", `${report.file_name}`);
+            });
+        }
+    }
+}
+const nav = document.getElementsByTagName("nav").item(0);
+const navBtns = nav ? nav.getElementsByTagName("button") : null;
+const loadingModal = document.getElementById("loadingModal");
+var activeSub = 0;
+if (!navBtns || !loadingModal) throw "Elements missing.";
+
+for (var btn of navBtns) {
+    if (btn == null) throw `Button missing.`;
+    if (btn.id.includes("repPage")) continue;
+    if (btn.id.includes("Page")) btn.addEventListener("click", () => { navToSubPage(btn); });
+    if (btn.id == "collapse-Btn") btn.addEventListener("click", () => { toggleCollapse("navCollapse"); });
+}
 /**
 * @param {string} urlSearch
 */
-    static catchUrlParams(urlSearch) {
-        var urlParams = new URLSearchParams(urlSearch);
-        for (var paramKey of urlParams.keys()) {
-            switch(paramKey) {
+function catchUrlParams(urlSearch) {
+    var urlParams = new URLSearchParams(urlSearch);
+    for (var paramKey of urlParams.keys()) {
+        switch(paramKey) {
 
-                case'subpage':
+            case'subpage':
                 var pageParam = urlParams.get('subpage');
                 if (pageParam) {
-                    var pageIndex = parseInt(pageParam);
-                    if (!isNaN(pageIndex) && pageIndex >= 0 && pageIndex < this.subPages.length) {
-                        var btn = /** @type {HTMLButtonElement} */(document.getElementById(this.navBtns[pageIndex]));
-                        this.navToSubPage(btn, pageIndex); 
+                    var index = parseInt(pageParam);
+                    if (!isNaN(index) && index >= 0 && index < 3 && navBtns) {
+                        var btn = navBtns[index];
+                        var page = btn.id.includes("Page") ?
+                            document.getElementById(btn.id.split("-")[0]) : null;
+                        if (btn && page) navToSubPage(btn); 
+                        activeSub = index;
                     }
                 }
                 break;
             }
         }
-    }
+}
 /**
 * @param {string} id
 */
-    static toggleCollapse(id) {
-        var x = document.getElementById(id);
-        if (!x) return;
-        if (x.className.indexOf("w3-show") == -1) {
-          x.className += " w3-show";
-        } else {
-          x.className = x.className.replace(" w3-show", "");
-        }
-}
-/**
-* @param {HTMLButtonElement} btn
-* @param {number} pageIndex
-*/
-    static navToSubPage(btn, pageIndex) {
-        for (var sub of this.subPages) {
-            var subElem = document.getElementById(sub);
-            if (!subElem) {
-                console.log(`Page not found: ${sub}`);
-                return;
-            }
-            subElem.style.display = "none";
-        }
-        var page = document.getElementById(this.subPages[pageIndex]);
-        if (!page) {
-            console.log(`Page not found: ${this.subPages[pageIndex]}`);
-            return;
-        }
-        page.style.display = "block";
-        this.setSubPageBtnActive(btn);
-}
-/**
-* @param {HTMLButtonElement} btn
-*/
-    static setSubPageBtnActive(btn) {
-        btn.classList.replace("w3-2025-orangeade", "w3-orange");
-        btn.classList.add("w3-text-white");
-        btn.classList.add("w3-hover-text-white");
-        for (var navBtn of this.navBtns) {
-            var b = document.getElementById(navBtn);
-            if (b && b.classList.contains("w3-orange")) {
-                b.classList.replace("w3-orange", "w3-2025-orangeade");
-                b.classList.remove("w3-text-white");
-                b.classList.remove("w3-hover-text-white");
-            }
-        }
+function toggleCollapse(id) {
+    var collapse = document.getElementById(id);
+    if (!collapse) return;
+    if (collapse.className.indexOf("w3-show") == -1) {
+        collapse.className += " w3-show";
+    } else {
+        collapse.className = collapse.className.replace(" w3-show", "");
     }
 }
-Nav.catchUrlParams(window.location.search);
 /**
- * @param {HTMLButtonElement} btn
- * @param {number} index
- */
-function subPageOnClick(btn, index) { Nav.navToSubPage(btn, index); }
-class ReportController {
-    static years = [2025, 2026]
-/**
-* @param {string} year
+* @param {HTMLElement} btn
 */
-    static switchToYear(year) {
-        var yearElem = document.getElementById(year);
-        if (!yearElem) return;
-        yearElem.style.display = "block";
+function navToSubPage(btn) {
+    if (!navBtns) return;
+    for (var navBtn of navBtns) {
+        if (navBtn.id.includes('Page')) {
+            var page = document.getElementById(navBtn.id.split("-")[0]);
+            if (page) page.style.display = "none";
+        }
     }
-    static loadReportList() {
+    var show = document.getElementById(btn.id.split("-")[0]);
+    if (show) show.style.display = "block";
+    setSubPageBtnActive(btn);
+}
+/**
+* @param {HTMLElement} btn
+*/
+function setSubPageBtnActive(btn) {
+    btn.classList.replace("w3-2025-orangeade", "w3-orange");
+    btn.classList.add("w3-text-white");
+    btn.classList.add("w3-hover-text-white");
+    if (!navBtns) throw "Missing element(s).";
+    for (var navBtn of navBtns) {
+        if (navBtn && navBtn.classList.contains("w3-orange")) {
+            navBtn.classList.replace("w3-orange", "w3-2025-orangeade");
+            navBtn.classList.remove("w3-text-white");
+            navBtn.classList.remove("w3-hover-text-white");
+        }
     }
 }

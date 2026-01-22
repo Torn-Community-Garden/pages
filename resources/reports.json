@@ -1,0 +1,60 @@
+{
+    "reports": {
+        "2026": [
+            {
+                "file_name": "M0109.html",
+                "result": 1,
+                "opponent": {
+                    "name": "The Rebel Army",
+                    "tag": "M"
+                },
+                "war_date": {
+                    "day": 9,
+                    "month": 1,
+                    "year": 2026
+                }
+            }
+        ],
+        "2025": [
+            {
+                "file_name": "Void0308.html",
+                "result": 1,
+                "opponent": {
+                    "name": "Voidbringers",
+                    "tag": ""
+                },
+                "war_date": {
+                    "day": 0,
+                    "month": 0,
+                    "year": 0
+                }
+            },
+            {
+                "file_name": "BLS0220.html",
+                "result": 1,
+                "opponent": {
+                    "name": "Black Lotus Society",
+                    "tag": "BLS"
+                },
+                "war_date": {
+                    "day": 20,
+                    "month": 2,
+                    "year": 2025
+                }
+            },
+            {
+                "file_name": "CW0131.html",
+                "result": 1,
+                "opponent": {
+                    "name": "Cyber Warfare",
+                    "tag": "CW"
+                },
+                "war_date": {
+                    "day": 31,
+                    "month": 1,
+                    "year": 2025
+                }
+            }
+        ]
+    }
+}
