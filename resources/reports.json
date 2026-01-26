@@ -2,6 +2,19 @@
     "reports": {
         "2026": [
             {
+                "file_name": "PCS2401.html",
+                "result": 1,
+                "opponent": {
+                    "name": "Peaky CS",
+                    "tag": "PCS"
+                },
+                "war_date": {
+                    "day": 24,
+                    "month": 1,
+                    "year": 2026
+                }
+            },
+            {
                 "file_name": "M0109.html",
                 "result": 1,
                 "opponent": {
