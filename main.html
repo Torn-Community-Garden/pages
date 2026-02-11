@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Home | TCG</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <base href="https://torn-community-garden.github.io/pages/">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"
+            href="w3.css">
+        <link rel="stylesheet"
+            href="https://www.w3schools.com/lib/w3-colors-2025.css">
+        <script defer src="index.js"></script>
+    </head>
+    <body class="w3-pale-blue w3-mobile">
+        <div id="loadingModal" class="w3-modal w3-hide">
+            <span
+                class="w3-center w3-display-middle fa fa-spinner w3-spin w3-xxxlarge"
+                style="color: white;"></span>
+        </div>
+        <br><br>
+        <nav class="w3-top w3-mobile">
+            <div class="w3-bar w3-card w3-bold w3-2025-orangeade">
+                <button
+                    id="homePage-Btn"
+                    class="w3-bar-item w3-btn w3-xlarge fa fa-home w3-orange
+                    w3-text-white w3-hover-orange w3-hover-text-white
+                    bean-cornerfold-topright"></button>
+                <button
+                    id="rulesPage-Btn"
+                    class="w3-bar-item w3-button w3-hide-small
+                    w3-hover-text-white w3-hover-orange">Rules</button>
+                <button
+                    id="calendarPage-Btn"
+                    class="w3-bar-item w3-button w3-hide-small
+                    w3-hover-text-white w3-hover-orange">Calendar</button>
+                <button
+                    id="repPage-Btn"
+                    class="w3-bar-item w3-button w3-hide-small
+                        w3-hover-text-white w3-hover-orange">RW Reports</button>
+                <button
+                    id="navCollapse-Btn"
+                    class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
+                    fa fa-bars w3-xlarge w3-hover-text-white w3-hover-orange"></button>
+            </div>
+            <div id="navCollapse"
+                class="w3-bar-block w3-card w3-hide-large w3-hide-medium
+                    w3-animate-right w3-hide w3-2025-orangeade">
+                <button
+                    id="rulesPage-CBtn"
+                    class="w3-bar-item w3-button w3-hover-orange">Rules</button>
+                <button
+                    id="calendarPage-CBtn"
+                    class="w3-bar-item w3-button w3-hover-orange">Calendar</button>
+                <button
+                    id="repPage-CBtn"
+                    class="w3-bar-item w3-button w3-hover-orange">RW
+                    Reports</button>
+            </div>
+        </nav>
+        <div class="w3-center">
+            <img class="w3-image" src="Graphics/graphic_day.svg"
+                alt="TCG" style="width: 100%;">
+            <div style="height: 5px;"
+                class="w3-card w3-2025-orangeade bean-h-gradient">
+            </div>
+        </div>
+        <div id="subPages" class="w3-container">
+            <div id="homePage"
+                class="w3-container">
+                <div class="w3-sand w3-hide">
+                    <div class="w3-center">
+                        <h1>Welcome to the Garden!</h1>
+                        <div style="height:2px;width:100%;"
+                            class="w3-2025-orangeade bean-h-gradient"></div>
+                    </div>
+                    <div class="w3-flex">
+                        <div
+                            class="w3-container w3-2025-orangeade w3-border-bottom bean-bottom-gradient"
+                            style="width: 30%;">
+                            <h2 class="w3-center">Garden News</h2>
+                            <span>News here...</span>
+                        </div>
+                        <div class="w3-container w3-border-left"
+                            style="width: 70%;">
+                            <h2 class="w3-center">Pinboard</h2>
+                            <div class="w3-flex w3-border-top">
+                                <div class="w3-center"
+                                    style="width: 50%;">
+                                    <h3>Faction Trading</h3>
+                                    <span>
+                                        <p>Current prices of items we are
+                                            buying.</p>
+                                        <div class="w3-flex w3-border-bottom">
+                                            <div
+                                                class="w3-padding w3-border-right"
+                                                style="width: 30%;">
+                                                <span
+                                                    class="fa fa-lemon-o"></span>
+                                                <span>Xanax</span>
+                                            </div>
+                                            <div class="w3-padding"
+                                                style="width: 70%;">
+                                                <span
+                                                    id="xanaxPrice">$x00,000</span>
+                                            </div>
+                                        </div>
+                                        <div class="w3-flex w3-border-bottom">
+                                            <div
+                                                class="w3-padding w3-border-right"
+                                                style="width: 30%;">
+                                                <span
+                                                    class="fa fa-lemon-o"></span>
+                                                <span>Something</span>
+                                            </div>
+                                            <div class="w3-padding"
+                                                style="width: 70%;">
+                                                <span
+                                                    id="adderallPrice">$x00,000</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="w3-padding w3-center w3-border-left"
+                                    style="width: 50%;">
+                                    <h3>Member Ads</h3>
+                                    <span>
+                                        <p>Want your ad displayed here? Contact
+                                            a council member.</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="rulesPage"
+                class="w3-container">
+                <div class="w3-sand">
+                    <div class="w3-flex">
+                        <span style="width: 50%;" class="w3-center">
+                            <h1>Rules</h1>
+                            <li>Item</li>
+                            <li>Item</li>
+                        </span>
+                        <span style="width: 50%;" class="w3-center">
+                            <h1>Expectations</h1>
+                            <li>Item</li>
+                            <li>Item</li>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="calendarPage"
+                class="w3-container">
+                <div class="w3-sand w3-hide">
+                    <h1>Calendar</h1>
+                    <p>Coming Soon</p>
+                </div>
+            </div>
+        </div>
+        <footer id="footer"
+            class="w3-container w3-center w3-card-4 w3-cursive
+            w3-2025-orangeade bean-bottom-gradient">
+            <p>Torn Community Garden 2023-2026<br> A faction and community @
+                <a class="bean-hyperlink"
+                    href="https://www.torn.com">https://www.torn.com</a></p>
+            <img style="width: 200px;" alt="Logo" src="Graphics/logo.svg">
+            <p>For help or questions regarding the
+                website, contact Scatterbean on Discord or
+                <a class="bean-hyperlink"
+                    href="https://www.torn.com/users.php?XID=3383329">Scatterbean[3383329]</a>
+                on Torn.</p>
+        </footer>
+    </body>
+</html>
