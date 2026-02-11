@@ -20,7 +20,7 @@ const state = {
         syncPageUI(value);
 
         const newUrl = `?sub=${value}`;
-        window.history.pushState({subpage:value}, "", newUrl);
+        window.history.pushState({sub:value}, "", newUrl);
     },
     get activeSub() {
         return this._activeSub;
@@ -90,7 +90,7 @@ function toggleCollapse(id) {
 }
 function syncPageUI(pageIndex) {
     subPageMappings.forEach((page, index) => {
-        const pageElem = document.getElementById(page.id).firstChild;
+        const pageElem = document.getElementById(page.id).children[0];
         const isActive = index === pageIndex;
 
         if (pageElem) {
