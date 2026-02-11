@@ -1,9 +1,8 @@
-try {
+
 if (window.location.href.endsWith("pages") || window.location.href.endsWith("pages/")) {
     var queryString = window.location.href.endsWith("/") ? `main.html?sub=0` : `/main.html?sub=0`;
     window.location.assign(queryString);
 }
-
 const subPageMappings = [
     { id: "homePage", buttons: ["homePage-Btn"] },
     { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
@@ -28,6 +27,7 @@ const state = {
     }
 };
 
+try {
 document.addEventListener("DOMContentLoaded", () =>{
     window.addEventListener("popstate", (ev) => {
         const index = ev.state.sub ?? 0;
