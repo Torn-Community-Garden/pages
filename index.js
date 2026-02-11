@@ -1,3 +1,4 @@
+try {
 if (window.location.href.endsWith("pages") || window.location.href.endsWith("pages/")) {
     var queryString = window.location.href.endsWith("/") ? `main.html?sub=0` : `/main.html?sub=0`;
     window.location.assign(queryString);
@@ -61,8 +62,12 @@ document.addEventListener("DOMContentLoaded", () =>{
 });
 
 catchUrlParams(window.location.search);
-
+} catch (err) {
+    console.error("Error initializing page:", err);
+    alert("An error occurred while loading the page. Please try again later.");
+}
 function catchUrlParams(urlSearch) {
+    try {
     const urlParams = new URLSearchParams(urlSearch);
     for (var paramKey of urlParams.keys()) {
         switch(paramKey) {
@@ -78,8 +83,12 @@ function catchUrlParams(urlSearch) {
             break;
         }
     }
+    } catch (err) {
+        console.error("Error parsing URL parameters:", err);
+    }
 }
 function toggleCollapse(id) {
+    try {
     var collapse = document.getElementById(id);
     if (!collapse) return;
     if (collapse.className.indexOf("w3-show") == -1) {
@@ -87,14 +96,20 @@ function toggleCollapse(id) {
     } else {
         collapse.className = collapse.className.replace(" w3-show", "");
     }
+    } catch (err) {
+        console.error("Error toggling collapse:", err);
+    }
 }
 function syncPageUI(pageIndex) {
+    try {
     subPageMappings.forEach((page, index) => {
         const pageElem = document.getElementById(page.id).children[0];
         const isActive = index === pageIndex;
 
         if (pageElem) {
             pageElem.classList.toggle("w3-hide", !isActive);
+            if (pageIndex !== 0 && isActive) document.getElementById("homePageBanner").classList.add("w3-hide");
+            else if (pageIndex === 0 && isActive) document.getElementById("homePageBanner").classList.remove("w3-hide");
         }
         page.buttons.forEach(btnId => {
             const btn = document.getElementById(btnId);
@@ -103,13 +118,20 @@ function syncPageUI(pageIndex) {
     });
     const nav = document.getElementById("navCollapse");
     if (nav) nav.classList.remove("w3-show");
+    } catch (err) {
+        console.error("Error syncing UI:", err);
+    }
 }
 function updateActiveBtnStyle(btn, isActive) {
+    try {
     if (isActive) {
         btn.classList.replace("w3-2025-orangeade", "w3-orange");
         btn.classList.add("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright");
     } else {
         btn.classList.replace("w3-orange", "w3-2025-orangeade");
         btn.classList.remove("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright");
+    }
+    } catch (err) {
+        console.error("Error updating button style:", err);
     }
 }
