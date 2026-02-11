@@ -94,7 +94,6 @@ function syncPageUI(pageIndex) {
         const isActive = index === pageIndex;
 
         if (pageElem) {
-            pageElem.classList.toggle("w3-show", isActive);
             pageElem.classList.toggle("w3-hide", !isActive);
         }
         page.buttons.forEach(btnId => {
