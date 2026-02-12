@@ -11,7 +11,7 @@
 		href="https://www.w3schools.com/lib/w3-colors-2025.css">
 </head>
 <body class="w3-pale-blue w3-mobile">
-	<script src="index.js" defer></script>
+	<script defer src="reports.js"></script>
 	<div id="loadingModal" class="w3-modal" style="display:none;">
 		<div class="w3-modal-content w3-center w3-display-middle w3-round-large">
 			<span class="fa fa-spinner w3-spin w3-xxxlarge"></span>
@@ -51,13 +51,13 @@
 			class="w3-bar-block w3-card w3-hide-large w3-hide-medium
 				w3-animate-right w3-hide w3-2025-orangeade">
 			<button 
-				id="rulesPage-CollapseBtn"
+				id="rulesPage-CBtn"
 				class="w3-bar-item w3-button w3-hover-orange">Rules</button>
 			<button
-				id="calendarPage-CollapseBtn"
+				id="calendarPage-CBtn"
 				class="w3-bar-item w3-button w3-hover-orange">Calendar</button>
 			<button
-				id="repPage-CollapseBtn"
+				id="repPage-CBtn"
 				class="w3-bar-item w3-button w3-hover-orange w3-orange
 				w3-text-white w3-hover-orange w3-hover-text-white">RW Reports</button>
 		</div>
@@ -67,12 +67,12 @@
 			<p class="w3-left">Viewing reports from 2026</p>
 		</div>
 		<div class="w3-quarter w3-content">
-			<div id="reportMenu" class="w3-bar-block w3-flat-amethyst">
+			<div id="reportMenu" class="w3-bar-block w3-flat-amethyst w3-padding">
+				<h5 class="w3-center">Opponent Faction (month/day)</h5>
 			</div>
 		</div>
-    	<div class="w3-content w3-threequarter w3-right w3-card w3-padding"
-			style="height: 100%;">
-			<iframe id="repFrame" class="w3-padding w3-center" style="width: 100%;height: 500px;"
+    	<div class="w3-panel w3-threequarter w3-right w3-card">
+			<iframe id="repFrame" class="w3-padding w3-center" style="width: 100%;height:700px;"
 		 	title="War Reports Frame"></iframe>
 		</div>
 	</div>
@@ -81,8 +81,8 @@
 		<div class="w3-content">
 		<p>Torn Community Garden 2023-2026<br> A faction and community @
 			<a class="bean-hyperlink" href="https://www.torn.com">https://www.torn.com</a></p>
-		<img style="width: 200px;" alt="Logo" src="Graphics/logo.svg">
-		<p style="color:grey">For help or questions regarding the
+		<img style="width: 200px;" alt="Logo" src="resources/Graphics/logo.svg">
+		<p>For help or questions regarding the
 			website, contact Scatterbean on Discord or
 			<a class="bean-hyperlink"
 				href="https://www.torn.com/users.php?XID=3383329">Scatterbean[3383329]</a>

@@ -1,8 +1,4 @@
-
-if (window.location.href.endsWith("pages") || window.location.href.endsWith("pages/")) {
-    var queryString = window.location.href.endsWith("/") ? `main.html?sub=0` : `/main.html?sub=0`;
-    window.location.assign(queryString);
-}
+import { catchUrlParams, LogError } from "./functions.js";
 const subPageMappings = [
     { id: "homePage", buttons: ["homePage-Btn"] },
     { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
@@ -61,44 +57,10 @@ document.addEventListener("DOMContentLoaded", () =>{
     window.addEventListener("load", () =>{document.getElementById("loadingModal").classList.remove("w3-show");});
 });
 
-catchUrlParams(window.location.search);
+state._activeSub = catchUrlParams(window.location.search, subPageMappings.length) ?? 0;
 } catch (err) {
-    console.error("Error initializing page:", err);
+    LogError("Error initializing page:", err);
     alert("An error occurred while loading the page. Please try again later.");
-}
-function catchUrlParams(urlSearch) {
-    try {
-    const urlParams = new URLSearchParams(urlSearch);
-    for (var paramKey of urlParams.keys()) {
-        switch(paramKey) {
-
-            case"sub":
-                var pageParam = urlParams.get("sub");
-                if (pageParam) {
-                    const index = parseInt(pageParam);
-                    if (index >= 0 && index < subPageMappings.length) {
-                        state.activeSub = index;
-                    }
-                }
-            break;
-        }
-    }
-    } catch (err) {
-        console.error("Error parsing URL parameters:", err);
-    }
-}
-function toggleCollapse(id) {
-    try {
-    var collapse = document.getElementById(id);
-    if (!collapse) return;
-    if (collapse.className.indexOf("w3-show") == -1) {
-        collapse.className += " w3-show";
-    } else {
-        collapse.className = collapse.className.replace(" w3-show", "");
-    }
-    } catch (err) {
-        console.error("Error toggling collapse:", err);
-    }
 }
 function syncPageUI(pageIndex) {
     try {
@@ -119,19 +81,21 @@ function syncPageUI(pageIndex) {
     const nav = document.getElementById("navCollapse");
     if (nav) nav.classList.remove("w3-show");
     } catch (err) {
-        console.error("Error syncing UI:", err);
+        LogError(`Error syncing UI: ${err.message}`);
     }
 }
+/**
+* @param btn {HTMLButtonElement}
+* @param isActive {boolean}
+*/
 function updateActiveBtnStyle(btn, isActive) {
     try {
     if (isActive) {
-        btn.classList.replace("w3-2025-orangeade", "w3-orange");
-        btn.classList.add("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright");
+        btn.classList.add("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright", "w3-orange");
     } else {
-        btn.classList.replace("w3-orange", "w3-2025-orangeade");
-        btn.classList.remove("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright");
+        btn.classList.remove("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright", "w3-orange");
     }
     } catch (err) {
-        console.error("Error updating button style:", err);
+        LogError(`Error updating button style: ${err.message}`);
     }
 }

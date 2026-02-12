@@ -2,6 +2,18 @@
     "reports": {
         "2026": [
             {
+                "file_name": "THA3101.html",
+                "result": 2,
+                "opponent": {
+                    "name": "The Hidden Agenda",
+                    "tag": "THA"
+                },
+                "war_date": {
+                    "day": 24,
+                    "month": 1
+                }
+            },
+            {
                 "file_name": "PCS2401.html",
                 "result": 1,
                 "opponent": {
@@ -10,12 +22,11 @@
                 },
                 "war_date": {
                     "day": 24,
-                    "month": 1,
-                    "year": 2026
+                    "month": 1
                 }
             },
             {
-                "file_name": "M0109.html",
+                "file_name": "M0901.html",
                 "result": 1,
                 "opponent": {
                     "name": "The Rebel Army",
@@ -23,8 +34,7 @@
                 },
                 "war_date": {
                     "day": 9,
-                    "month": 1,
-                    "year": 2026
+                    "month": 1
                 }
             }
         ],
@@ -38,8 +48,7 @@
                 },
                 "war_date": {
                     "day": 0,
-                    "month": 0,
-                    "year": 0
+                    "month": 0
                 }
             },
             {
@@ -51,8 +60,7 @@
                 },
                 "war_date": {
                     "day": 20,
-                    "month": 2,
-                    "year": 2025
+                    "month": 2
                 }
             },
             {
@@ -64,8 +72,7 @@
                 },
                 "war_date": {
                     "day": 31,
-                    "month": 1,
-                    "year": 2025
+                    "month": 1
                 }
             }
         ]
