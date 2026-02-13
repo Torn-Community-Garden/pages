@@ -41,7 +41,7 @@ try {
                         }
                         btn.classList.add("w3-gray");
                     } catch (err) {
-                        LogError(`Error handling button click: ${err}`);
+                        Functions.LogError(`Error handling button click: ${err}`);
                     }
                 });
                 document.getElementById("reportMenu").appendChild(btn);
