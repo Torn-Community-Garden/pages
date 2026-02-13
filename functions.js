@@ -1,6 +1,6 @@
-const fs = require("fs");
-if (!fs) console.warn("File system module not available. Error logging to file will be disabled.");
-export class Functions {
+import fs from "fs";
+
+class Functions {
     catchUrlParams(urlSearch, pageLength) {
         try {
             const urlParams = new URLSearchParams(urlSearch);
@@ -40,12 +40,11 @@ export class Functions {
             this.LogError(`Error toggling collapse: ${err.message}`);
         }
     }
-    getReports() {
+    getReports(year) {
+        const reportsData = new RWReports(year);
         try {
-            if (typeof fs === "undefined") throw new Error("File system module not available. Couldn't read reports data.");
-            const stream = fs.createReadStream("reports.json", { encoding: "utf-8"});
-            const data = JSON.parse(stream.read());
-            return data;
+            if (!reportsData || !reportsData.Reports) throw new Error("Reports data not found.");
+            return reportsData;
         } catch (err) {
             this.LogError(`Error reading reports data: ${err.message}`);
             return null;
@@ -62,6 +61,26 @@ export class Functions {
             console.warn("Error writing to log:", err);
         } finally {
             stream.end();
+        }
+    }
+}
+export { Functions };
+export default Functions;
+class RWReports {
+    Reports = [];
+    constructor(year) {
+        this.Reports = this.loadReports(year);
+    }
+    loadReports(year) {
+        try {
+            if (typeof fs === "undefined") throw new Error("File system module not available. Couldn't read reports data.");
+            const stream = fs.createReadStream("reports.json", { encoding: "utf-8"});
+            const data = JSON.parse(stream.read());
+            const reports = data.reports[year];
+            if (!reports) throw new Error(`No reports found for year ${year}`);
+            return reports;
+        } catch (err) {
+            console.error("Error loading reports:", err);
         }
     }
 }

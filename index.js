@@ -1,5 +1,5 @@
-const { Functions } = require("./functions.js");
-
+import Functions from "./functions.js";
+const functions = new Functions();
 const subPageMappings = [
     { id: "homePage", buttons: ["homePage-Btn"] },
     { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
@@ -58,10 +58,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     window.addEventListener("load", () =>{document.getElementById("loadingModal").classList.remove("w3-show");});
 });
 
-state._activeSub = Functions.catchUrlParams(window.location.search, subPageMappings.length) ?? 0;
+state._activeSub = functions.catchUrlParams(window.location.search, subPageMappings.length) ?? 0;
 } catch (err) {
-    Functions.LogError("Error initializing page:", err);
-    alert("An error occurred while loading the page. Please try again later.");
+    functions.LogError(`Error initializing page: ${err.message}`);
 }
 
 function syncPageUI(pageIndex) {
@@ -84,7 +83,7 @@ function syncPageUI(pageIndex) {
     const nav = document.getElementById("navCollapse");
     if (nav) nav.classList.remove("w3-show");
     } catch (err) {
-        Functions.LogError(`Error syncing UI: ${err.message}`);
+        functions.LogError(`Error syncing UI: ${err.message}`);
     } finally {
         document.getElementById("loadingModal").classList.remove("w3-show");
     }
@@ -101,6 +100,6 @@ function updateActiveBtnStyle(btn, isActive) {
         btn.classList.remove("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright", "w3-orange");
     }
     } catch (err) {
-        Functions.LogError(`Error updating button style: ${err.message}`);
+        functions.LogError(`Error updating button style: ${err.message}`);
     }
 }

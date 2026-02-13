@@ -1,4 +1,4 @@
-const { Functions } = require("./functions.js");
+import Functions from "./functions.js";
 const subPageMappings = [
     { id: "homePage", buttons: ["homePage-Btn"] },
     { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
@@ -23,8 +23,8 @@ try {
         
         
         try {
-            const ReportsData = Functions.getReports();
-            for (const report of ReportsData.reports[2026]) {
+            const reports = Functions.getReports(2026);
+            for (const report of reports) {
                 const btn = document.createElement("button");
                 btn.textContent = `${report.name} (${report.war_date.month}/${report.war_date.day})`;
                 btn.classList.add("w3-button");

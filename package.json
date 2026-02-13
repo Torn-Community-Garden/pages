@@ -1,0 +1,12 @@
+{
+    "name": "tcgpages",
+    "version": "1.0.0",
+    "description": "A community website for Torn Community Garden(TCG).",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "ScatterBean",
+    "license": "MIT"
+}
