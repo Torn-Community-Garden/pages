@@ -1,6 +1,4 @@
-import ReportsData from "./resources/reports.json" assert { type: "json" };
-import { catchUrlParams, toggleCollapse, LogError } from "./functions.js";
-
+const { Functions } = require("./functions.js");
 const subPageMappings = [
     { id: "homePage", buttons: ["homePage-Btn"] },
     { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
@@ -25,6 +23,7 @@ try {
         
         
         try {
+            const ReportsData = Functions.getReports();
             for (const report of ReportsData.reports[2026]) {
                 const btn = document.createElement("button");
                 btn.textContent = `${report.name} (${report.war_date.month}/${report.war_date.day})`;
@@ -48,10 +47,10 @@ try {
                 document.getElementById("reportMenu").appendChild(btn);
             }
         } catch (err) {
-            LogError(`Error loading reports data: ${err}`);
+            Functions.LogError(`Error loading reports data: ${err}`);
         }
     });
     window.addEventListener("load", () =>{document.getElementById("loadingModal").classList.remove("w3-show");});
 } catch (err) {
-    LogError("Error initializing reports page:", err);
+    Functions.LogError("Error initializing reports page:", err);
 }

@@ -1,4 +1,5 @@
-import { catchUrlParams, LogError } from "./functions.js";
+const { Functions } = require("./functions.js");
+
 const subPageMappings = [
     { id: "homePage", buttons: ["homePage-Btn"] },
     { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     syncPageUI(initialPage);
 
     const collapseBtn = document.getElementById("navCollapse-Btn");
-    collapseBtn.addEventListener("click", () => {toggleCollapse("navCollapse");});
+    collapseBtn.addEventListener("click", () => {functions.toggleCollapse("navCollapse");});
     subPageMappings.forEach((mapping, index) => {
         mapping.buttons.forEach(btnId => {
             const btn = document.getElementById(btnId);
@@ -57,12 +58,14 @@ document.addEventListener("DOMContentLoaded", () =>{
     window.addEventListener("load", () =>{document.getElementById("loadingModal").classList.remove("w3-show");});
 });
 
-state._activeSub = catchUrlParams(window.location.search, subPageMappings.length) ?? 0;
+state._activeSub = Functions.catchUrlParams(window.location.search, subPageMappings.length) ?? 0;
 } catch (err) {
-    LogError("Error initializing page:", err);
+    Functions.LogError("Error initializing page:", err);
     alert("An error occurred while loading the page. Please try again later.");
 }
+
 function syncPageUI(pageIndex) {
+    document.getElementById("loadingModal").classList.add("w3-show");
     try {
     subPageMappings.forEach((page, index) => {
         const pageElem = document.getElementById(page.id).children[0];
@@ -81,7 +84,9 @@ function syncPageUI(pageIndex) {
     const nav = document.getElementById("navCollapse");
     if (nav) nav.classList.remove("w3-show");
     } catch (err) {
-        LogError(`Error syncing UI: ${err.message}`);
+        Functions.LogError(`Error syncing UI: ${err.message}`);
+    } finally {
+        document.getElementById("loadingModal").classList.remove("w3-show");
     }
 }
 /**
@@ -96,6 +101,6 @@ function updateActiveBtnStyle(btn, isActive) {
         btn.classList.remove("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright", "w3-orange");
     }
     } catch (err) {
-        LogError(`Error updating button style: ${err.message}`);
+        Functions.LogError(`Error updating button style: ${err.message}`);
     }
 }
