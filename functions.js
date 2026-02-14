@@ -1,4 +1,4 @@
-import fs from "fs";
+import reportsData from "./resources/reports.json" with { type: "json" };
 
 class Functions {
     catchUrlParams(urlSearch, pageLength) {
@@ -63,6 +63,61 @@ class Functions {
             stream.end();
         }
     }
+    syncHomePageUI(pageIndex) {
+        document.getElementById("loadingModal").classList.add("w3-show");
+        try {
+        subPageMappings.forEach((page, index) => {
+            const pageElem = document.getElementById(page.id).children[0];
+            const isActive = index === pageIndex;
+    
+            if (pageElem) {
+                pageElem.classList.toggle("w3-hide", !isActive);
+                if (pageIndex !== 0 && isActive) document.getElementById("homePageBanner").classList.add("w3-hide");
+                else if (pageIndex === 0 && isActive) document.getElementById("homePageBanner").classList.remove("w3-hide");
+            }
+            page.buttons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) updateActiveBtnStyle(btn, isActive);
+            });
+        });
+        Functions.toggleCollapse("navCollapse");
+        } catch (err) {
+            Functions.LogError(`Error syncing UI: ${err.message}`);
+        } finally {
+            document.getElementById("loadingModal").classList.remove("w3-show");
+        }
+    }
+    /**
+    * @param btn {HTMLButtonElement}
+    * @param isActive {boolean}
+    */
+    updateActiveBtnStyle(btn, isActive) {
+        try {
+        if (isActive) {
+            btn.classList.add("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright", "w3-orange");
+        } else {
+            btn.classList.remove("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright", "w3-orange");
+        }
+        } catch (err) {
+            Functions.LogError(`Error updating button style: ${err.message}`);
+        }
+    }
+    onLoad() {
+        const loadingModal = document.getElementById("loadingModal");
+        if (loadingModal) {
+            if (!loadingModal.classList.contains("w3-show")) {
+                loadingModal.classList.add("w3-show");
+            }
+        }
+    }
+    onLoadComplete() {
+        const loadingModal = document.getElementById("loadingModal");
+        if (loadingModal) {
+            if (loadingModal.classList.contains("w3-show")) {
+                loadingModal.classList.remove("w3-show");
+            }
+        }
+    }
 }
 export { Functions };
 export default Functions;
@@ -73,12 +128,25 @@ class RWReports {
     }
     loadReports(year) {
         try {
-            if (typeof fs === "undefined") throw new Error("File system module not available. Couldn't read reports data.");
-            const stream = fs.createReadStream("reports.json", { encoding: "utf-8"});
-            const data = JSON.parse(stream.read());
+            const data = JSON.parse(reportsData);
             const reports = data.reports[year];
             if (!reports) throw new Error(`No reports found for year ${year}`);
-            return reports;
+            const load = [];
+            for (const report of reports) {
+                load.push({
+                    file_name: report.file_name,
+                    result: report.result,
+                    opponent: {
+                        name: report.opponent.name,
+                        tag: report.opponent.tag
+                    },
+                    war_date: {
+                        month: report.war_date.month,
+                        day: report.war_date.day
+                    }
+                });
+            }
+            return load;
         } catch (err) {
             console.error("Error loading reports:", err);
         }

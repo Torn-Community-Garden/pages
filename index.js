@@ -1,105 +1,110 @@
 import Functions from "./functions.js";
-const functions = new Functions();
+const currentPage = document.body.dataset.page;
 const subPageMappings = [
-    { id: "homePage", buttons: ["homePage-Btn"] },
-    { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
-    { id: "calendarPage", buttons: ["calendarPage-Btn", "calendarPage-CBtn"] }
+  { id: "homePage", buttons: ["homePage-Btn"] },
+  { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
+  { id: "calendarPage", buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
 ];
 const mainPageMappings = [
-    { file: "rw_reports.html", buttons: ["repPage-Btn", "repPage-CBtn"]}
+  { file: "home.html", buttons: ["homePage-Btn"] },
+  { file: "rw_reports.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
 ];
-const state = {
-    _activeSub: 0,
-    set activeSub(value) {
-        if (this._activeSub === value) return;
-        this._activeSub = value;
+const homeState = {
+  _activeSub: 0,
+  set activeSub(value) {
+    if (this._activeSub === value) return;
+    this._activeSub = value;
 
-        syncPageUI(value);
+    syncPageUI(value);
 
-        const newUrl = `?sub=${value}`;
-        window.history.pushState({sub:value}, "", newUrl);
-    },
-    get activeSub() {
-        return this._activeSub;
-    }
+    const newUrl = `?sub=${value}`;
+    window.history.pushState({ sub: value }, "", newUrl);
+  },
+  get activeSub() {
+    return this._activeSub;
+  },
 };
 
 try {
-document.addEventListener("DOMContentLoaded", () =>{
-    window.addEventListener("popstate", (ev) => {
-        const index = ev.state.sub ?? 0;
-        state._activeSub = index;
-        syncPageUI(index);
-    });
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialPage = parseInt(urlParams.get("sub")) || 0;
-    state._activeSub = initialPage;
-    syncPageUI(initialPage);
-
+  document.addEventListener("DOMContentLoaded", () => {
     const collapseBtn = document.getElementById("navCollapse-Btn");
-    collapseBtn.addEventListener("click", () => {functions.toggleCollapse("navCollapse");});
+    collapseBtn.addEventListener("click", () => {
+      Functions.toggleCollapse("navCollapse");
+    });
     subPageMappings.forEach((mapping, index) => {
-        mapping.buttons.forEach(btnId => {
-            const btn = document.getElementById(btnId);
-            if (btn) {
-                btn.addEventListener("click", () => {
-                    state.activeSub = index;
-                });
-            }
-        });
+      mapping.buttons.forEach((btnId) => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          btn.addEventListener("click", () => {
+            homeState.activeSub = index;
+          });
+        }
+      });
     });
     mainPageMappings.forEach((mapping) => {
-        mapping.buttons.forEach(btnId => {
-            const btn = document.getElementById(btnId);
-            if (btn) btn.addEventListener("click", () => { window.location.assign(mapping.file); });
-        });
+      mapping.buttons.forEach((btnId) => {
+        const btn = document.getElementById(btnId);
+        if (btn)
+          btn.addEventListener("click", () => {
+            window.location.assign(mapping.file);
+          });
+      });
     });
-    window.addEventListener("load", () =>{document.getElementById("loadingModal").classList.remove("w3-show");});
-});
 
-state._activeSub = functions.catchUrlParams(window.location.search, subPageMappings.length) ?? 0;
-} catch (err) {
-    functions.LogError(`Error initializing page: ${err.message}`);
-}
-
-function syncPageUI(pageIndex) {
-    document.getElementById("loadingModal").classList.add("w3-show");
-    try {
-    subPageMappings.forEach((page, index) => {
-        const pageElem = document.getElementById(page.id).children[0];
-        const isActive = index === pageIndex;
-
-        if (pageElem) {
-            pageElem.classList.toggle("w3-hide", !isActive);
-            if (pageIndex !== 0 && isActive) document.getElementById("homePageBanner").classList.add("w3-hide");
-            else if (pageIndex === 0 && isActive) document.getElementById("homePageBanner").classList.remove("w3-hide");
+    switch (currentPage) {
+      case "home":
+        window.addEventListener("popstate", (ev) => {
+          const index = ev.state.sub ?? 0;
+          homeState._activeSub = index;
+          syncHomePageUI(index);
+        });
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialPage = parseInt(urlParams.get("sub")) || 0;
+        homeState._activeSub = initialPage;
+        syncHomePageUI(initialPage);
+        homeState._activeSub =
+          Functions.catchUrlParams(
+            window.location.search,
+            subPageMappings.length,
+          ) ?? 0;
+        break;
+      case "rw_reports":
+        const reports = Functions.getReports(2026);
+        for (const report of reports) {
+          const btn = document.createElement("button");
+          btn.textContent = `${report.name} (${report.war_date.month}/${report.war_date.day})`;
+          btn.classList.add("w3-button");
+          const resultColor =
+            report.result === 1
+              ? "w3-red"
+              : report.result === 2
+                ? "w3-green"
+                : report.result === 3
+                  ? "w3-blue"
+                  : null;
+          if (resultColor) btn.classList.add(resultColor);
+          btn.style.width = "100%";
+          btn.addEventListener("click", () => {
+            try {
+              const frame = document.getElementById("repFrame");
+              if (frame) frame.setAttribute("src", report.file_name);
+              const buttons = document
+                .getElementById("reportMenu")
+                .getElementsByTagName("button");
+              for (const b of buttons) {
+                b.classList.remove("w3-gray");
+              }
+              btn.classList.add("w3-gray");
+            } catch (err) {
+              Functions.LogError(`Error handling button click: ${err}`);
+            }
+          });
+          document.getElementById("reportMenu").appendChild(btn);
         }
-        page.buttons.forEach(btnId => {
-            const btn = document.getElementById(btnId);
-            if (btn) updateActiveBtnStyle(btn, isActive);
-        });
-    });
-    const nav = document.getElementById("navCollapse");
-    if (nav) nav.classList.remove("w3-show");
-    } catch (err) {
-        functions.LogError(`Error syncing UI: ${err.message}`);
-    } finally {
-        document.getElementById("loadingModal").classList.remove("w3-show");
+        break;
     }
-}
-/**
-* @param btn {HTMLButtonElement}
-* @param isActive {boolean}
-*/
-function updateActiveBtnStyle(btn, isActive) {
-    try {
-    if (isActive) {
-        btn.classList.add("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright", "w3-orange");
-    } else {
-        btn.classList.remove("w3-text-white", "w3-hover-text-white", "bean-cornerfold-topright", "w3-orange");
-    }
-    } catch (err) {
-        functions.LogError(`Error updating button style: ${err.message}`);
-    }
+  });
+  Functions.onLoadComplete();
+} catch (err) {
+  Functions.LogError(`Error initializing page: ${err.message}`);
 }
