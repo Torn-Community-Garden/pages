@@ -1,5 +1,4 @@
 import reportsData from "./resources/reports.json" with { type: "json" };
-import fs from "fs";
 const currentPage = document.body.dataset.page;
 const subPageMappings = [
   { id: "homePage", buttons: ["homePage-Btn"] },
@@ -58,18 +57,6 @@ class Functions {
   }
   LogError(message) {
     console.error(message);
-    if (typeof fs === "undefined") return;
-    const stream = fs.createWriteStream("log.txt", { flags: "a" });
-    try {
-      const d = new Date(Date.now()).toISOString().split("T");
-      const date = `${d[0]} ${d[1].split(".")[0]}`;
-      const dateString = `${date} - ${message}\n`;
-      stream.write(dateString);
-    } catch (err) {
-      console.warn("Error writing to log:", err);
-    } finally {
-      stream.end();
-    }
   }
   syncHomePageUI(pageIndex) {
     this.onLoad();

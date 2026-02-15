@@ -14,11 +14,11 @@
 	<body data-page="rw_reports" class="w3-pale-blue w3-mobile">
 		<script src="index.js" type="module"></script>
 		<script src="functions.js" type="module"></script>
-        <div id="loadingModal" class="w3-modal w3-show">
-            <span
-                class="w3-center w3-display-middle fa fa-spinner w3-spin w3-xxxlarge"
-                style="color: white;"></span>
-        </div>
+		<div id="loadingModal" class="w3-modal w3-show">
+			<span
+				class="w3-center w3-display-middle fa fa-spinner w3-spin w3-xxxlarge"
+				style="color: white;"></span>
+		</div>
 		<br><br>
 		<nav class="w3-top w3-mobile">
 			<div class="w3-bar w3-card w3-bold w3-2025-orangeade">
@@ -26,14 +26,6 @@
 					id="homePage-Btn"
 					class="w3-bar-item w3-btn w3-xlarge fa fa-home
 				w3-hover-text-white w3-hover-orange"></button>
-				<button
-					id="rulesPage-Btn"
-					class="w3-bar-item w3-button w3-hide-small
-				w3-hover-text-white w3-hover-orange">Rules</button>
-				<button
-					id="calendarPage-Btn"
-					class="w3-bar-item w3-button w3-hide-small
-				w3-hover-text-white w3-hover-orange">Calendar</button>
 				<button
 					id="repPage-Btn"
 					class="w3-bar-item w3-button w3-hide-small w3-orange bean-cornerfold-topright
@@ -48,15 +40,12 @@
 				w3-hover-text-white w3-hover-orange"
 					style="display: none;"></button>
 			</div>
+			<div class="w3-bar w3-card w3-orange">
+				<button class="w3-bar-item w3-button w3-hover-light-blue w3-text-white">2026</button>
+			</div>
 			<div id="navCollapse"
 				class="w3-bar-block w3-card w3-hide-large w3-hide-medium
 				w3-animate-right w3-hide w3-2025-orangeade">
-				<button
-					id="rulesPage-CBtn"
-					class="w3-bar-item w3-button w3-hover-orange">Rules</button>
-				<button
-					id="calendarPage-CBtn"
-					class="w3-bar-item w3-button w3-hover-orange">Calendar</button>
 				<button
 					id="repPage-CBtn"
 					class="w3-bar-item w3-button w3-hover-orange w3-orange
@@ -64,9 +53,7 @@
 			</div>
 		</nav>
 		<div class="w3-container w3-section w3-padding-16 w3-card">
-			<div class="w3-container">
-				<p class="w3-left">Viewing reports from 2026</p>
-			</div>
+			<br>
 			<div class="w3-quarter w3-content">
 				<div id="reportMenu" class="w3-bar-block w3-flat-amethyst w3-padding">
 					<h5 class="w3-center">Opponent Faction (month/day)</h5>

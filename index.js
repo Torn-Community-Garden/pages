@@ -2,7 +2,7 @@ import { Functions } from "./functions.js";
 const f = new Functions();
 const currentPage = document.body.dataset.page;
 const subPageMappings = [
-  { id: "homePage", buttons: ["homePage-Btn"] },
+  { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
   { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
   { id: "calendarPage", buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
 ];
