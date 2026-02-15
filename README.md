@@ -1,1 +1,1 @@
-Redirecting to home page... If it doesn't redirect you, click [here](http://torn-community-garden.github.io/pages/main.html).
+Redirecting to home page... If it doesn't redirect you, click [here](http://torn-community-garden.github.io/pages/home.html).

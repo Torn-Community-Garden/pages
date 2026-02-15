@@ -1,4 +1,5 @@
-import Functions from "./functions.js";
+import { Functions } from "./functions.js";
+const f = new Functions();
 const currentPage = document.body.dataset.page;
 const subPageMappings = [
   { id: "homePage", buttons: ["homePage-Btn"] },
@@ -12,13 +13,17 @@ const mainPageMappings = [
 const homeState = {
   _activeSub: 0,
   set activeSub(value) {
-    if (this._activeSub === value) return;
-    this._activeSub = value;
+    try {
+      if (this._activeSub === value) return;
+      this._activeSub = value;
 
-    syncPageUI(value);
+      f.syncHomePageUI(value);
 
-    const newUrl = `?sub=${value}`;
-    window.history.pushState({ sub: value }, "", newUrl);
+      const newUrl = `?sub=${value}`;
+      window.history.pushState({ sub: value }, "", newUrl);
+    } catch (err) {
+      f.LogError(`Error setting active subpage: ${err.message}`);
+    }
   },
   get activeSub() {
     return this._activeSub;
@@ -26,10 +31,19 @@ const homeState = {
 };
 
 try {
+  if (
+    window.location.href.endsWith("pages") ||
+    window.location.href.endsWith("pages/")
+  ) {
+    var queryString = window.location.href.endsWith("/")
+      ? `home.html?sub=0`
+      : `/home.html?sub=0`;
+    window.location.assign(queryString);
+  }
   document.addEventListener("DOMContentLoaded", () => {
     const collapseBtn = document.getElementById("navCollapse-Btn");
     collapseBtn.addEventListener("click", () => {
-      Functions.toggleCollapse("navCollapse");
+      f.toggleCollapse("navCollapse");
     });
     subPageMappings.forEach((mapping, index) => {
       mapping.buttons.forEach((btnId) => {
@@ -56,33 +70,37 @@ try {
         window.addEventListener("popstate", (ev) => {
           const index = ev.state.sub ?? 0;
           homeState._activeSub = index;
-          syncHomePageUI(index);
+          f.syncHomePageUI(index);
         });
         const urlParams = new URLSearchParams(window.location.search);
         const initialPage = parseInt(urlParams.get("sub")) || 0;
         homeState._activeSub = initialPage;
-        syncHomePageUI(initialPage);
+        f.syncHomePageUI(initialPage);
         homeState._activeSub =
-          Functions.catchUrlParams(
-            window.location.search,
-            subPageMappings.length,
-          ) ?? 0;
+          f.catchUrlParams(window.location.search, subPageMappings.length) ?? 0;
         break;
       case "rw_reports":
-        const reports = Functions.getReports(2026);
+        window.addEventListener("popstate", (ev) => {
+          const index = ev.state.sub ?? 0;
+          homeState._activeSub = index;
+          f.syncHomePageUI(index);
+        });
+        const reports = f.getReports(2026);
         for (const report of reports) {
           const btn = document.createElement("button");
           btn.textContent = `${report.name} (${report.war_date.month}/${report.war_date.day})`;
           btn.classList.add("w3-button");
-          const resultColor =
-            report.result === 1
-              ? "w3-red"
-              : report.result === 2
-                ? "w3-green"
-                : report.result === 3
-                  ? "w3-blue"
-                  : null;
-          if (resultColor) btn.classList.add(resultColor);
+          const resultColor = () => {
+            switch (report.result) {
+              case 1:
+                return "w3-red";
+              case 2:
+                return "w3-green";
+              case 3:
+                return "w3-blue";
+            }
+          };
+          if (resultColor() != undefined) btn.classList.add(resultColor());
           btn.style.width = "100%";
           btn.addEventListener("click", () => {
             try {
@@ -96,7 +114,7 @@ try {
               }
               btn.classList.add("w3-gray");
             } catch (err) {
-              Functions.LogError(`Error handling button click: ${err}`);
+              f.LogError(`Error handling button click: ${err}`);
             }
           });
           document.getElementById("reportMenu").appendChild(btn);
@@ -104,7 +122,7 @@ try {
         break;
     }
   });
-  Functions.onLoadComplete();
+  f.onLoadComplete();
 } catch (err) {
-  Functions.LogError(`Error initializing page: ${err.message}`);
+  f.LogError(`Error initializing page: ${err.message}`);
 }
