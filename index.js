@@ -1,15 +1,22 @@
 import { Functions } from "./functions.js";
 const f = new Functions();
 const currentPage = document.body.dataset.page;
-const subPageMappings = [
-  { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
-  { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
-  { id: "calendarPage", buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
-];
-const mainPageMappings = [
-  { file: "home.html", buttons: ["homePage-Btn"] },
-  { file: "rw_reports.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
-];
+const pageMappings = {
+  main: [
+    { file: "home.html", buttons: ["homePage-Btn"] },
+    { file: "rw_reports.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
+  ],
+  sub: {
+    home: [
+      { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
+      { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
+      {
+        id: "calendarPage",
+        buttons: ["calendarPage-Btn", "calendarPage-CBtn"],
+      },
+    ],
+  },
+};
 const homeState = {
   _activeSub: 0,
   set activeSub(value) {
@@ -45,17 +52,7 @@ try {
     collapseBtn.addEventListener("click", () => {
       f.toggleCollapse("navCollapse");
     });
-    subPageMappings.forEach((mapping, index) => {
-      mapping.buttons.forEach((btnId) => {
-        const btn = document.getElementById(btnId);
-        if (btn) {
-          btn.addEventListener("click", () => {
-            homeState.activeSub = index;
-          });
-        }
-      });
-    });
-    mainPageMappings.forEach((mapping) => {
+    pageMappings.main.forEach((mapping) => {
       mapping.buttons.forEach((btnId) => {
         const btn = document.getElementById(btnId);
         if (btn)
@@ -64,7 +61,6 @@ try {
           });
       });
     });
-
     switch (currentPage) {
       case "home":
         window.addEventListener("popstate", (ev) => {
@@ -72,12 +68,22 @@ try {
           homeState._activeSub = index;
           f.syncHomePageUI(index);
         });
+        pageMappings.sub.home.forEach((mapping, index) => {
+          mapping.buttons.forEach((btnId) => {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+              btn.addEventListener("click", () => {
+                homeState.activeSub = index;
+              });
+            }
+          });
+        });
         const urlParams = new URLSearchParams(window.location.search);
         const initialPage = parseInt(urlParams.get("sub")) || 0;
         homeState._activeSub = initialPage;
         f.syncHomePageUI(initialPage);
         homeState._activeSub =
-          f.catchUrlParams(window.location.search, subPageMappings.length) ?? 0;
+          f.catchUrlParams(window.location.search, pageMappings.sub.home.length) ?? 0;
         break;
       case "rw_reports":
         window.addEventListener("popstate", (ev) => {

@@ -1,10 +1,18 @@
 import reportsData from "./resources/reports.json" with { type: "json" };
 const currentPage = document.body.dataset.page;
-const subPageMappings = [
-  { id: "homePage", buttons: ["homePage-Btn"] },
-  { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
-  { id: "calendarPage", buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
-];
+const pageMappings = {
+  main: [
+    { file: "home.html", buttons: ["homePage-Btn"] },
+    { file: "rw_reports.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
+  ],
+  sub: {
+    home: [
+      { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
+      { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
+      { id: "calendarPage", buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
+    ]
+  }
+};
 
 class Functions {
   catchUrlParams(urlSearch, pageLength) {
@@ -62,7 +70,7 @@ class Functions {
     this.onLoad();
     if (currentPage !== "home") return;
     try {
-      subPageMappings.forEach((page, index) => {
+      pageMappings.sub.home.forEach((page, index) => {
         const pageElem = document.getElementById(page.id).children[0];
         const isActive = index === pageIndex;
 
