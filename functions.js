@@ -9,9 +9,12 @@ const pageMappings = {
     home: [
       { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
       { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
-      { id: "calendarPage", buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
-    ]
-  }
+      {
+        id: "calendarPage",
+        buttons: ["calendarPage-Btn", "calendarPage-CBtn"],
+      },
+    ],
+  },
 };
 
 class Functions {
@@ -75,17 +78,18 @@ class Functions {
         const isActive = index === pageIndex;
 
         if (pageElem) {
+          pageElem.classList.toggle("w3-show", isActive);
           pageElem.classList.toggle("w3-hide", !isActive);
-          if (pageIndex !== 0 && isActive)
+          if (pageIndex === 0)
             document.getElementById("homePageBanner").classList.add("w3-hide");
-          else if (pageIndex === 0 && isActive)
+          else
             document
               .getElementById("homePageBanner")
               .classList.remove("w3-hide");
         }
         page.buttons.forEach((btnId) => {
           const btn = document.getElementById(btnId);
-          if (btn) updateActiveBtnStyle(btn, isActive);
+          if (btn) this.updateActiveBtnStyle(btn, isActive);
         });
       });
       document.getElementById("navCollapse").classList.remove("w3-show");
