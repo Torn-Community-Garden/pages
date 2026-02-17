@@ -36,21 +36,25 @@ const homeState = {
     return this._activeSub;
   },
 };
+if (
+  window.location.href.endsWith("pages") ||
+  window.location.href.endsWith("pages/")
+) {
+  var queryString = window.location.href.endsWith("/")
+    ? `home.html?sub=0`
+    : `/home.html?sub=0`;
+  window.location.assign(queryString);
+}
 
 try {
-  if (
-    window.location.href.endsWith("pages") ||
-    window.location.href.endsWith("pages/")
-  ) {
-    var queryString = window.location.href.endsWith("/")
-      ? `home.html?sub=0`
-      : `/home.html?sub=0`;
-    window.location.assign(queryString);
-  }
   document.addEventListener("DOMContentLoaded", () => {
     const collapseBtn = document.getElementById("navCollapse-Btn");
+    const rmCollapseBtn = document.getElementById("rmCollapse-Btn");
     collapseBtn.addEventListener("click", () => {
       f.toggleCollapse("navCollapse");
+    });
+    rmCollapseBtn.addEventListener("click", () => {
+      f.toggleCollapse("reportMenuCollapse");
     });
     pageMappings.main.forEach((mapping) => {
       mapping.buttons.forEach((btnId) => {
@@ -83,7 +87,10 @@ try {
         homeState._activeSub = initialPage;
         f.syncHomePageUI(initialPage);
         homeState._activeSub =
-          f.catchUrlParams(window.location.search, pageMappings.sub.home.length) ?? 0;
+          f.catchUrlParams(
+            window.location.search,
+            pageMappings.sub.home.length,
+          ) ?? 0;
         break;
       case "rw_reports":
         window.addEventListener("popstate", (ev) => {
@@ -124,6 +131,9 @@ try {
             }
           });
           document.getElementById("reportMenu").appendChild(btn);
+          document
+            .getElementById("reportMenuCollapse")
+            .appendChild(btn.cloneNode(true));
         }
         break;
     }

@@ -15,7 +15,7 @@
     <body data-page="home" class="w3-pale-blue w3-mobile">
         <script src="index.js" type="module"></script>
         <script src="functions.js" type="module"></script>
-        <div id="loadingModal" class="w3-modal w3-show">
+        <div id="loadingModal" class="w3-modal">
             <span
                 class="w3-center w3-display-middle fa fa-spinner w3-spin w3-xxxlarge"
                 style="color: white;"></span>
@@ -25,9 +25,9 @@
             <div class="w3-bar w3-card w3-bold w3-2025-orangeade">
                 <button
                     id="homePage-Btn"
-                    class="w3-bar-item w3-button w3-xlarge fa fa-home w3-orange
+                    class="w3-bar-item w3-button fa fa-home w3-orange
                     w3-text-white w3-hover-orange w3-hover-text-white
-                    bean-cornerfold-topright"></button>
+                    bean-cornerfold-topright" style="font-size: 23px;"></button>
                 <button
                     id="repPage-Btn"
                     class="w3-bar-item w3-button w3-hide-small
@@ -64,7 +64,7 @@
                 class="w3-card w3-2025-orangeade bean-h-gradient">
             </div>
         </div>
-        <div id="subPages" class="w3-container">
+        <section id="subPages" class="w3-container">
             <div id="homeMainPage"
                 class="w3-container">
                 <div class="w3-sand">
@@ -75,7 +75,7 @@
                     </div>
                     <div class="w3-flex">
                         <div
-                            class="w3-container w3-2025-orangeade w3-border-bottom bean-bottom-gradient"
+                            class="w3-container w3-2025-orangeade w3-border-bottom bean-bottom-gradient-blue"
                             style="width: 30%;">
                             <h2 class="w3-center">Garden News</h2>
                             <span>News here...</span>
@@ -419,7 +419,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
         <footer id="footer"
             class="w3-container w3-center w3-card-4 w3-cursive
             w3-2025-orangeade bean-bottom-gradient">

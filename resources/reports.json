@@ -2,6 +2,18 @@
     "reports": {
         "2026": [
             {
+                "file_name": "CAPO1402.html",
+                "result": 2,
+                "opponent": {
+                    "name": "CAPO",
+                    "tag": "CAPO"
+                },
+                "war_date": {
+                    "day": 14,
+                    "month": 2
+                }
+            },
+            {
                 "file_name": "THA3101.html",
                 "result": 2,
                 "opponent": {
@@ -9,7 +21,7 @@
                     "tag": "THA"
                 },
                 "war_date": {
-                    "day": 24,
+                    "day": 31,
                     "month": 1
                 }
             },

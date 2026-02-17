@@ -80,7 +80,7 @@ class Functions {
         if (pageElem) {
           pageElem.classList.toggle("w3-show", isActive);
           pageElem.classList.toggle("w3-hide", !isActive);
-          if (pageIndex === 0)
+          if (pageIndex !== 0)
             document.getElementById("homePageBanner").classList.add("w3-hide");
           else
             document
