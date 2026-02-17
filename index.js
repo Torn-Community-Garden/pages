@@ -53,9 +53,6 @@ try {
     collapseBtn.addEventListener("click", () => {
       f.toggleCollapse("navCollapse");
     });
-    rmCollapseBtn.addEventListener("click", () => {
-      f.toggleCollapse("reportMenuCollapse");
-    });
     pageMappings.main.forEach((mapping) => {
       mapping.buttons.forEach((btnId) => {
         const btn = document.getElementById(btnId);
@@ -97,6 +94,9 @@ try {
           const index = ev.state.sub ?? 0;
           homeState._activeSub = index;
           f.syncHomePageUI(index);
+        });
+        rmCollapseBtn.addEventListener("click", () => {
+          f.toggleCollapse("reportMenuCollapse");
         });
         const reports = f.getReports(2026);
         for (const report of reports) {
