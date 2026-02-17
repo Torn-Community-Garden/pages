@@ -125,19 +125,27 @@ class Functions {
     }
   }
   onLoad() {
-    const loadingModal = document.getElementById("loadingModal");
-    if (loadingModal) {
-      if (!loadingModal.classList.contains("w3-show")) {
-        loadingModal.classList.add("w3-show");
+    try {
+      const loadingModal = document.getElementById("loadingModal");
+      if (loadingModal) {
+        if (!loadingModal.classList.contains("w3-show")) {
+          loadingModal.classList.add("w3-show");
+        }
       }
+    } catch (err) {
+      this.LogError(`Error showing loading modal: ${err.message}`);
     }
   }
   onLoadComplete() {
+    try {
     const loadingModal = document.getElementById("loadingModal");
     if (loadingModal) {
       if (loadingModal.classList.contains("w3-show")) {
         loadingModal.classList.remove("w3-show");
       }
+    }
+    } catch (err) {
+      this.LogError(`Error hiding loading modal: ${err.message}`);
     }
   }
 }
