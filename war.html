@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>War Reports | TCG</title>
+		<title>War | TCG</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="UTF-8">
 		<base href="https://torn-community-garden.github.io/pages/">
@@ -11,7 +11,7 @@
 		<link rel="stylesheet"
 			href="https://www.w3schools.com/lib/w3-colors-2025.css">
 	</head>
-	<body data-page="rw_reports" class="w3-pale-blue w3-mobile">
+	<body data-page="war" class="w3-pale-blue w3-mobile">
 		<script src="index.js" type="module"></script>
 		<script src="functions.js" type="module"></script>
 		<div id="loadingModal" class="w3-modal">
@@ -27,9 +27,16 @@
 					class="w3-bar-item w3-button fa fa-home
 				w3-hover-text-white w3-hover-orange" style="font-size: 23px;"></button>
 				<button
-					id="repPage-Btn"
+					id="warPage-Btn"
 					class="w3-bar-item w3-button w3-hide-small w3-orange bean-cornerfold-topright
-				w3-text-white w3-hover-orange w3-hover-text-white">RW Reports</button>
+				w3-text-white w3-hover-orange w3-hover-text-white">War</button>
+                <button id="gntPage-Btn"
+                    class="w3-bar-item w3-button w3-hide-small
+                w3-hover-orange w3-hover-text-white">Guides/Tools</button>
+                <button
+                    id="abtUsPage-Btn"
+                    class="w3-bar-item w3-button
+                        w3-text-white w3-hover-orange w3-hover-text-white">About Us</button>
 				<button
 					id="navCollapse-Btn"
 					class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
@@ -42,15 +49,20 @@
 			</div>
 			<div class="w3-bar w3-card w3-orange">
 				<button
-					class="w3-bar-item w3-button w3-hover-light-blue w3-text-white">2026</button>
+					class="w3-bar-item w3-button w3-hover-light-blue w3-text-white">Reports</button>
 			</div>
 			<div id="navCollapse"
 				class="w3-bar-block w3-card w3-hide-large w3-hide-medium
 				w3-animate-right w3-hide w3-2025-orangeade">
 				<button
-					id="repPage-CBtn"
+					id="warPage-CBtn"
 					class="w3-bar-item w3-button w3-hover-orange w3-orange
-				w3-text-white w3-hover-orange w3-hover-text-white">RW Reports</button>
+				w3-text-white w3-hover-orange w3-hover-text-white">War</button>
+                <button id="gntPage-CBtn"
+                    class="w3-bar-item w3-button w3-hover-orange">Guides/Tools</button>
+                <button
+                    id="abtUsPage-CBtn"
+                    class="w3-bar-item w3-button w3-hover-orange">About Us</button>
 			</div>
 		</nav>
 		<section class="w3-container w3-padding-16">

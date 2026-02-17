@@ -109,7 +109,7 @@ try {
           f.LogError(`Error processing URL parameters: ${err.message}`);
         }
         break;
-      case "rw_reports":
+      case "war":
         try {
           window.addEventListener("popstate", (ev) => {
             const index = ev.state.sub ?? 0;

@@ -3,11 +3,14 @@ const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
     { file: "home.html", buttons: ["homePage-Btn"] },
-    { file: "rw_reports.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
+    { file: "war.html", buttons: ["warPage-Btn", "warPage-CBtn"] },
+    { file: "guides_tools.html", buttons: ["gntPage-Btn", "gntPage-CBtn"] },
+    { file: "aboutus.html", buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
   ],
   sub: {
     home: [
       { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
+      { id: "newspaperPage", buttons: ["newspaperPage-Btn", "newspaperPage-CBtn"] },
       { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
       {
         id: "calendarPage",
@@ -68,6 +71,7 @@ class Functions {
   }
   LogError(message) {
     console.error(message);
+    window.location.assign(`oops.html`);
   }
   syncHomePageUI(pageIndex) {
     this.onLoad();
@@ -160,25 +164,9 @@ class RWReports {
   loadReports(year) {
     try {
       this.#f.onLoad();
-      const data = JSON.parse(reportsData);
-      const reports = data.reports[year];
+      const reports = reportsData.reports[year];
       if (!reports) throw new Error(`No reports found for year ${year}`);
-      let load = [];
-      for (const report of reports) {
-        load.push({
-          file_name: report.file_name,
-          result: report.result,
-          opponent: {
-            name: report.opponent.name,
-            tag: report.opponent.tag,
-          },
-          war_date: {
-            month: report.war_date.month,
-            day: report.war_date.day,
-          },
-        });
-      }
-      return load;
+      return reports;
     } catch (err) {
       this.#f.LogError(`Error loading reports: ${err.message}`);
       return [];
