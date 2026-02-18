@@ -5,17 +5,28 @@ const pageMappings = {
   main: [
     { file: "home.html", buttons: ["homePage-Btn"] },
     { file: "rw_reports.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
+    { file: "guides_tools.html", buttons: ["gntPage-Btn", "gntPage-CBtn"] },
+    { file: "aboutus.html", buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
   ],
   sub: {
     home: [
       { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
-      { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
-      {
-        id: "calendarPage",
-        buttons: ["calendarPage-Btn", "calendarPage-CBtn"],
-      },
+      { id: "newspaperPage", buttons: ["newspaperPage-Btn"] },
+      { id: "rulesPage", buttons: ["rulesPage-Btn"] },
+      { id: "calendarPage", buttons: ["calendarPage-Btn"] },
     ],
   },
+};
+const collapseBtns = {
+  main: [
+    "navCollapse-Btn",
+    "logIn-Btn",
+  ],
+  sub: {
+    war: [
+      "rmCollapse-Btn",
+    ]
+  }
 };
 const homeState = {
   _activeSub: 0,
@@ -26,7 +37,9 @@ const homeState = {
 
       f.syncHomePageUI(value);
 
-      const newUrl = `?sub=${value}`;
+      const newUrl = window.location.href.endsWith("pages") 
+        || window.location.href.endsWith("pages/")
+        ? `index.html?sub=${value}` : `?sub=${value}`;
       window.history.pushState({ sub: value }, "", newUrl);
     } catch (err) {
       f.LogError(`Error setting active subpage: ${err.message}`);
@@ -52,11 +65,14 @@ try {
 
 try {
   document.addEventListener("DOMContentLoaded", () => {
-    const collapseBtn = document.getElementById("navCollapse-Btn");
-    const rmCollapseBtn = document.getElementById("rmCollapse-Btn");
     try {
-      collapseBtn.addEventListener("click", () => {
-        f.toggleCollapse("navCollapse");
+      collapseBtns.main.forEach((btnId) => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          btn.addEventListener("click", () => {
+            f.toggleCollapse(btn.dataset.collapse);
+          });
+        }
       });
       pageMappings.main.forEach((mapping) => {
         mapping.buttons.forEach((btnId) => {
@@ -110,14 +126,20 @@ try {
         }
         break;
       case "war":
+
         try {
           window.addEventListener("popstate", (ev) => {
             const index = ev.state.sub ?? 0;
             homeState._activeSub = index;
             f.syncHomePageUI(index);
           });
-          rmCollapseBtn.addEventListener("click", () => {
-            f.toggleCollapse("reportMenuCollapse");
+          collapseBtns.sub.war.forEach((btnId) => {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+              btn.addEventListener("click", () => {
+                f.toggleCollapse(btn.dataset.collapse);
+              });
+            }
           });
         } catch (err) {
           f.LogError(`Error setting up rw_reports page: ${err.message}`);
@@ -164,6 +186,10 @@ try {
         } catch (err) {
           f.LogError(`Error loading reports: ${err.message}`);
         }
+        break;
+      case "guides_tools":
+        break;
+      case "abtUs":
         break;
     }
   });

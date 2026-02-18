@@ -1,1 +1,1 @@
-Redirecting to home page... If it doesn't redirect you, click [here](http://torn-community-garden.github.io/pages/home.html).
+A github pages site for the faction and community 'Torn Community Garden'.

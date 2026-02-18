@@ -2,7 +2,7 @@ import reportsData from "./resources/reports.json" with { type: "json" };
 const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
-    { file: "home.html", buttons: ["homePage-Btn"] },
+    { file: "index.html", buttons: ["homePage-Btn"] },
     { file: "war.html", buttons: ["warPage-Btn", "warPage-CBtn"] },
     { file: "guides_tools.html", buttons: ["gntPage-Btn", "gntPage-CBtn"] },
     { file: "aboutus.html", buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
@@ -10,11 +10,11 @@ const pageMappings = {
   sub: {
     home: [
       { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
-      { id: "newspaperPage", buttons: ["newspaperPage-Btn", "newspaperPage-CBtn"] },
-      { id: "rulesPage", buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
+      { id: "newspaperPage", buttons: ["newspaperPage-Btn"] },
+      { id: "rulesPage", buttons: ["rulesPage-Btn"] },
       {
         id: "calendarPage",
-        buttons: ["calendarPage-Btn", "calendarPage-CBtn"],
+        buttons: ["calendarPage-Btn"],
       },
     ],
   },
@@ -70,8 +70,8 @@ class Functions {
     }
   }
   LogError(message) {
-    console.error(message);
-    window.location.assign(`oops.html`);
+    console.error(message, { caller: this.LogError.caller });
+    //window.location.assign(`oops.html`);
   }
   syncHomePageUI(pageIndex) {
     this.onLoad();
@@ -96,7 +96,6 @@ class Functions {
           if (btn) this.updateActiveBtnStyle(btn, isActive);
         });
       });
-      document.getElementById("navCollapse").classList.remove("w3-show");
     } catch (err) {
       this.LogError(`Error syncing UI: ${err.message}`);
     } finally {
@@ -142,12 +141,12 @@ class Functions {
   }
   onLoadComplete() {
     try {
-    const loadingModal = document.getElementById("loadingModal");
-    if (loadingModal) {
-      if (loadingModal.classList.contains("w3-show")) {
-        loadingModal.classList.remove("w3-show");
+      const loadingModal = document.getElementById("loadingModal");
+      if (loadingModal) {
+        if (loadingModal.classList.contains("w3-show")) {
+          loadingModal.classList.remove("w3-show");
+        }
       }
-    }
     } catch (err) {
       this.LogError(`Error hiding loading modal: ${err.message}`);
     }
@@ -164,7 +163,7 @@ class RWReports {
   loadReports(year) {
     try {
       this.#f.onLoad();
-      const reports = reportsData.reports[year];
+      const reports = reportsData.reports[year] || [];
       if (!reports) throw new Error(`No reports found for year ${year}`);
       return reports;
     } catch (err) {
