@@ -4,7 +4,7 @@ const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
     { file: "index.html", buttons: ["homePage-Btn"] },
-    { file: "rw_reports.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
+    { file: "war.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
     { file: "guides_tools.html", buttons: ["gntPage-Btn", "gntPage-CBtn"] },
     { file: "aboutus.html", buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
   ],
