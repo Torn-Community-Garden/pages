@@ -18,17 +18,11 @@ const pageMappings = {
   },
 };
 const collapseBtns = {
-  main: [
-    "navCollapse-Btn",
-    "logInCollapse-Btn",
-    "logInClose-Btn",
-    "logIn-Btn"
-  ],
+  main: ["navCollapse-Btn", "logInCollapse-Btn", "logInClose-Btn", "subCollapse-Btn"],
   sub: {
-    war: [
-      "rmCollapse-Btn",
-    ]
-  }
+    home: ["subCollapse"],
+    war: ["rmCollapse-Btn"],
+  },
 };
 const homeState = {
   _activeSub: 0,
@@ -39,9 +33,11 @@ const homeState = {
 
       f.syncHomePageUI(value);
 
-      const newUrl = window.location.href.endsWith("pages") 
-        || window.location.href.endsWith("pages/")
-        ? `index.html?sub=${value}` : `?sub=${value}`;
+      const newUrl =
+        window.location.href.endsWith("pages") ||
+        window.location.href.endsWith("pages/")
+          ? `index.html?sub=${value}`
+          : `?sub=${value}`;
       window.history.pushState({ sub: value }, "", newUrl);
     } catch (err) {
       f.LogError(`Error setting active subpage: ${err.message}`);
@@ -55,6 +51,7 @@ const homeState = {
 try {
   document.addEventListener("DOMContentLoaded", () => {
     try {
+      f.onLoad();
       collapseBtns.main.forEach((btnId) => {
         const btn = document.getElementById(btnId);
         if (btn) {
@@ -77,6 +74,18 @@ try {
     }
     switch (currentPage) {
       case "home":
+        try {
+          collapseBtns.sub.home.forEach((btnId) => {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+              btn.addEventListener("click", () => {
+                f.toggleCollapse(btn.dataset.collapse);
+              });
+            }
+          });
+        } catch (err) {
+          f.LogError(`Error setting up collapse button listener for home: ${err.message}`);
+        }
         try {
           window.addEventListener("popstate", (ev) => {
             const index = ev.state.sub ?? 0;
@@ -115,7 +124,6 @@ try {
         }
         break;
       case "war":
-
         try {
           window.addEventListener("popstate", (ev) => {
             const index = ev.state.sub ?? 0;

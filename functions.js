@@ -71,7 +71,7 @@ class Functions {
   }
   LogError(message) {
     console.error(message, { caller: this.LogError.caller });
-    //window.location.assign(`oops.html`);
+    window.location.assign(`oops.html`);
   }
   syncHomePageUI(pageIndex) {
     this.onLoad();

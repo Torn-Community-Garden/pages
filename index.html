@@ -84,14 +84,20 @@
                     Us</button>
             </div>
             <div class="w3-bar w3-card w3-orange">
-                <button id="homeMainPage-Btn"
-                    class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile">Home</button>
-                <button id="newspaperPage-Btn"
-                    class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile">Newspaper</button>
-                <button id="rulesPage-Btn"
-                    class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile">Rules</button>
-                <button id="calendarPage-Btn"
-                    class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile">Calendar</button>
+                <button id="subCollapse-Btn"
+                    data-collapse="subCollapse"
+                    class="w3-bar-item w3-button w3-text-white fa fa-chevron-down w3-hide-medium w3-hide-large"
+                    style="width: 100%;"></button>
+                <span id="subCollapse">
+                    <button id="homeMainPage-Btn"
+                        class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Home</button>
+                    <button id="newspaperPage-Btn"
+                        class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Newspaper</button>
+                    <button id="rulesPage-Btn"
+                        class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Rules</button>
+                    <button id="calendarPage-Btn"
+                        class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Calendar</button>
+                </span>
             </div>
         </nav>
         <header class="w3-center" id="homePageBanner">
@@ -110,19 +116,15 @@
                         <div style="height:2px;width:100%;"
                             class="w3-2025-orangeade bean-v-gradient-blue"></div>
                     </div>
-                    <div
-                        class="w3-bar w3-2025-orangeade w3-hide-large w3-hide-medium">
-                        <button class="w3-bar-item w3-button"></button>
-                    </div>
                     <div class="w3-flex w3-card">
                         <div
-                            class="w3-container w3-blue-gray w3-border-bottom bean-h-gradient-blue
+                            class="w3-container w3-blue-gray w3-border-bottom bean-v-gradient-blue
                             w3-mobile w3-hide-small"
                             style="width: 30%;">
                             <h2 class="w3-center">Garden News</h2>
                             <span>News here...</span>
                         </div>
-                        <div class="w3-container w3-border-left w3-mobile"
+                        <div class="w3-mobile"
                             style="width: 70%;">
                             <h2 class="w3-center">Pinboard</h2>
                             <div class="w3-flex w3-border-top w3-mobile">
@@ -135,22 +137,21 @@
                                         <div class="w3-flex w3-border-bottom">
                                             <div
                                                 class="w3-padding w3-border-right"
-                                                style="width: 30%;min-width: 100px;">
+                                                style="width: 30%;min-width: 95px;">
                                                 <span
                                                     class="fa fa-lemon-o"></span>
                                                 <span>Xanax</span>
                                             </div>
                                             <div class="w3-padding"
-                                                style="width: 70%;min-width: 100px;">
-                                                <span
-                                                    id="xanaxPrice">$700,000</span>
+                                                style="width: 70%">
+                                                <span>$700,000</span>
                                             </div>
                                         </div>
                                     </span>
                                 </div>
                                 <div
                                     class="w3-padding w3-center w3-border-left w3-mobile"
-                                    style="width: 50%;min-width: 200px;">
+                                    style="width: 50%">
                                     <h3>Member Ads</h3>
                                     <span>
                                         <p>Want your ad displayed here? Contact
@@ -160,275 +161,373 @@
                             </div>
                         </div>
                     </div>
+                    <div
+                        class="w3-blue-gray w3-hide-large w3-hide-medium w3-padding bean-v-gradient-blue">
+                        <h2 class="w3-mobile w3-transparent w3-center">Garden News</h2>
+                        <p>News here...</p>
+                    </div>
                 </div>
             </div>
             <div id="newspaperPage"
                 class="w3-container">
-                <div class="w3-sand w3-padding w3-hide">
+                <br>
+                <div class="w3-white w3-padding w3-hide">
                     <h1>Garden Newspaper</h1>
                     <p>Coming soon!</p>
                 </div>
             </div>
             <div id="rulesPage"
                 class="w3-container">
-                <div class="w3-sand w3-padding w3-hide">
+                <div class="w3-white w3-padding w3-hide">
                     <div class="w3-flex">
                         <span style="width: 50%;"
                             class="w3-padding w3-border-right">
-                            <h1 class="w3-center">Rules</h1>
+                            <h1 class="w3-center w3-bold">Rules</h1>
                             <ol>
-                                <li>We are an 18+ faction.</li>
-                                <li>Register for TornStats.</li>
-                                <li>Take the “Intravenous Therapy” course
-                                    (BIO2127)
-                                    as soon as possible. (Read more under
-                                    Expectations -> Armory -> Blood bags)</li>
-                                <li>No loss selling after Level 15.</li>
-                                <li>Do not cause harm to another member's
-                                    in-game
-                                    character unless consented beforehand.
-                                    Banter/pranks are fine as long as both
-                                    parties
-                                    are in on it.</li>
-                                <li>You must be active - After 5 days (or
-                                    multiple
-                                    times of 3 days) of inactivity, you will be
-                                    removed from the faction unless Council has
-                                    been
-                                    notified of your absence.</li>
-                                <li>Related to the rule above, if you will be
-                                    away
-                                    or know you won’t make it to a war, please
-                                    report either to a council member directly
-                                    or in
-                                    the #absences channel on Discord.
-                                    <ul>
-                                        <li>It is completely fine to have rough
-                                            patches
-                                            and be unavailable; however, for
-                                            both
-                                            our
-                                            members' and your own sake, speak to
-                                            a
-                                            council member about it. They are
-                                            always
-                                            willing to advise and work out the
-                                            best
-                                            path
-                                            forward.</li></ul>
-                                </li>
+                                <li><p><span class="w3-text-red w3-bold">We are
+                                            an 18+ faction.</span></p></li>
+                                <li><p>Register for TornStats.</p></li>
+                                <li><p>Take the “Intravenous Therapy” course
+                                        (BIO2127)
+                                        as soon as possible. (Read more under
+                                        Expectations -> Armory -> Blood
+                                        bags)</p></li>
+                                <li><p>No loss selling after Level 15.</p></li>
+                                <li><p>Do not cause harm to another member's
+                                        in-game
+                                        character unless consented beforehand.
+                                        Banter/pranks are fine as long as both
+                                        parties
+                                        are in on it.</p></li>
+                                <li><p>You must be active - After 5 days (or
+                                        multiple
+                                        times of 3 days) of inactivity, you will
+                                        be
+                                        removed from the faction unless Council
+                                        has
+                                        been
+                                        notified of your absence.</p></li>
+                                <p><li>Related to the rule above, if you will be
+                                        away
+                                        or know you won’t make it to a war,
+                                        please
+                                        report either to a council member
+                                        directly
+                                        or in
+                                        the #absences channel on Discord.
+                                        <ul>
+                                            <li>It is completely fine to have
+                                                rough
+                                                patches
+                                                and be unavailable; however, for
+                                                both
+                                                our
+                                                members' and your own sake,
+                                                speak to
+                                                a
+                                                council member about it. They
+                                                are
+                                                always
+                                                willing to advise and work out
+                                                the
+                                                best
+                                                path
+                                                forward.</li></ul>
+                                    </li>
+                                </p>
                             </ol>
                         </span>
                         <span style="width: 50%;" class="w3-padding">
                             <h1 class="w3-center">Expectations</h1>
                             <h2>Organized Crimes</h2>
                             <ol class="w3-border-bottom">
-                                <li>Follow our <a class="bean-hyperlink"
-                                        href="https://docs.google.com/document/d/1nsNJO-as2ekFEtUj5bt5Dwf5O40SHzGEkTml09b58oc/edit?usp=sharing">OC
-                                        guidelines</a>.</li>
-                                <li>OC Delays - Organized Crimes are a great way
-                                    to
-                                    personally earn money and help the faction.
-                                    However, delays affect everyone on your team
-                                    and
-                                    ruin other members' chances of flying/making
-                                    money, as well as their ability to plan when
-                                    they can join another OC.
-                                    <ul>
-                                        <li>As such, delaying an OC will result
-                                            in a
-                                            fine being taken off your cut. The
-                                            amount
-                                            that is to be fined is decided by
-                                            the
-                                            council depending on how long the
-                                            delay is,
-                                            the reason for the delay, and how
-                                            many times
-                                            you have delayed in the past.
-                                            Meaning,
-                                            repeated delays will result in
-                                            greater
-                                            fines, and if too excessive, may
-                                            result in
-                                            faction removal.</li>
-                                    </ul>
-                                </li>
+                                <li><p>Follow our <a class="bean-hyperlink"
+                                            href="https://docs.google.com/document/d/1nsNJO-as2ekFEtUj5bt5Dwf5O40SHzGEkTml09b58oc/edit?usp=sharing">OC
+                                            guidelines</a>.</p></li>
+                                <p><li>OC Delays - Organized Crimes are a great
+                                        way
+                                        to
+                                        personally earn money and help the
+                                        faction.
+                                        However, delays affect everyone on your
+                                        team
+                                        and
+                                        ruin other members' chances of
+                                        flying/making
+                                        money, as well as their ability to plan
+                                        when
+                                        they can join another OC.
+                                        <ul>
+                                            <li>As such, delaying an OC will
+                                                result
+                                                in a
+                                                fine being taken off your cut.
+                                                The
+                                                amount
+                                                that is to be fined is decided
+                                                by
+                                                the
+                                                council depending on how long
+                                                the
+                                                delay is,
+                                                the reason for the delay, and
+                                                how
+                                                many times
+                                                you have delayed in the past.
+                                                Meaning,
+                                                repeated delays will result in
+                                                greater
+                                                fines, and if too excessive, may
+                                                result in
+                                                faction removal.</li>
+                                        </ul>
+                                    </li>
+                                </p>
                             </ol>
                             <h2>Armory</h2>
-                            <ol class="w3-border-bottom">
-                                <li>Gear - Weapon/Armor loaning is open to all.
-                                    <ul>
-                                        <li>However, please return any Warlord
-                                            you
-                                            have
-                                            on you when you are not using it.
-                                            This
-                                            is to
-                                            make sure that they are available
-                                            for
-                                            anyone
-                                            who can make use of them at the
-                                            time.
-                                            Primarily for war. Be aware that
-                                            holding
-                                            onto one may result in it being
-                                            retrieved
-                                            without warning, so make sure you
-                                            have a
-                                            second weapon equipped so you don’t
-                                            end
-                                            up
-                                            empty-handed.</li>
-                                        <li>If you see someone holding a Warlord
-                                            weapon
-                                            who is also offline/not using it,
-                                            feel
-                                            free
-                                            to retrieve it so you may use it.
-                                            (If
-                                            you
-                                            can not retrieve items, ask anyone
-                                            who
-                                            is a
-                                            Rose+)</li></ul>
-                                </li>
-                                <li>Blood bags - To use blood bags, you need to
-                                    take
-                                    the Intravenous therapy course as stated in
-                                    our
-                                    requirements.
-                                    <ul>
-                                        <li>Whenever you have this, we’d like it
-                                            if
-                                            you
-                                            stick to using Blood bags instead of
-                                            other
-                                            resources, as this saves the faction
-                                            a
-                                            lot
-                                            of money. (People with type AB+ may
-                                            still
-                                            use ipecac, since they have no
-                                            incompatible
-                                            blood type.)</li>
-                                    </ul>
-                                </li>
-                                <li>Xanax - Available to all during chains/wars.
-                                    <ul>
-                                        <li>Training usage is a perk for members
-                                            once
-                                            they have achieved Dahlia rank.
-                                            Therefore,
-                                            loss selling or using Xanax for
-                                            purposes
-                                            other than to chain/war during those
-                                            times
-                                            is strictly prohibited. (This does
-                                            not
-                                            apply
-                                            if the war you’ve actively
-                                            participated
-                                            in
-                                            ends or the target score has been
-                                            reached,
-                                            and you still have E left. Feel free
-                                            to
-                                            spend that on training!)</li>
-                                    </ul>
-                                </li>
-                                <li>Temporary Items - Temps are unrestricted
-                                    usage;
-                                    however, please restrict checking out a
-                                    maximum
-                                    quantity of 30 smokes and 30 tears. As these
-                                    are
-                                    a bit more expensive.
-                                    <ul>
-                                        <li>Those who are holding more, we will
-                                            manually
-                                            retract the items, and you can check
-                                            out
-                                            the
-                                            correct quantity again. This is to
-                                            ensure
-                                            there is enough to go around for
-                                            everyone.</li>
-                                    </ul>
-                                </li>
-                                <li>Points Usage - Points usage will be
-                                    restricted
-                                    for wartime energy refill usage only.
-                                    <ul>
-                                        <li>This is to ensure members have every
-                                            resource available for extra hits
-                                            when
-                                            it is
-                                            critical for the faction's wars.
-                                        </li>
-                                        <li>We do not use points for nerve bar
-                                            refills.</li>
-                                    </ul>
-                                </li>
+                            <ol class="w3-border-bottom w3-padding">
+                                <p><li><span
+                                            class="w3-bold w3-text-deep-purple">Gear</span>
+                                        - Weapon/Armor loaning is open to
+                                        all.
+                                        <ul>
+                                            <li>However, please return any
+                                                Warlord
+                                                you
+                                                have
+                                                on you when you are not using
+                                                it.
+                                                This
+                                                is to
+                                                make sure that they are
+                                                available
+                                                for
+                                                anyone
+                                                who can make use of them at the
+                                                time.
+                                                Primarily for war. Be aware that
+                                                holding
+                                                onto one may result in it being
+                                                retrieved
+                                                without warning, so make sure
+                                                you
+                                                have a
+                                                second weapon equipped so you
+                                                don’t
+                                                end
+                                                up
+                                                empty-handed.</li>
+                                            <li>If you see someone holding a
+                                                Warlord
+                                                weapon
+                                                who is also offline/not using
+                                                it,
+                                                feel
+                                                free
+                                                to retrieve it so you may use
+                                                it.
+                                                (If
+                                                you
+                                                can not retrieve items, ask
+                                                anyone
+                                                who
+                                                is a
+                                                Rose+)</li></ul>
+                                    </li></p>
+                                <p><li><span
+                                            class="w3-bold w3-text-deep-purple">Blood
+                                            bags</span> - To use blood bags, you
+                                        need
+                                        to
+                                        take
+                                        the Intravenous therapy course as stated
+                                        in
+                                        our
+                                        requirements.
+                                        <ul>
+                                            <li>Whenever you have this, we’d
+                                                like it
+                                                if
+                                                you
+                                                stick to using Blood bags
+                                                instead of
+                                                other
+                                                resources, as this saves the
+                                                faction
+                                                a
+                                                lot
+                                                of money. (People with type AB+
+                                                may
+                                                still
+                                                use ipecac, since they have no
+                                                incompatible
+                                                blood type.)</li>
+                                        </ul>
+                                    </li>
+                                </p>
+                                <p><li><span
+                                            class="w3-bold w3-text-deep-purple">Xanax</span>
+                                        - Available to all during
+                                        chains/wars.
+                                        <ul>
+                                            <li>Training usage is a perk for
+                                                members
+                                                once
+                                                they have achieved Dahlia rank.
+                                                Therefore,
+                                                loss selling or using Xanax for
+                                                purposes
+                                                other than to chain/war during
+                                                those
+                                                times
+                                                is strictly prohibited. (This
+                                                does
+                                                not
+                                                apply
+                                                if the war you’ve actively
+                                                participated
+                                                in
+                                                ends or the target score has
+                                                been
+                                                reached,
+                                                and you still have E left. Feel
+                                                free
+                                                to
+                                                spend that on training!)</li>
+                                        </ul>
+                                    </li>
+                                </p>
+                                <p><li><span
+                                            class="w3-bold w3-text-deep-purple">Temporary
+                                            Items</span> - Temps are
+                                        unrestricted
+                                        usage;
+                                        however, please restrict checking out a
+                                        maximum
+                                        quantity of 30 smokes and 30 tears. As
+                                        these
+                                        are
+                                        a bit more expensive.
+                                        <ul>
+                                            <li>Those who are holding more, we
+                                                will
+                                                manually
+                                                retract the items, and you can
+                                                check
+                                                out
+                                                the
+                                                correct quantity again. This is
+                                                to
+                                                ensure
+                                                there is enough to go around for
+                                                everyone.</li>
+                                        </ul>
+                                    </li>
+                                </p>
+                                <p><li><span
+                                            class="w3-bold w3-text-deep-purple">Points
+                                            Usage</span> - Points usage will be
+                                        restricted
+                                        for wartime energy refill usage only.
+                                        <ul>
+                                            <li>This is to ensure members have
+                                                every
+                                                resource available for extra
+                                                hits
+                                                when
+                                                it is
+                                                critical for the faction's wars.
+                                            </li>
+                                            <li>We do not use points for nerve
+                                                bar
+                                                refills.</li>
+                                        </ul>
+                                    </li>
+                                </p>
                             </ol>
-                            <h2>War/Chains</h2>
+                            <h2 class="w3-bold">War/Chains</h2>
                             <ol>
-                                <li class="w3-border-bottom">Chains and Wars -
-                                    We have never been hard on
-                                    anyone's case; however, we have always kept
-                                    tabs
-                                    in the background.
-                                    <ul>
-                                        <li>No war participation for two
-                                            consecutive
-                                            wars without reporting absence is
-                                            going to
-                                            result in a kick.</li>
-                                        <li>Check chat for hit calls, chain
-                                            coordination, etc., so we
-                                            inadvertently
-                                            don’t steal hits from each other and
-                                            can
-                                            coordinate team hit efforts when
-                                            necessary.
-                                            Using both in-game and Discord chat
-                                            would be
-                                            ideal to make sure you don’t miss
-                                            any
-                                            information; however, in-game chat
-                                            tends to
-                                            be what we use more during war.
-                                            Discord
-                                            tends to be where we make most
-                                            announcements, or if we otherwise
-                                            need
-                                            someone's attention, so it’s good to
-                                            have
-                                            pings on!</li>
-                                    </ul>
-                                </li>
-                                <li class="w3-border-bottom">Turtling - Just
-                                    like the above, this is not the
-                                    most strict expectation. But simply putting
-                                    in
-                                    an effort is enough. However, not turtling
-                                    at
-                                    all, therefore bleeding a lot of points,
-                                    ultimately holds the faction back a lot. And
-                                    if
-                                    done excessively, it may result in measures
-                                    being taken by us (we will always message
-                                    and
-                                    work with you before this ever becomes a
-                                    reality).</li>
-                                <li class="w3-border-bottom">Bounties - We
-                                    personally don’t particularly like
-                                    using bounties, as it costs quite a lot of
-                                    money
-                                    if done excessively and aren’t very
-                                    effective.
-                                    So please only rely on them if absolutely
-                                    necessary!</li>
+                                <p><li><span
+                                            class="w3-bold w3-text-deep-purple">Chains
+                                            and Wars</span>
+                                        -
+                                        We have never been hard on
+                                        anyone's case; however, we have always
+                                        kept
+                                        tabs
+                                        in the background.
+                                        <ul>
+                                            <li>No war participation for two
+                                                consecutive
+                                                wars without reporting absence
+                                                is
+                                                going to
+                                                result in a kick.</li>
+                                            <li>Check chat for hit calls, chain
+                                                coordination, etc., so we
+                                                inadvertently
+                                                don’t steal hits from each other
+                                                and
+                                                can
+                                                coordinate team hit efforts when
+                                                necessary.
+                                                Using both in-game and Discord
+                                                chat
+                                                would be
+                                                ideal to make sure you don’t
+                                                miss
+                                                any
+                                                information; however, in-game
+                                                chat
+                                                tends to
+                                                be what we use more during war.
+                                                Discord
+                                                tends to be where we make most
+                                                announcements, or if we
+                                                otherwise
+                                                need
+                                                someone's attention, so it’s
+                                                good to
+                                                have
+                                                pings on!</li>
+                                        </ul>
+                                    </li>
+                                </p>
+                                <p><li><span
+                                            class="w3-bold w3-text-deep-purple">Turtling</span>
+                                        - Just
+                                        like the above, this is not the
+                                        most strict expectation. But simply
+                                        putting
+                                        in
+                                        an effort is enough. However, not
+                                        turtling
+                                        at
+                                        all, therefore bleeding a lot of points,
+                                        ultimately holds the faction back a lot.
+                                        And
+                                        if
+                                        done excessively, it may result in
+                                        measures
+                                        being taken by us (we will always
+                                        message
+                                        and
+                                        work with you before this ever becomes a
+                                        reality).</li>
+                                </p>
+                                <p><li><span
+                                            class="w3-bold w3-text-deep-purple">Bounties</span>
+                                        - We
+                                        personally don’t particularly like
+                                        using bounties, as it costs quite a lot
+                                        of
+                                        money
+                                        if done excessively and aren’t very
+                                        effective.
+                                        So please only rely on them if
+                                        absolutely
+                                        necessary!</li>
+                                </p>
                             </ol>
                         </span>
                     </div>
@@ -436,7 +535,7 @@
             </div>
             <div id="calendarPage"
                 class="w3-container">
-                <div class="w3-sand w3-padding w3-hide">
+                <div class="w3-white w3-padding w3-hide">
                     <h1>Garden Calendar</h1>
                     <p>Upcoming events and activities.</p>
                     <div>
