@@ -4,7 +4,7 @@ const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
     { file: "index.html", buttons: ["homePage-Btn"] },
-    { file: "war.html", buttons: ["repPage-Btn", "repPage-CBtn"] },
+    { file: "war.html", buttons: ["warPage-Btn", "warPage-CBtn"] },
     { file: "guides_tools.html", buttons: ["gntPage-Btn", "gntPage-CBtn"] },
     { file: "aboutus.html", buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
   ],
@@ -20,7 +20,9 @@ const pageMappings = {
 const collapseBtns = {
   main: [
     "navCollapse-Btn",
-    "logIn-Btn",
+    "logInCollapse-Btn",
+    "logInClose-Btn",
+    "logIn-Btn"
   ],
   sub: {
     war: [

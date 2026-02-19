@@ -48,7 +48,7 @@
                     class="w3-dropdown-click w3-right w3-animate-top w3-2025-orangeade">
                     <button
                         data-collapse="logInCollapse"
-                        id="logIn-Btn"
+                        id="logInCollapse-Btn"
                         class="w3-bar-item w3-button
                             fa fa-key w3-hover-text-white w3-hover-orange"
                         title="Log in using an API key"
@@ -57,11 +57,14 @@
                         id="logInCollapse"
                         class="w3-dropdown-content w3-bar-block w3-2025-orangeade w3-padding bean-v-gradient-orange w3-card"
                         style="right: 0;">
-                        <button class="w3-button w3-right fa fa-close w3-transparent"></button>
+                        <button id="logInClose-Btn"
+                            data-collapse="logInCollapse"
+                            class="w3-button w3-right fa fa-close w3-transparent"></button>
                         <h2 class="w3-center">Log in</h2>
-                        <input class="w3-input" style="font-weight: 100" placeholder="Key">
-                        <a href="">Key usage & storing</a>
-                        <button
+                        <input class="w3-input" style="font-weight: 100"
+                            placeholder="Key">
+                        <a href>Key usage & storing</a>
+                        <button id="logIn-Btn"
                             class="w3-button w3-orange w3-hover-light-blue">Log
                             in</button>
                     </div>
