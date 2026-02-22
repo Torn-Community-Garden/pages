@@ -11,7 +11,7 @@
         <link rel="stylesheet"
             href="https://www.w3schools.com/lib/w3-colors-2025.css">
     </head>
-    <body data-page="home" class="w3-pale-blue w3-mobile">
+    <body data-page="home">
         <script src="index.js" type="module"></script>
         <script src="functions.js" type="module"></script>
         <div id="loadingModal" class="w3-modal">
@@ -23,24 +23,24 @@
         <nav class="w3-top w3-mobile">
             <div class="w3-bar w3-card w3-bold w3-2025-orangeade">
                 <button
-                    id="homePage-Btn"
+                    id="homePage-Btn" data-main="index.html"
                     class="w3-bar-item w3-button fa fa-home w3-orange
                     w3-text-white w3-hover-orange w3-hover-text-white
                     bean-cornerfold-topright" style="font-size: 23px;"></button>
                 <button
-                    id="warPage-Btn"
+                    id="warPage-Btn" data-main="war.html"
                     class="w3-bar-item w3-button w3-hide-small
                     w3-hover-orange w3-hover-text-white">War</button>
-                <button id="gntPage-Btn"
+                <button id="gntPage-Btn" data-main="guides_tools.html"
                     class="w3-bar-item w3-button w3-hide-small
                 w3-hover-orange w3-hover-text-white">Guides/Tools</button>
                 <button
-                    id="abtUsPage-Btn"
+                    id="abtUsPage-Btn" data-main="aboutus.html"
                     class="w3-bar-item w3-button
                         w3-text-white w3-hover-orange w3-hover-text-white w3-hide-small">About
                     Us</button>
                 <button
-                    id="navCollapse-Btn"
+                    id="navCollapse-Btn" data-collapse="navCollapse"
                     class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
                     fa fa-bars w3-hover-text-white w3-hover-orange"
                     style="font-size: 23px;"></button>
@@ -55,8 +55,8 @@
                         style="font-size: 23px;"></button>
                     <div
                         id="logInCollapse"
-                        class="w3-dropdown-content w3-bar-block w3-2025-orangeade w3-padding bean-v-gradient-orange w3-card"
-                        style="right: 0;">
+                        class="w3-dropdown-content w3-bar-block w3-2025-orangeade w3-padding bean-h-gradient-orange w3-show"
+                        style="right: 0;top: 39px;">
                         <button id="logInClose-Btn"
                             data-collapse="logInCollapse"
                             class="w3-button w3-right fa fa-close w3-transparent"></button>
@@ -74,12 +74,12 @@
                 class="w3-bar-block w3-card w3-hide-large w3-hide-medium
                     w3-animate-right w3-hide w3-2025-orangeade">
                 <button
-                    id="warPage-CBtn"
+                    id="warPage-CBtn" data-main="war.html"
                     class="w3-bar-item w3-button w3-hover-orange">War</button>
-                <button id="gntPage-CBtn"
+                <button id="gntPage-CBtn" data-main="guides_tools.html"
                     class="w3-bar-item w3-button w3-hover-orange">Guides/Tools</button>
                 <button
-                    id="abtUsPage-CBtn"
+                    id="abtUsPage-CBtn" data-main="aboutus.html"
                     class="w3-bar-item w3-button w3-hover-orange">About
                     Us</button>
             </div>
@@ -163,7 +163,8 @@
                     </div>
                     <div
                         class="w3-blue-gray w3-hide-large w3-hide-medium w3-padding bean-v-gradient-blue">
-                        <h2 class="w3-mobile w3-transparent w3-center">Garden News</h2>
+                        <h2 class="w3-mobile w3-transparent w3-center">Garden
+                            News</h2>
                         <p>News here...</p>
                     </div>
                 </div>

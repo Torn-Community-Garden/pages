@@ -3,25 +3,25 @@ const f = new Functions();
 const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
-    { file: "index.html", buttons: ["homePage-Btn"] },
-    { file: "war.html", buttons: ["warPage-Btn", "warPage-CBtn"] },
-    { file: "guides_tools.html", buttons: ["gntPage-Btn", "gntPage-CBtn"] },
-    { file: "aboutus.html", buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
+    { buttons: ["homePage-Btn"] },
+    { buttons: ["warPage-Btn", "warPage-CBtn"] },
+    { buttons: ["gntPage-Btn", "gntPage-CBtn"] },
+    { buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
   ],
   sub: {
     home: [
-      { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
-      { id: "newspaperPage", buttons: ["newspaperPage-Btn"] },
-      { id: "rulesPage", buttons: ["rulesPage-Btn"] },
-      { id: "calendarPage", buttons: ["calendarPage-Btn"] },
+      { buttons: ["homeMainPage-Btn"] },
+      { buttons: ["newspaperPage-Btn"] },
+      { buttons: ["rulesPage-Btn"] },
+      { buttons: ["calendarPage-Btn"] },
     ],
   },
 };
 const collapseBtns = {
-  main: ["navCollapse-Btn", "logInCollapse-Btn", "logInClose-Btn", "subCollapse-Btn"],
+  main: ["navCollapse-Btn", "logInCollapse-Btn", "logInClose-Btn"],
   sub: {
-    home: ["subCollapse"],
-    war: ["rmCollapse-Btn"],
+    home: ["subCollapse", "subCollapse-Btn"],
+    war: ["rmCollapse-Btn", "subCollapse-Btn"],
   },
 };
 const homeState = {
@@ -49,9 +49,9 @@ const homeState = {
 };
 
 try {
+  f.onLoad();
   document.addEventListener("DOMContentLoaded", () => {
     try {
-      f.onLoad();
       collapseBtns.main.forEach((btnId) => {
         const btn = document.getElementById(btnId);
         if (btn) {
@@ -65,13 +65,11 @@ try {
           const btn = document.getElementById(btnId);
           if (btn)
             btn.addEventListener("click", () => {
-              window.location.assign(mapping.file);
+              window.location.assign(btn.dataset.main);
             });
         });
       });
-    } catch (err) {
-      f.LogError(`Error setting up main page buttons: ${err.message}`);
-    }
+    } catch (err) { f.LogError(`Error setting up main page buttons: ${err.message}`); }
     switch (currentPage) {
       case "home":
         try {
@@ -84,7 +82,9 @@ try {
             }
           });
         } catch (err) {
-          f.LogError(`Error setting up collapse button listener for home: ${err.message}`);
+          f.LogError(
+            `Error setting up collapse button listener for home: ${err.message}`,
+          );
         }
         try {
           window.addEventListener("popstate", (ev) => {
@@ -130,6 +130,10 @@ try {
             homeState._activeSub = index;
             f.syncHomePageUI(index);
           });
+        } catch (err) {
+          f.LogError(`Error setting up war page popstate: ${err.message}`);
+        }
+        try {
           collapseBtns.sub.war.forEach((btnId) => {
             const btn = document.getElementById(btnId);
             if (btn) {
@@ -139,13 +143,17 @@ try {
             }
           });
         } catch (err) {
-          f.LogError(`Error setting up rw_reports page: ${err.message}`);
+          f.LogError(`Error setting up war page collapseBtns: ${err.message}`);
         }
         try {
           const reports = f.getReports(2026);
+          if (reports === undefined) {
+            console.warn("Reports data not found.");
+            return;
+          }
           for (const report of reports) {
             const btn = document.createElement("button");
-            btn.textContent = `${report.name} (${report.war_date.month}/${report.war_date.day})`;
+            btn.textContent = `${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
             btn.classList.add("w3-button");
             const resultColor = () => {
               switch (report.result) {
@@ -181,7 +189,7 @@ try {
               .appendChild(btn.cloneNode(true));
           }
         } catch (err) {
-          f.LogError(`Error loading reports: ${err.message}`);
+          f.LogError(`Error loading war reports: ${err.message}`);
         }
         break;
       case "guides_tools":
@@ -191,6 +199,4 @@ try {
     }
   });
   f.onLoadComplete();
-} catch (err) {
-  f.LogError(`Error initializing page: ${err.message}`);
-}
+} catch (err) { f.LogError(`Error initializing page: ${err.message}`); }

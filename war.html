@@ -30,13 +30,14 @@
 					id="warPage-Btn"
 					class="w3-bar-item w3-button w3-hide-small w3-orange bean-cornerfold-topright
 				w3-text-white w3-hover-orange w3-hover-text-white">War</button>
-                <button id="gntPage-Btn"
-                    class="w3-bar-item w3-button w3-hide-small
+				<button id="gntPage-Btn"
+					class="w3-bar-item w3-button w3-hide-small
                 w3-hover-orange w3-hover-text-white">Guides/Tools</button>
-                <button
-                    id="abtUsPage-Btn"
-                    class="w3-bar-item w3-button
-                        w3-text-white w3-hover-orange w3-hide-small w3-hover-text-white">About Us</button>
+				<button
+					id="abtUsPage-Btn"
+					class="w3-bar-item w3-button
+                        w3-text-white w3-hover-orange w3-hide-small w3-hover-text-white">About
+					Us</button>
 				<button
 					id="navCollapse-Btn"
 					class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
@@ -48,8 +49,14 @@
 					style="display: none;"></button>
 			</div>
 			<div class="w3-bar w3-card w3-orange">
-				<button
-					class="w3-bar-item w3-button w3-hover-light-blue w3-text-white">Reports</button>
+				<button id="subCollapse-Btn"
+					data-collapse="subCollapse"
+					class="w3-bar-item w3-button w3-text-white fa fa-chevron-down w3-hide-medium w3-hide-large"
+					style="width: 100%;"></button>
+				<span id="subCollapse">
+					<button
+						class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Reports</button>
+				</span>
 			</div>
 			<div id="navCollapse"
 				class="w3-bar-block w3-card w3-hide-large w3-hide-medium
@@ -58,11 +65,11 @@
 					id="warPage-CBtn"
 					class="w3-bar-item w3-button w3-hover-orange w3-orange
 				w3-text-white w3-hover-orange w3-hover-text-white">War</button>
-                <button id="gntPage-CBtn"
-                    class="w3-bar-item w3-button w3-hover-orange">Guides/Tools</button>
-                <button
-                    id="abtUsPage-CBtn"
-                    class="w3-bar-item w3-button w3-hover-orange">About Us</button>
+				<button id="gntPage-CBtn"
+					class="w3-bar-item w3-button w3-hover-orange">Guides/Tools</button>
+				<button
+					id="abtUsPage-CBtn"
+					class="w3-bar-item w3-button w3-hover-orange">About Us</button>
 			</div>
 		</nav>
 		<section class="w3-container w3-padding-16">
@@ -73,12 +80,15 @@
 						<h5 class="w3-center">Opponent Faction (month/day)</h5>
 					</div>
 				</div>
-				<button id="rmCollapse-Btn"
-					class="w3-content w3-bar-block w3-button w3-flat-amethyst w3-padding w3-hide-large w3-hide-medium">
-					<h5 class="w3-center">Opponent Faction (month/day)</h5>
-				</button>
-				<div id="reportMenuCollapse" class="w3-content w3-bar-block w3-flat-amethyst w3-padding w3-hide">
-					
+				<div
+					class="w3-dropdown-click w3-bar w3-mobile w3-flat-amethyst w3-hide-large w3-hide-medium">
+					<button id="rmCollapse-Btn" data-collapse="rmCollapse"
+						class="w3-bar-item w3-button w3-flat-amethyst w3-padding">
+						<h5 class="w3-center">Opponent Faction (month/day)</h5>
+					</button>
+					<div id="rmCollapse">
+
+					</div>
 				</div>
 				<div class="w3-panel w3-threequarter w3-right w3-card">
 					<iframe id="repFrame" class="w3-padding w3-center"

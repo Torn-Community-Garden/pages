@@ -60,18 +60,17 @@ class Functions {
     }
   }
   getReports(year) {
-    const reportsData = new RWReports(year);
     try {
-      if (!reportsData || !reportsData.Reports)
-        throw new Error("Reports data not found.");
-      return reportsData;
+      const data = year === 2026 ? reportsData.reports.y2026 : reportsData.reports.y2025;
+      if (!data) console.warn("Reports data not found.");
+      return data;
     } catch (err) {
       this.LogError(`Error reading reports data: ${err.message}`);
     }
   }
   LogError(message) {
     console.error(message, { caller: this.LogError.caller });
-    window.location.assign(`oops.html`);
+    //window.location.assign(`oops.html`);
   }
   syncHomePageUI(pageIndex) {
     this.onLoad();
@@ -154,23 +153,3 @@ class Functions {
 }
 export { Functions };
 export default Functions;
-class RWReports {
-  #f = new Functions();
-  Reports = [];
-  constructor(year) {
-    this.Reports = this.loadReports(year);
-  }
-  loadReports(year) {
-    try {
-      this.#f.onLoad();
-      const reports = reportsData.reports[year] || [];
-      if (!reports) throw new Error(`No reports found for year ${year}`);
-      return reports;
-    } catch (err) {
-      this.#f.LogError(`Error loading reports: ${err.message}`);
-      return [];
-    } finally {
-      this.#f.onLoadComplete();
-    }
-  }
-}
