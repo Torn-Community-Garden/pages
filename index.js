@@ -184,7 +184,7 @@ try {
           for (const report of reports) {
             const btn = document.createElement("button");
             btn.textContent = `${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
-            btn.classList.add("w3-button");
+            btn.classList.add("w3-button", "w3-border", "w3-mobile", "");
             const resultColor = () => {
               switch (report.result) {
                 case 1:
@@ -201,7 +201,7 @@ try {
               try {
                 const frame = document.getElementById("repFrame");
                 if (frame)
-                  frame.setAttribute("src", `WarReports/${report.file_name}`);
+                  frame.setAttribute("src", `/WarReports/${report.file_name}`);
                 const buttons = document
                   .getElementById("reportMenu")
                   .getElementsByTagName("button");
@@ -215,7 +215,7 @@ try {
             });
 
             if (menu) menu.appendChild(btn);
-            if (cMenu) cMenu.appendChild(btn.cloneNode(true));
+            if (cMenu) cMenu.appendChild(btn.cloneNode(false));
           }
         } catch (err) {
           f.LogError(`Error loading war reports: ${err.message}`);
@@ -227,7 +227,8 @@ try {
         break;
     }
   });
-  f.onLoadComplete();
 } catch (err) {
   f.LogError(`Error initializing page: ${err.message}`);
+} finally {
+  f.onLoadComplete();
 }
