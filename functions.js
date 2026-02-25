@@ -12,21 +12,22 @@ const pageMappings = {
       { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
       { id: "newspaperPage", buttons: ["newspaperPage-Btn"] },
       { id: "rulesPage", buttons: ["rulesPage-Btn"] },
-      {
-        id: "calendarPage",
-        buttons: ["calendarPage-Btn"],
-      },
+      { id: "calendarPage", buttons: ["calendarPage-Btn"], },
     ],
   },
 };
 
 class Functions {
-  catchUrlParams(urlSearch, pageLength) {
+  /**
+   * @param {number | null} pageLength 
+   */
+  catchUrlParams(urlSearch, pageLength = null) {
     try {
       const urlParams = new URLSearchParams(urlSearch);
       for (const paramKey of urlParams.keys()) {
         switch (paramKey) {
           case "sub":
+            if (!pageLength) return;
             const pageParam = urlParams.get("sub");
             if (pageParam) {
               const index = parseInt(pageParam);
@@ -100,10 +101,9 @@ class Functions {
           });
           break;
       }
+      this.onLoadComplete();
     } catch (err) {
       this.LogError(`Error syncing UI: ${err.message}`);
-    } finally {
-      this.onLoadComplete();
     }
   }
   /**

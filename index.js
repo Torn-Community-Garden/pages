@@ -49,7 +49,7 @@ const collapseBtns = {
     war: ["rmCollapse-Btn", "subCollapse-Btn"],
   },
 };
-const homeState = {
+const state = {
   _activeSub: 0,
   set activeSub(value) {
     try {
@@ -61,7 +61,7 @@ const homeState = {
       const newUrl =
         window.location.href.endsWith("pages") ||
         window.location.href.endsWith("pages/")
-          ? `index.html?sub=${value}`
+          ? `${currentPage}?sub=${value}`
           : `?sub=${value}`;
       window.history.pushState({ sub: value, page: currentPage }, "", newUrl);
     } catch (err) {
@@ -91,7 +91,7 @@ try {
           const btn = document.getElementById(btnId);
           if (btn)
             btn.addEventListener("click", () => {
-              window.location.assign(btn.dataset.main);
+              window.location.assign(`./${btn.dataset.main}`);
             });
         });
       });
@@ -120,7 +120,7 @@ try {
         try {
           window.addEventListener("popstate", (ev) => {
             const index = ev.state.sub ?? 0;
-            homeState._activeSub = index;
+            state._activeSub = index;
             f.syncPageUI(index);
           });
         } catch (err) {
@@ -132,7 +132,7 @@ try {
               const btn = document.getElementById(btnId);
               if (btn) {
                 btn.addEventListener("click", () => {
-                  homeState.activeSub = index;
+                  state.activeSub = index;
                 });
               }
             });
@@ -141,23 +141,21 @@ try {
           f.LogError(`Error setting up subpage buttons: ${err.message}`);
         }
         try {
-          homeState._activeSub =
-            f.catchUrlParams(
-              window.location.search,
-              pageMappings.sub.home.length,
-            ) ?? 0;
-          f.syncPageUI(initialPage);
+          const s = f.catchUrlParams(
+            window.location.search,
+            pageMappings.sub.home.length,
+          ) ?? 0;
+          state._activeSub = s;
+          f.syncPageUI(s);
         } catch (err) {
           f.LogError(`Error processing URL parameters: ${err.message}`);
-        } finally {
-          f.onLoadComplete();
         }
         break;
       case "war":
         try {
           window.addEventListener("popstate", (ev) => {
             const index = ev.state.sub ?? 0;
-            homeState._activeSub = index;
+            state._activeSub = index;
             f.syncPageUI(index);
           });
         } catch (err) {
@@ -221,8 +219,6 @@ try {
           }
         } catch (err) {
           f.LogError(`Error loading war reports: ${err.message}`);
-        } finally {
-          f.onLoadComplete();
         }
         break;
       case "guides_tools":
@@ -230,9 +226,8 @@ try {
       case "abtUs":
         break;
     }
+  f.onLoadComplete();
   });
 } catch (err) {
   f.LogError(`Error initializing page: ${err.message}`);
-} finally {
-  f.onLoadComplete();
 }
