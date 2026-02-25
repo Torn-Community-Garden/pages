@@ -149,6 +149,8 @@ try {
           f.syncPageUI(initialPage);
         } catch (err) {
           f.LogError(`Error processing URL parameters: ${err.message}`);
+        } finally {
+          f.onLoadComplete();
         }
         break;
       case "war":
@@ -219,6 +221,8 @@ try {
           }
         } catch (err) {
           f.LogError(`Error loading war reports: ${err.message}`);
+        } finally {
+          f.onLoadComplete();
         }
         break;
       case "guides_tools":
