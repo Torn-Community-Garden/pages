@@ -1,31 +1,6 @@
 import { Functions } from "./functions.js";
 const f = new Functions();
 const currentPage = document.body.dataset.page;
-const authState = {
-  _user: {
-    key: "",
-    identity: {
-      username: "",
-      id: 0,
-    },
-  },
-  _isLoggedIn: false,
-
-  set user(value) {
-    this._user = value;
-
-    if (this._user.identity.id != 0) this.isLoggedIn = true;
-  },
-  get user() {
-    return this._user;
-  },
-  set isLoggedIn(value) {
-    this._isLoggedIn = value;
-  },
-  get isLoggedIn() {
-    return this._isLoggedIn;
-  },
-};
 const pageMappings = {
   main: [
     { buttons: ["homePage-Btn"] },
@@ -51,19 +26,30 @@ const collapseBtns = {
 };
 const state = {
   _activeSub: 0,
+  _isLoading: false,
+  _loadingTimeout: 0,
   set activeSub(value) {
     try {
       if (this._activeSub === value) return;
+      this.isLoading = true;
       this._activeSub = value;
-
-      f.syncPageUI(value);
+      const pageMap = () => {
+        switch (currentPage) {
+          case "index":
+            return pageMappings.sub.home;
+          default:
+            return [];
+        }
+      };
+      f.syncPageUI(value, pageMap);
 
       const newUrl =
         window.location.href.endsWith("pages") ||
         window.location.href.endsWith("pages/")
-          ? `${currentPage}?sub=${value}`
+          ? `${currentPage}.html?sub=${value}`
           : `?sub=${value}`;
-      window.history.pushState({ sub: value, page: currentPage }, "", newUrl);
+      window.history.pushState({ sub: value }, "", newUrl);
+      this.isLoading = false;
     } catch (err) {
       f.LogError(`Error setting active subpage: ${err.message}`);
     }
@@ -71,13 +57,61 @@ const state = {
   get activeSub() {
     return this._activeSub;
   },
+  set isLoading(value) {
+    if (value === this._isLoading) return;
+    this._isLoading = value;
+
+    if (this.isLoading) {
+      f.onLoad();
+      this.loadingTimeout = setTimeout(() => {
+        throw new Error("Loading timed out. Try again.");
+      }, 120000);
+    } else {
+      if (this.loadingTimeout > 0) clearTimeout(this.loadingTimeout);
+      f.onLoadComplete();
+    }
+  },
+  get isLoading() {
+    return this._isLoading;
+  },
+  set loadingTimeout(value) {
+    this._loadingTimeout = value;
+  },
+  get loadingTimeout() {
+    return this._loadingTimeout;
+  },
+};
+const authState = {
+  _user: {
+    key: "",
+    identity: {
+      username: "",
+      id: 0,
+    },
+  },
+  _isLoggedIn: false,
+
+  set user(value) {
+    this._user = value;
+
+    if (this._user.identity.id != 0) this.isLoggedIn = true;
+  },
+  get user() {
+    return this._user;
+  },
+  set isLoggedIn(value) {
+    this._isLoggedIn = value;
+  },
+  get isLoggedIn() {
+    return this._isLoggedIn;
+  },
 };
 
 try {
   document.addEventListener("DOMContentLoaded", () => {
     try {
       // Global pageloading
-      f.onLoad();
+      state.isLoading = true;
       collapseBtns.main.forEach((btnId) => {
         const btn = document.getElementById(btnId);
         if (btn) {
@@ -102,7 +136,7 @@ try {
     switch (
       currentPage // Per page loading
     ) {
-      case "home":
+      case "index":
         try {
           collapseBtns.sub.home.forEach((btnId) => {
             const btn = document.getElementById(btnId);
@@ -119,9 +153,11 @@ try {
         }
         try {
           window.addEventListener("popstate", (ev) => {
+            state.isLoading = true;
             const index = ev.state.sub ?? 0;
             state._activeSub = index;
-            f.syncPageUI(index);
+            f.syncPageUI(index, pageMappings.sub.home);
+            state.isLoading = false;
           });
         } catch (err) {
           f.LogError(`Error setting up popstate listener: ${err.message}`);
@@ -141,10 +177,11 @@ try {
           f.LogError(`Error setting up subpage buttons: ${err.message}`);
         }
         try {
-          const s = f.catchUrlParams(
-            window.location.search,
-            pageMappings.sub.home.length,
-          ) ?? 0;
+          const s =
+            f.catchUrlParams(
+              window.location.search,
+              pageMappings.sub.home.length,
+            ) ?? 0;
           state._activeSub = s;
           f.syncPageUI(s);
         } catch (err) {
@@ -154,9 +191,11 @@ try {
       case "war":
         try {
           window.addEventListener("popstate", (ev) => {
+            state.isLoading = true;
             const index = ev.state.sub ?? 0;
             state._activeSub = index;
             f.syncPageUI(index);
+            state.isLoading = false;
           });
         } catch (err) {
           f.LogError(`Error setting up war page popstate: ${err.message}`);
@@ -184,7 +223,7 @@ try {
           for (const report of reports) {
             const btn = document.createElement("button");
             btn.textContent = `${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
-            btn.classList.add("w3-button", "w3-border", "w3-mobile", "");
+            btn.classList.add("w3-button", "w3-border", "w3-mobile");
             const resultColor = () => {
               switch (report.result) {
                 case 1:
@@ -226,7 +265,7 @@ try {
       case "abtUs":
         break;
     }
-  f.onLoadComplete();
+    state.isLoading = false;
   });
 } catch (err) {
   f.LogError(`Error initializing page: ${err.message}`);

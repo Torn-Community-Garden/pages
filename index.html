@@ -11,7 +11,7 @@
         <link rel="stylesheet"
             href="https://www.w3schools.com/lib/w3-colors-2025.css">
     </head>
-    <body data-page="home">
+    <body data-page="index">
         <script src="index.js" type="module"></script>
         <script src="functions.js" type="module"></script>
         <div id="loadingModal" class="w3-modal">
@@ -55,7 +55,7 @@
                         style="font-size: 23px;"></button>
                     <div
                         id="logInCollapse"
-                        class="w3-dropdown-content w3-bar-block w3-padding w3-2025-orangeade bean-h-gradient-orange w3-show"
+                        class="w3-dropdown-content w3-bar-block w3-padding w3-2025-orangeade bean-h-gradient-orange"
                         style="right: 0;top: 39px;">
                         <button id="logInClose-Btn"
                             data-collapse="logInCollapse"
@@ -86,13 +86,13 @@
                     Us</button>
             </div>
             <div class="w3-bar w3-card w3-orange">
-                <button id="homeMainPage-Btn"
+                <button id="homeMainPage-Btn" data-sub="homeMainPage"
                     class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Home</button>
-                <button id="newspaperPage-Btn"
-                    class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Newspaper</button>
-                <button id="rulesPage-Btn"
+                <button id="newspaperPage-Btn" data-sub="newspaperPage"
+                    class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small w3-disabled">Newspaper</button>
+                <button id="rulesPage-Btn" data-sub="rulesPage"
                     class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Rules</button>
-                <button id="calendarPage-Btn"
+                <button id="calendarPage-Btn" data-sub="calendarPage"
                     class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small w3-disabled">Calendar</button>
                 <div class="w3-dropdown-click w3-mobile">
                     <button id="subCollapse-Btn"
@@ -100,13 +100,13 @@
                         class="w3-button w3-text-white fa fa-chevron-down w3-hover-light-blue w3-hide-medium w3-hide-large"
                         style="width: 100%;"></button>
                     <span id="subCollapse" class="w3-dropdown-content">
-                        <button id="homeMainPage-CBtn"
+                        <button id="homeMainPage-CBtn" data-sub="homeMainPage"
                             class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile">Home</button>
-                        <button id="newspaperPage-CBtn"
-                            class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile">Newspaper</button>
-                        <button id="rulesPage-CBtn"
+                        <button id="newspaperPage-CBtn" data-sub="newspaperPage"
+                            class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-disabled">Newspaper</button>
+                        <button id="rulesPage-CBtn" data-sub="rulesPage"
                             class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile">Rules</button>
-                        <button id="calendarPage-CBtn"
+                        <button id="calendarPage-CBtn" data-sub="calendarPage"
                             class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-disabled">Calendar</button>
                     </span>
                 </div>

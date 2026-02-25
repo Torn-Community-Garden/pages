@@ -1,25 +1,9 @@
 import reportsData from "./resources/reports.json" with { type: "json" };
 const currentPage = document.body.dataset.page;
-const pageMappings = {
-  main: [
-    { file: "index.html", buttons: ["homePage-Btn"] },
-    { file: "war.html", buttons: ["warPage-Btn", "warPage-CBtn"] },
-    { file: "guides_tools.html", buttons: ["gntPage-Btn", "gntPage-CBtn"] },
-    { file: "aboutus.html", buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
-  ],
-  sub: {
-    home: [
-      { id: "homeMainPage", buttons: ["homeMainPage-Btn"] },
-      { id: "newspaperPage", buttons: ["newspaperPage-Btn"] },
-      { id: "rulesPage", buttons: ["rulesPage-Btn"] },
-      { id: "calendarPage", buttons: ["calendarPage-Btn"], },
-    ],
-  },
-};
 
 class Functions {
   /**
-   * @param {number | null} pageLength 
+   * @param {number | null} pageLength
    */
   catchUrlParams(urlSearch, pageLength = null) {
     try {
@@ -62,7 +46,8 @@ class Functions {
   }
   getReports(year) {
     try {
-      const data = year === 2026 ? reportsData.reports.y2026 : reportsData.reports.y2025;
+      const data =
+        year === 2026 ? reportsData.reports.y2026 : reportsData.reports.y2025;
       if (!data) console.warn("Reports data not found.");
       return data;
     } catch (err) {
@@ -73,42 +58,44 @@ class Functions {
     console.error(message);
     //window.location.assign(`oops.html`);
   }
-  syncPageUI(pageIndex) {
-    this.onLoad();
+  /**
+   *
+   * @param {number} pageIndex
+   * @param {Array[]} pagemap
+   */
+  syncPageUI(pageIndex, pagemap) {
     try {
-      switch (currentPage) {
-        case "home":
-          pageMappings.sub.home.forEach((page, index) => {
-            const pageElem = document.getElementById(page.id).children[0];
+      pagemap.forEach((page, index) => {
+        page.forEach((btnId) => {
+          const btn = document.getElementById(btnId);
+          if (btn) {
+            const pageElem = document.getElementById(btn.dataset.sub)
+              .children[0];
             const isActive = index === pageIndex;
 
             if (pageElem) {
               pageElem.classList.toggle("w3-show", isActive);
               pageElem.classList.toggle("w3-hide", !isActive);
-              if (pageIndex !== 0)
-                document
-                  .getElementById("homePageBanner")
-                  .classList.add("w3-hide");
-              else
-                document
-                  .getElementById("homePageBanner")
-                  .classList.remove("w3-hide");
             }
-            page.buttons.forEach((btnId) => {
-              const btn = document.getElementById(btnId);
-              if (btn) this.updateActiveBtnStyle(btn, isActive);
-            });
-          });
-          break;
-      }
-      this.onLoadComplete();
+            if (currentPage === "home" && pageIndex === 0)
+              document
+                .getElementById("homePageBanner")
+                .classList.remove("w3-hide");
+            else if (currentPage === "home")
+              document
+                .getElementById("homePageBanner")
+                .classList.add("w3-hide");
+          }
+          this.updateActiveBtnStyle(btn, isActive);
+        });
+      });
     } catch (err) {
       this.LogError(`Error syncing UI: ${err.message}`);
     }
   }
   /**
-   * @param btn {HTMLButtonElement}
-   * @param isActive {boolean}
+   * @param {HTMLButtonElement} btn
+   * @param {boolean} isActive
    */
   updateActiveBtnStyle(btn, isActive) {
     try {
