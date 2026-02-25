@@ -69,32 +69,37 @@ class Functions {
     }
   }
   LogError(message) {
-    console.error(message, { caller: this.LogError.caller });
+    console.error(message);
     //window.location.assign(`oops.html`);
   }
-  syncHomePageUI(pageIndex) {
+  syncPageUI(pageIndex) {
     this.onLoad();
-    if (currentPage !== "home") return;
     try {
-      pageMappings.sub.home.forEach((page, index) => {
-        const pageElem = document.getElementById(page.id).children[0];
-        const isActive = index === pageIndex;
+      switch (currentPage) {
+        case "home":
+          pageMappings.sub.home.forEach((page, index) => {
+            const pageElem = document.getElementById(page.id).children[0];
+            const isActive = index === pageIndex;
 
-        if (pageElem) {
-          pageElem.classList.toggle("w3-show", isActive);
-          pageElem.classList.toggle("w3-hide", !isActive);
-          if (pageIndex !== 0)
-            document.getElementById("homePageBanner").classList.add("w3-hide");
-          else
-            document
-              .getElementById("homePageBanner")
-              .classList.remove("w3-hide");
-        }
-        page.buttons.forEach((btnId) => {
-          const btn = document.getElementById(btnId);
-          if (btn) this.updateActiveBtnStyle(btn, isActive);
-        });
-      });
+            if (pageElem) {
+              pageElem.classList.toggle("w3-show", isActive);
+              pageElem.classList.toggle("w3-hide", !isActive);
+              if (pageIndex !== 0)
+                document
+                  .getElementById("homePageBanner")
+                  .classList.add("w3-hide");
+              else
+                document
+                  .getElementById("homePageBanner")
+                  .classList.remove("w3-hide");
+            }
+            page.buttons.forEach((btnId) => {
+              const btn = document.getElementById(btnId);
+              if (btn) this.updateActiveBtnStyle(btn, isActive);
+            });
+          });
+          break;
+      }
     } catch (err) {
       this.LogError(`Error syncing UI: ${err.message}`);
     } finally {

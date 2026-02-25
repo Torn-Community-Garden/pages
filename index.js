@@ -1,6 +1,31 @@
 import { Functions } from "./functions.js";
 const f = new Functions();
 const currentPage = document.body.dataset.page;
+const authState = {
+  _user: {
+    key: "",
+    identity: {
+      username: "",
+      id: 0,
+    },
+  },
+  _isLoggedIn: false,
+
+  set user(value) {
+    this._user = value;
+
+    if (this._user.identity.id != 0) this.isLoggedIn = true;
+  },
+  get user() {
+    return this._user;
+  },
+  set isLoggedIn(value) {
+    this._isLoggedIn = value;
+  },
+  get isLoggedIn() {
+    return this._isLoggedIn;
+  },
+};
 const pageMappings = {
   main: [
     { buttons: ["homePage-Btn"] },
@@ -31,14 +56,14 @@ const homeState = {
       if (this._activeSub === value) return;
       this._activeSub = value;
 
-      f.syncHomePageUI(value);
+      f.syncPageUI(value);
 
       const newUrl =
         window.location.href.endsWith("pages") ||
         window.location.href.endsWith("pages/")
           ? `index.html?sub=${value}`
           : `?sub=${value}`;
-      window.history.pushState({ sub: value }, "", newUrl);
+      window.history.pushState({ sub: value, page: currentPage }, "", newUrl);
     } catch (err) {
       f.LogError(`Error setting active subpage: ${err.message}`);
     }
@@ -49,9 +74,10 @@ const homeState = {
 };
 
 try {
-  f.onLoad();
   document.addEventListener("DOMContentLoaded", () => {
     try {
+      // Global pageloading
+      f.onLoad();
       collapseBtns.main.forEach((btnId) => {
         const btn = document.getElementById(btnId);
         if (btn) {
@@ -69,8 +95,13 @@ try {
             });
         });
       });
-    } catch (err) { f.LogError(`Error setting up main page buttons: ${err.message}`); }
-    switch (currentPage) {
+    } catch (err) {
+      f.LogError(`Error setting up main page buttons: ${err.message}`);
+    }
+
+    switch (
+      currentPage // Per page loading
+    ) {
       case "home":
         try {
           collapseBtns.sub.home.forEach((btnId) => {
@@ -90,7 +121,7 @@ try {
           window.addEventListener("popstate", (ev) => {
             const index = ev.state.sub ?? 0;
             homeState._activeSub = index;
-            f.syncHomePageUI(index);
+            f.syncPageUI(index);
           });
         } catch (err) {
           f.LogError(`Error setting up popstate listener: ${err.message}`);
@@ -110,15 +141,12 @@ try {
           f.LogError(`Error setting up subpage buttons: ${err.message}`);
         }
         try {
-          const urlParams = new URLSearchParams(window.location.search);
-          const initialPage = parseInt(urlParams.get("sub")) || 0;
-          homeState._activeSub = initialPage;
-          f.syncHomePageUI(initialPage);
           homeState._activeSub =
             f.catchUrlParams(
               window.location.search,
               pageMappings.sub.home.length,
             ) ?? 0;
+          f.syncPageUI(initialPage);
         } catch (err) {
           f.LogError(`Error processing URL parameters: ${err.message}`);
         }
@@ -128,7 +156,7 @@ try {
           window.addEventListener("popstate", (ev) => {
             const index = ev.state.sub ?? 0;
             homeState._activeSub = index;
-            f.syncHomePageUI(index);
+            f.syncPageUI(index);
           });
         } catch (err) {
           f.LogError(`Error setting up war page popstate: ${err.message}`);
@@ -170,7 +198,8 @@ try {
             btn.addEventListener("click", () => {
               try {
                 const frame = document.getElementById("repFrame");
-                if (frame) frame.setAttribute("src", report.file_name);
+                if (frame)
+                  frame.setAttribute("src", `WarReports/${report.file_name}`);
                 const buttons = document
                   .getElementById("reportMenu")
                   .getElementsByTagName("button");
@@ -199,4 +228,6 @@ try {
     }
   });
   f.onLoadComplete();
-} catch (err) { f.LogError(`Error initializing page: ${err.message}`); }
+} catch (err) {
+  f.LogError(`Error initializing page: ${err.message}`);
+}
