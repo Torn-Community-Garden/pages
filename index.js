@@ -179,6 +179,8 @@ try {
             console.warn("Reports data not found.");
             return;
           }
+          const menu = document.getElementById("reportMenu");
+          const cMenu = document.getElementById("reportMenuCollapse");
           for (const report of reports) {
             const btn = document.createElement("button");
             btn.textContent = `${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
@@ -212,10 +214,8 @@ try {
               }
             });
 
-            document.getElementById("reportMenu").appendChild(btn);
-            document
-              .getElementById("reportMenuCollapse")
-              .appendChild(btn.cloneNode(true));
+            if (menu) menu.appendChild(btn);
+            if (cMenu) cMenu.appendChild(btn.cloneNode(true));
           }
         } catch (err) {
           f.LogError(`Error loading war reports: ${err.message}`);
