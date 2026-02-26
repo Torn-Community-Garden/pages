@@ -11,7 +11,7 @@
         <link rel="stylesheet"
             href="https://www.w3schools.com/lib/w3-colors-2025.css">
     </head>
-    <body data-page="index">
+    <body data-page="index" class="w3-pale-blue">
         <script src="index.js" type="module"></script>
         <script src="functions.js" type="module"></script>
         <div id="loadingModal" class="w3-modal">
@@ -122,21 +122,21 @@
         <section id="subPages" class="w3-container">
             <div id="homeMainPage"
                 class="w3-container">
-                <div class="w3-white">
-                    <div class="w3-center">
+                <div>
+                    <div class="w3-white w3-center w3-margin-bottom">
                         <h1>Welcome to the Garden!</h1>
                         <div style="height:2px;width:100%;"
                             class="w3-2025-orangeade bean-v-gradient-blue"></div>
                     </div>
-                    <div class="w3-flex w3-card">
+                    <div class="w3-flex">
                         <div
-                            class="w3-container w3-blue-gray w3-border-bottom bean-v-gradient-blue
-                            w3-mobile w3-hide-small"
-                            style="width: 30%;">
+                            class="w3-container w3-border-bottom
+                            w3-mobile w3-hide-small w3-margin-right"
+                            style="width: 30%;background: url(./resources/Graphics/backdrop_day.jpg) center no-repeat;">
                             <h2 class="w3-center">Garden News</h2>
                             <span>News here...</span>
                         </div>
-                        <div class="w3-mobile"
+                        <div class="w3-mobile w3-white"
                             style="width: 70%;">
                             <h2 class="w3-center">Pinboard</h2>
                             <div class="w3-flex w3-border-top w3-mobile">
@@ -144,8 +144,7 @@
                                     style="width: 50%;">
                                     <h3>Faction Trading</h3>
                                     <span>
-                                        <p>Current prices of items we are
-                                            buying.</p>
+                                        <p>Current prices.</p>
                                         <div class="w3-flex w3-border-bottom">
                                             <div
                                                 class="w3-padding w3-border-right"
@@ -174,7 +173,8 @@
                         </div>
                     </div>
                     <div
-                        class="w3-blue-gray w3-hide-large w3-hide-medium w3-padding bean-v-gradient-blue">
+                        class="w3-hide-large w3-hide-medium w3-padding w3-margin-top"
+                        style="background: url(./resources/Graphics/backdrop_day.jpg) center no-repeat;">
                         <h2 class="w3-mobile w3-transparent w3-center">Garden
                             News</h2>
                         <p>News here...</p>

@@ -237,10 +237,11 @@ try {
             if (resultColor() != undefined) btn.classList.add(resultColor());
             btn.style.width = "100%";
             btn.addEventListener("click", () => {
+              state.isLoading = true;
               try {
                 const frame = document.getElementById("repFrame");
                 if (frame)
-                  frame.setAttribute("src", `/WarReports/${report.file_name}`);
+                  frame.setAttribute("src", `./WarReports/${report.file_name}`);
                 const buttons = document
                   .getElementById("reportMenu")
                   .getElementsByTagName("button");
@@ -255,6 +256,7 @@ try {
 
             if (menu) menu.appendChild(btn);
             if (cMenu) cMenu.appendChild(btn.cloneNode(false));
+            state.isLoading = false;
           }
         } catch (err) {
           f.LogError(`Error loading war reports: ${err.message}`);
