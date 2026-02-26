@@ -249,6 +249,7 @@ try {
                   b.classList.remove("w3-gray");
                 }
                 btn.classList.add("w3-gray");
+                state.isLoading = false;
               } catch (err) {
                 f.LogError(`Error handling button click: ${err}`);
               }
@@ -256,7 +257,6 @@ try {
 
             if (menu) menu.appendChild(btn);
             if (cMenu) cMenu.appendChild(btn.cloneNode(false));
-            state.isLoading = false;
           }
         } catch (err) {
           f.LogError(`Error loading war reports: ${err.message}`);
