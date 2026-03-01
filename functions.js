@@ -61,7 +61,7 @@ class Functions {
   /**
    *
    * @param {number} pageIndex
-   * @param {Array[]} pagemap
+   * @param {string[][]} pagemap
    */
   syncPageUI(pageIndex, pagemap) {
     try {
