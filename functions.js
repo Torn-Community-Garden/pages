@@ -1,5 +1,21 @@
 import reportsData from "./resources/reports.json" with { type: "json" };
 const currentPage = document.body.dataset.page;
+const pageMappings = {
+  main: [
+    { buttons: ["homePage-Btn"] },
+    { buttons: ["warPage-Btn", "warPage-CBtn"] },
+    { buttons: ["gntPage-Btn", "gntPage-CBtn"] },
+    { buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
+  ],
+  sub: {
+    home: [
+      { buttons: ["homeMainPage-Btn"] },
+      { buttons: ["newspaperPage-Btn"] },
+      { buttons: ["rulesPage-Btn"] },
+      { buttons: ["calendarPage-Btn"] },
+    ],
+  },
+};
 
 class Functions {
   /**
@@ -58,37 +74,39 @@ class Functions {
     console.error(message);
     //window.location.assign(`oops.html`);
   }
-  /**
-   *
-   * @param {number} pageIndex
-   * @param {string[][]} pagemap
-   */
-  syncPageUI(pageIndex, pagemap) {
+  syncPageUI(pageIndex) {
     try {
-      pagemap.forEach((page, index) => {
-        page.forEach((btnId) => {
-          const btn = document.getElementById(btnId);
-          if (btn) {
-            const pageElem = document.getElementById(btn.dataset.sub)
-              .children[0];
-            const isActive = index === pageIndex;
+      switch (currentPage) {
+        case "index":
+          pageMappings.sub.home.forEach((page, index) => {
+            page.buttons.forEach((btnId) => {
+              const btn = document.getElementById(btnId);
+              if (btn) {
+                const pageElem = document.getElementById(btn.dataset.sub)
+                  .children[0];
+                const isActive = index === pageIndex;
 
-            if (pageElem) {
-              pageElem.classList.toggle("w3-show", isActive);
-              pageElem.classList.toggle("w3-hide", !isActive);
-            }
-            if (currentPage === "home" && pageIndex === 0)
-              document
-                .getElementById("homePageBanner")
-                .classList.remove("w3-hide");
-            else if (currentPage === "home")
-              document
-                .getElementById("homePageBanner")
-                .classList.add("w3-hide");
-          }
-          this.updateActiveBtnStyle(btn, isActive);
-        });
-      });
+                if (pageElem) {
+                  pageElem.classList.toggle("w3-show", isActive);
+                  pageElem.classList.toggle("w3-hide", !isActive);
+                }
+                if (pageIndex === 0)
+                  document
+                    .getElementById("homePageBanner")
+                    .classList.remove("w3-hide");
+                else
+                  document
+                    .getElementById("homePageBanner")
+                    .classList.add("w3-hide");
+              }
+              this.updateActiveBtnStyle(btn, isActive);
+            });
+          });
+          break;
+
+        default:
+          break;
+      }
     } catch (err) {
       this.LogError(`Error syncing UI: ${err.message}`);
     }
