@@ -41,7 +41,7 @@ const state = {
             return [];
         }
       };
-      f.syncPageUI(value, pageMap);
+      f.syncPageUI(value, pageMap());
 
       const newUrl =
         window.location.href.endsWith("pages") ||
@@ -222,16 +222,16 @@ try {
           const cMenu = document.getElementById("reportMenuCollapse");
           for (const report of reports) {
             const btn = document.createElement("button");
-            btn.textContent = `${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
-            btn.classList.add("w3-button", "w3-border", "w3-mobile");
+            btn.textContent = `(${report.opponent.tag}) ${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
+            btn.classList.add("w3-button", "w3-border-top", "w3-border-bottom", "w3-mobile");
             const resultColor = () => {
               switch (report.result) {
                 case 1:
-                  return "w3-red";
+                  return "bean-loss";
                 case 2:
-                  return "w3-green";
+                  return "bean-win";
                 case 3:
-                  return "w3-blue";
+                  return "bean-draw";
               }
             };
             if (resultColor() != undefined) btn.classList.add(resultColor());

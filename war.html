@@ -73,9 +73,15 @@
 		</nav>
 		<section class="w3-container w3-padding-16">
 			<br>
-			<div class="w3-container w3-sand w3-card">
-				<div class="w3-quarter w3-content w3-hide-small">
-					<div id="reportMenu" class="w3-bar-block w3-flat-amethyst w3-padding">
+			<div class="w3-container w3-white w3-card">
+			<p>Select a report below to view it.
+				<br>
+				*
+				<span class="w3-green">Win</span>
+				<span class="w3-red">Loss</span>
+			</p>
+				<div class="w3-quarter w3-hide-small w3-padding w3-flat-amethyst">
+					<div id="reportMenu" class="w3-bar-block">
 						<h5 class="w3-center">Opponent Faction (month/day)</h5>
 					</div>
 				</div>
@@ -85,11 +91,11 @@
 						class="w3-bar-item w3-button w3-flat-amethyst w3-padding">
 						<h5 class="w3-center">Opponent Faction (month/day)</h5>
 					</button>
-					<div id="rmCollapse">
+					<div id="rmCollapse" class="w3-dropdown-content w3-bar-block w3-card">
 					</div>
 				</div>
-				<div class="w3-panel w3-threequarter w3-right w3-card">
-					<iframe id="repFrame" class="w3-padding w3-center"
+				<div class="w3-threequarter w3-right w3-card">
+					<iframe id="repFrame" class="w3-center"
 						style="width: 100%;height:700px;"
 						title="War Reports Frame"></iframe>
 				</div>
