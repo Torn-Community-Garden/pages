@@ -164,6 +164,7 @@ class Functions {
   GetTEPrice(userId ,itemId) {
     const te = new TeApi(userId);
     const data = te.PullPrice(itemId);
+    if (data.data.price == undefined) console.warn("Price is undefined", {"data": data})
     return data.data.price;
   }
 }
