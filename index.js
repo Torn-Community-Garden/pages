@@ -25,10 +25,10 @@ const collapseBtns = {
   },
 };
 const themes = {
-  body: {light:"body-light", dark:"body-dark"},
-  main: {light:"main-light", dark:"main-dark"},
-  sub: {light:"sub-light", dark:"sub-dark"},
-  page: {light:"page-light", dark:"page-dark"}
+  body: { light: "body-light", dark: "body-dark" },
+  main: { light: "main-light", dark: "main-dark" },
+  sub: { light: "sub-light", dark: "sub-dark" },
+  page: { light: "page-light", dark: "page-dark" },
 };
 const state = {
   _activeSub: 0,
@@ -85,44 +85,66 @@ const state = {
       case "dark":
         if (currentPage === "index" && this.activeSub === 0) {
           const header = document.getElementById("homePageBanner");
-          header.children[0].setAttribute("src", "resources/Graphics/graphic_night.svg");
-          header.children[1].classList.replace(themes.main.light, themes.main.dark);
+          header.children[0].setAttribute(
+            "src",
+            "resources/Graphics/graphic_night.svg",
+          );
+          header.children[1].classList.replace(
+            themes.main.light,
+            themes.main.dark,
+          );
         }
-        document.getElementById("theme-Btn").classList.replace("fa-moon-o", "fa-sun-o");
+        document
+          .getElementById("theme-Btn")
+          .classList.replace("fa-moon-o", "fa-sun-o");
         const mds = document.getElementsByClassName(themes.main.light);
-        if (mds) for (var md of mds) {
-          if (md) md.classList.replace(themes.main.light, themes.main.dark);
-        }
+        if (mds)
+          for (var md of mds) {
+            if (md) md.classList.replace(themes.main.light, themes.main.dark);
+          }
         const sds = document.getElementsByClassName(themes.sub.light);
-        if (sds) for (var sd of sds) {
-          if (sub) sub.classList.replace(themes.sub.light, themes.sub.dark);
-        }
+        if (sds)
+          for (var sd of sds) {
+            if (sub) sub.classList.replace(themes.sub.light, themes.sub.dark);
+          }
         const pds = document.getElementsByClassName(themes.page.light);
-        if (pds) for (var pd of pds) {
-          if (pd) pd.classList.replace(themes.page.light, themes.page.dark);
-        }
+        if (pds)
+          for (var pd of pds) {
+            if (pd) pd.classList.replace(themes.page.light, themes.page.dark);
+          }
         document.body.classList.replace(themes.body.light, themes.body.dark);
         document.body.dataset.theme = "dark";
         break;
       case "light":
         if (currentPage === "index" && activeSubIndex === 0) {
           const header = document.getElementById("homePageBanner");
-          header.children[0].setAttribute("src", "resources/Graphics/graphic_day.svg");
-          header.children[1].classList.replace(themes.main.dark, themes.main.light);
+          header.children[0].setAttribute(
+            "src",
+            "resources/Graphics/graphic_day.svg",
+          );
+          header.children[1].classList.replace(
+            themes.main.dark,
+            themes.main.light,
+          );
         }
-        document.getElementById("theme-Btn").classList.replace("fa-sun-o", "fa-moon-o");
+        document
+          .getElementById("theme-Btn")
+          .classList.replace("fa-sun-o", "fa-moon-o");
         const mls = document.getElementsByClassName(themes.main.dark);
-        if (mls) for (var ml of mls) {
-          if (ml) ml.classList.replace(themes.main.dark, themes.main.light);
-        }
+        if (mls)
+          for (var ml of mls) {
+            if (ml) ml.classList.replace(themes.main.dark, themes.main.light);
+          }
         const sls = document.getElementsByClassName(themes.sub.dark);
-        if (sls) for (var sl of sls) {
-          if (sl) sl.classList.replace(themes.sub.dark, themes.sub.light);
-        }
+        if (sls)
+          for (var sl of sls) {
+            if (sl) sl.classList.replace(themes.sub.dark, themes.sub.light);
+          }
         const pls = document.getElementsByClassName(themes.page.dark);
-        if (pls) for (var pl of pls) {
-          if (pl) pl.classList.replace(themes.page.dark, themes.page.light);
-        }
+        if (pls)
+          for (var pl of pls) {
+            if (pl) pl.classList.replace(themes.page.dark, themes.page.light);
+          }
         document.body.classList.replace(themes.body.dark, themes.body.light);
         document.body.dataset.theme = "light";
         break;
@@ -132,7 +154,7 @@ const state = {
   },
   get theme() {
     return this._theme;
-  }
+  },
 };
 const authState = {
   _user: {
@@ -189,8 +211,7 @@ try {
         if (document.body.dataset.theme === "light") {
           state.theme = "dark";
           localStorage.setItem("tcg_theme_cache", "dark");
-        }
-        else if (document.body.dataset.theme === "dark") {
+        } else if (document.body.dataset.theme === "dark") {
           state.theme = "light";
           localStorage.setItem("tcg_theme_cache", "light");
         }
@@ -248,8 +269,10 @@ try {
               window.location.search,
               pageMappings.sub.home.length,
             ) ?? 0;
-          state._activeSub = s;
-          f.syncPageUI(s);
+          if (s && s != undefined) {
+            state._activeSub = s;
+            f.syncPageUI(s);
+          }
         } catch (err) {
           f.LogError(`Error processing URL parameters: ${err.message}`);
         }
@@ -257,7 +280,7 @@ try {
           const xanprice = f.GetTEPrice(1759387, 206);
           if (xanprice === 0) throw xanprice;
           document.getElementById("price-Xanax").innerHTML = `$${xanprice}`;
-        } catch(err) {
+        } catch (err) {
           f.LogError(`Error updating item price: ${err.message}`);
         }
         break;
@@ -296,7 +319,12 @@ try {
           for (const report of reports) {
             const btn = document.createElement("button");
             btn.textContent = `(${report.opponent.tag}) ${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
-            btn.classList.add("w3-button", "w3-border-top", "w3-border-bottom", "w3-mobile");
+            btn.classList.add(
+              "w3-button",
+              "w3-border-top",
+              "w3-border-bottom",
+              "w3-mobile",
+            );
             const resultColor = () => {
               switch (report.result) {
                 case 1:

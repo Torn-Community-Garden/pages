@@ -99,8 +99,8 @@ class Functions {
                   document
                     .getElementById("homePageBanner")
                     .classList.add("w3-hide");
-              }
               this.updateActiveBtnStyle(btn, isActive);
+              }
             });
           });
           break;

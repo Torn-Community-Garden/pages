@@ -5,7 +5,7 @@ class TeApi {
         this.user_id = uid;
     }
     async PullPrice(itemId) {
-        const response = await fetch(`${base_url}/api/price?user_id=${this.user_id}&item_id=${itemId}`)
+        const response = await fetch(`${this.base_url}/api/price?user_id=${this.user_id}&item_id=${itemId}`)
             .catch((error) => {
                 console.error("Error fetching data:", error);
                 return null;
