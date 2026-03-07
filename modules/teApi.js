@@ -5,10 +5,14 @@ class TeApi {
         this.user_id = uid;
     }
     async PullPrice(itemId) {
+        try {
         const response = await fetch(`${this.base_url}/api/price?user_id=${this.user_id}&item_id=${itemId}`);
         if (!response.ok) throw response;
-        console.log("Response: ", {response: response.json()})
-        return await response.json();
+        console.log("Response: ", {response: response})
+        return response.json();
+        } catch (err) {
+            console.error(`Error pulling TE price: ${err.message}`)
+        }
     }
 }
 export { TeApi };

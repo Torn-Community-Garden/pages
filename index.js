@@ -37,7 +37,7 @@ const themes = {
   },
   sub: { light: "sub-light", dark: "sub-dark" },
   page: { light: "page-light", dark: "page-dark" },
-  bdrop: { light: "./resources/Graphics/backdrop_day.jpg", dark: "./resources/Graphics/backdrop_night.jpg"}
+  bdrop: { light: "resources/Graphics/backdrop_day.jpg", dark: "resources/Graphics/backdrop_night.jpg"}
 };
 const state = {
   _activeSub: 0,
@@ -99,16 +99,16 @@ const state = {
         themeSwitch ? themes.headerBanner.light : themes.headerBanner.dark,
       );
       header.children[1].classList.replace(
-        themeSwitch ? themes.main.dark : themes.main.light,
-        themeSwitch ? themes.main.light : themes.main.dark,
+        themeSwitch ? themes.main.dark[0] : themes.main.light[0],
+        themeSwitch ? themes.main.light[0] : themes.main.dark[0],
       );
       const news = document.getElementById("newsPanel");
       const newsC = document.getElementById("newsCPanel");
-      news.style.background.replace(
+      news.style.background = news.style.background.replace(
         themeSwitch ? themes.bdrop.dark : themes.bdrop.light,
         themeSwitch ? themes.bdrop.light : themes.bdrop.dark
       );
-      newsC.style.background.replace(
+      newsC.style.background = newsC.style.background.replace(
         themeSwitch ? themes.bdrop.dark : themes.bdrop.light,
         themeSwitch ? themes.bdrop.light : themes.bdrop.dark
       );
@@ -120,7 +120,7 @@ const state = {
         themeSwitch ? themes.icon.light : themes.icon.dark,
       );
     const mains = document.getElementsByClassName(
-      themeSwitch ? themes.main.dark : themes.main.light,
+      themeSwitch ? themes.main.dark[0] : themes.main.light[0],
     );
     if (mains)
       for (var main of mains) {
@@ -135,6 +135,15 @@ const state = {
           );
         }
       }
+    const mainsH = document.getElementsByClassName(
+      themeSwitch ? themes.main.dark[1] : themes.main.light[1],
+    );
+    if (mainsH) for (var mainH of mainsH) {
+      if (mainH) mainH.classList.replace(
+        themeSwitch ? themes.main.dark[1] : themes.main.light[1],
+        themeSwitch ? themes.main.light[1] : themes.main.dark[1]
+      );
+    }
     const subs = document.getElementsByClassName(
       themeSwitch ? themes.sub.dark : themes.sub.light,
     );
