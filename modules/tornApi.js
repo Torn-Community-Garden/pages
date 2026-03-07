@@ -13,35 +13,36 @@ class TornApi {
       company: false,
     },
   };
-  static storageKey = "torn_api_key";
+  storageKey = "torn_api_key";
+  baseUrl = "https://api.torn.com/v2/";
   constructor(apikey) {
     this.setKey(apikey);
   }
   async setKey(newKey) {
-    await this.verifyKey(newKey);
+    const keyInfo = await this.verifyKey(newKey);
     this.ApiKey.key = newKey;
-    localStorage.setItem(TornApi.storageKey, newKey);
+    localStorage.setItem(this.storageKey, newKey);
   }
   async verifyKey(key) {
-    const data = await this.PullData(key, "key/info");
+    const data = await this.PullData("key/info", key);
+    if (!data || "error" in data) throw data;
+
+    const access = data.info.access;
+
   }
   /**
    * @param {string} key
    * @param {string} selection
    * @param {Array<string>} parameters
    */
-  async PullData(key, selection, parameters = null) {
+  async PullData(selection, key = null, parameters = null) {
     try {
       const param = parameters ? "?" + parameters.join("&") : "";
-      const reqInfo = {
-        url: `https://api.torn.com/v2/${selection}${param}`,
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `ApiKey ${key}`,
-        },
-      };
-      const data = await fetch(reqInfo)
-        .then((response) => response.json())
+      const request = new Request(`${this.baseUrl}${selection}${param}`);
+      request.headers.set("authorization", `ApiKey ${key ? key : this.ApiKey.key}`);
+      request.headers.set("Content-type", "application/json");
+      const data = await fetch(request)
+        .then((response) => {if (response.ok) return response.json(); else throw response;})
         .catch((error) => {
           console.error("Error fetching data:", error);
           return null;

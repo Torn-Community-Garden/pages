@@ -1,4 +1,5 @@
 import reportsData from "./resources/reports.json" with { type: "json" };
+import TeApi from "./modules/teApi";
 const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
@@ -9,10 +10,10 @@ const pageMappings = {
   ],
   sub: {
     home: [
-      { buttons: ["homeMainPage-Btn"] },
-      { buttons: ["newspaperPage-Btn"] },
-      { buttons: ["rulesPage-Btn"] },
-      { buttons: ["calendarPage-Btn"] },
+      { buttons: ["homeMainPage-Btn", "homeMainPage-CBtn"] },
+      { buttons: ["newspaperPage-Btn", "newspaperPage-CBtn"] },
+      { buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
+      { buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
     ],
   },
 };
@@ -122,14 +123,14 @@ class Functions {
           "w3-text-white",
           "w3-hover-text-white",
           "bean-cornerfold-topright",
-          "w3-orange",
+          "w3-light-blue",
         );
       } else {
         btn.classList.remove(
           "w3-text-white",
           "w3-hover-text-white",
           "bean-cornerfold-topright",
-          "w3-orange",
+          "w3-light-blue",
         );
       }
     } catch (err) {
@@ -159,6 +160,18 @@ class Functions {
     } catch (err) {
       this.LogError(`Error hiding loading modal: ${err.message}`);
     }
+  }
+  GetTEPrice(userId ,itemId) {
+    const te = new TeApi(userId);
+    const data = te.PullPrice(itemId);
+    return data.data.price;
+  }
+  switchTheme(activeSubIndex) {
+    const current = document.body.dataset.theme;
+  }
+  initTheme(activeSubIndex) {
+    const themeCache = localStorage.getItem("tcg_theme_cache");
+
   }
 }
 export { Functions };

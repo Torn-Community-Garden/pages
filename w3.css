@@ -164,7 +164,6 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-indigo,.w3-hover-indigo:hover{color:#fff!important;background-color:#3f51b5!important}
 .w3-khaki,.w3-hover-khaki:hover{color:#000!important;background-color:#f0e68c!important}
 .w3-lime,.w3-hover-lime:hover{color:#000!important;background-color:#cddc39!important}
-.w3-orange,.w3-hover-orange:hover{color:#000!important;background-color:#ff9800!important}
 .w3-deep-orange,.w3-hover-deep-orange:hover{color:#fff!important;background-color:#ff5722!important}
 .w3-pink,.w3-hover-pink:hover{color:#fff!important;background-color:#e91e63!important}
 .w3-purple,.w3-hover-purple:hover{color:#fff!important;background-color:#9c27b0!important}
@@ -194,7 +193,6 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-pale-red,.w3-hover-pale-red:hover{color:#000!important;background-color:#ffdddd!important}
 .w3-pale-green,.w3-hover-pale-green:hover{color:#000!important;background-color:#ddffdd!important}
 .w3-pale-yellow,.w3-hover-pale-yellow:hover{color:#000!important;background-color:#ffffcc!important}
-.w3-pale-blue,.w3-hover-pale-blue:hover{color:#000!important;background-color:#ddffff!important}
 .w3-text-amber,.w3-hover-text-amber:hover{color:#ffc107!important}
 .w3-text-aqua,.w3-hover-text-aqua:hover{color:#00ffff!important}
 .w3-text-blue,.w3-hover-text-blue:hover{color:#2196F3!important}
@@ -312,5 +310,16 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .bean-draw
 {background-image:linear-gradient(to right,rgb(62, 90, 168),rgba(255,0,0,0),rgba(255,0,0,0),rgb(62, 90, 168));}
 .bean-hyperlink{color: rgb(72, 128, 233);}
+.bean-cornerfold-all{border-radius:10px 10px 10px 10px;}
 .bean-cornerfold-topright{border-radius:0px 10px 0px 0px;}
 .bean-cornerfold-topleft{border-radius:10px 0px 0px 0px;}
+.body-light{color:#000!important;background-color:#ddffff!important}
+.body-dark{color:#ffffff!important;background-color:#455554!important}
+.main-light{color:#fff!important;background-color: #E2552D!important}
+.main-dark{color:#fff!important;background-color:#253c5f!important}
+.main-hover:hover{color:#fff!important;background-color:#ff9800!important}
+.sub-light, .sub-light:hover{color:#fff!important;background-color:#ff9800!important}
+.sub-dark, .sub-dark:hover{color:#fff!important;background-color:#005871!important}
+.sub-hover:hover{color:#fff!important;background-color:#87CEEB!important}
+.page-light{color:#000!important;background-color:#fff!important}
+.page-dark{color: #fff!important;background-color:#6b8180!important}
