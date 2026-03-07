@@ -105,7 +105,7 @@ const state = {
         const sds = document.getElementsByClassName(themes.sub.light);
         if (sds)
           for (var sd of sds) {
-            if (sub) sub.classList.replace(themes.sub.light, themes.sub.dark);
+            if (sd) sd.classList.replace(themes.sub.light, themes.sub.dark);
           }
         const pds = document.getElementsByClassName(themes.page.light);
         if (pds)
@@ -116,7 +116,7 @@ const state = {
         document.body.dataset.theme = "dark";
         break;
       case "light":
-        if (currentPage === "index" && activeSubIndex === 0) {
+        if (currentPage === "index" && this.activeSub === 0) {
           const header = document.getElementById("homePageBanner");
           header.children[0].setAttribute(
             "src",
