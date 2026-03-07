@@ -1,5 +1,5 @@
 import reportsData from "./resources/reports.json" with { type: "json" };
-import TeApi from "./modules/teApi";
+import TeApi from "./modules/teApi.js";
 const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
@@ -165,13 +165,6 @@ class Functions {
     const te = new TeApi(userId);
     const data = te.PullPrice(itemId);
     return data.data.price;
-  }
-  switchTheme(activeSubIndex) {
-    const current = document.body.dataset.theme;
-  }
-  initTheme(activeSubIndex) {
-    const themeCache = localStorage.getItem("tcg_theme_cache");
-
   }
 }
 export { Functions };
