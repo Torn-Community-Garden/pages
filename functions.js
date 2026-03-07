@@ -1,5 +1,5 @@
 import reportsData from "./resources/reports.json" with { type: "json" };
-import TeApi from "./modules/teApi.js";
+import { TeApi } from "./modules/teApi.js";
 const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
