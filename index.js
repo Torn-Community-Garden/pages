@@ -25,10 +25,19 @@ const collapseBtns = {
   },
 };
 const themes = {
+  icon: { light: "fa-moon-o", dark: "fa-sun-o" },
+  headerBanner: {
+    light: "resources/Graphics/graphic_day.svg",
+    dark: "resources/Graphics/graphic_night.svg",
+  },
   body: { light: "body-light", dark: "body-dark" },
-  main: { light: "main-light", dark: "main-dark" },
+  main: {
+    light: ["main-light", "main-light-hover"],
+    dark: ["main-dark", "main-dark-hover"],
+  },
   sub: { light: "sub-light", dark: "sub-dark" },
   page: { light: "page-light", dark: "page-dark" },
+  bdrop: { light: "./resources/Graphics/backdrop_day.jpg", dark: "./resources/Graphics/backdrop_night.jpg"}
 };
 const state = {
   _activeSub: 0,
@@ -64,7 +73,7 @@ const state = {
       f.onLoad();
       this.loadingTimeout = setTimeout(() => {
         throw new Error("Loading timed out. Try again.");
-      }, 120000);
+      }, 30000);
     } else {
       if (this.loadingTimeout > 0) clearTimeout(this.loadingTimeout);
       f.onLoadComplete();
@@ -81,76 +90,78 @@ const state = {
   },
   set theme(value) {
     if (this._theme === value) return;
-    switch (value) {
-      case "dark":
-        if (currentPage === "index" && this.activeSub === 0) {
-          const header = document.getElementById("homePageBanner");
-          header.children[0].setAttribute(
-            "src",
-            "resources/Graphics/graphic_night.svg",
-          );
-          header.children[1].classList.replace(
-            themes.main.light,
-            themes.main.dark,
-          );
-        }
-        document
-          .getElementById("theme-Btn")
-          .classList.replace("fa-moon-o", "fa-sun-o");
-        const mds = document.getElementsByClassName(themes.main.light);
-        if (mds)
-          for (var md of mds) {
-            if (md) md.classList.replace(themes.main.light, themes.main.dark);
-          }
-        const sds = document.getElementsByClassName(themes.sub.light);
-        if (sds)
-          for (var sd of sds) {
-            if (sd) sd.classList.replace(themes.sub.light, themes.sub.dark);
-          }
-        const pds = document.getElementsByClassName(themes.page.light);
-        if (pds)
-          for (var pd of pds) {
-            if (pd) pd.classList.replace(themes.page.light, themes.page.dark);
-          }
-        document.body.classList.replace(themes.body.light, themes.body.dark);
-        document.body.dataset.theme = "dark";
-        break;
-      case "light":
-        if (currentPage === "index" && this.activeSub === 0) {
-          const header = document.getElementById("homePageBanner");
-          header.children[0].setAttribute(
-            "src",
-            "resources/Graphics/graphic_day.svg",
-          );
-          header.children[1].classList.replace(
-            themes.main.dark,
-            themes.main.light,
-          );
-        }
-        document
-          .getElementById("theme-Btn")
-          .classList.replace("fa-sun-o", "fa-moon-o");
-        const mls = document.getElementsByClassName(themes.main.dark);
-        if (mls)
-          for (var ml of mls) {
-            if (ml) ml.classList.replace(themes.main.dark, themes.main.light);
-          }
-        const sls = document.getElementsByClassName(themes.sub.dark);
-        if (sls)
-          for (var sl of sls) {
-            if (sl) sl.classList.replace(themes.sub.dark, themes.sub.light);
-          }
-        const pls = document.getElementsByClassName(themes.page.dark);
-        if (pls)
-          for (var pl of pls) {
-            if (pl) pl.classList.replace(themes.page.dark, themes.page.light);
-          }
-        document.body.classList.replace(themes.body.dark, themes.body.light);
-        document.body.dataset.theme = "light";
-        break;
-      default:
-        break;
+    const themeSwitch = value === "light";
+
+    if (currentPage === "index" && this.activeSub === 0) {
+      const header = document.getElementById("homePageBanner");
+      header.children[0].setAttribute(
+        "src",
+        themeSwitch ? themes.headerBanner.light : themes.headerBanner.dark,
+      );
+      header.children[1].classList.replace(
+        themeSwitch ? themes.main.dark : themes.main.light,
+        themeSwitch ? themes.main.light : themes.main.dark,
+      );
+      const news = document.getElementById("newsPanel");
+      const newsC = document.getElementById("newsCPanel");
+      news.style.background.replace(
+        themeSwitch ? themes.bdrop.dark : themes.bdrop.light,
+        themeSwitch ? themes.bdrop.light : themes.bdrop.dark
+      );
+      newsC.style.background.replace(
+        themeSwitch ? themes.bdrop.dark : themes.bdrop.light,
+        themeSwitch ? themes.bdrop.light : themes.bdrop.dark
+      );
     }
+    document
+      .getElementById("theme-Btn")
+      .classList.replace(
+        themeSwitch ? themes.icon.dark : themes.icon.light,
+        themeSwitch ? themes.icon.light : themes.icon.dark,
+      );
+    const mains = document.getElementsByClassName(
+      themeSwitch ? themes.main.dark : themes.main.light,
+    );
+    if (mains)
+      for (var main of mains) {
+        if (main) {
+          main.classList.replace(
+            themeSwitch ? themes.main.dark[0] : themes.main.light[0],
+            themeSwitch ? themes.main.light[0] : themes.main.dark[0],
+          );
+          main.classList.replace(
+            themeSwitch ? themes.main.dark[1] : themes.main.light[1],
+            themeSwitch ? themes.main.light[1] : themes.main.dark[1],
+          );
+        }
+      }
+    const subs = document.getElementsByClassName(
+      themeSwitch ? themes.sub.dark : themes.sub.light,
+    );
+    if (subs)
+      for (var sub of subs) {
+        if (sub)
+          sub.classList.replace(
+            themeSwitch ? themes.sub.dark : themes.sub.light,
+            themeSwitch ? themes.sub.light : themes.sub.dark,
+          );
+      }
+    const pages = document.getElementsByClassName(
+      themeSwitch ? themes.page.dark : themes.page.light,
+    );
+    if (pages)
+      for (var page of pages) {
+        if (page)
+          page.classList.replace(
+            themeSwitch ? themes.page.dark : themes.page.light,
+            themeSwitch ? themes.page.light : themes.page.dark,
+          );
+      }
+    document.body.classList.replace(
+      themeSwitch ? themes.body.dark : themes.body.light,
+      themeSwitch ? themes.body.light : themes.body.dark,
+    );
+    document.body.dataset.theme = value;
   },
   get theme() {
     return this._theme;
@@ -206,7 +217,7 @@ try {
       });
       const themeCache = localStorage.getItem("tcg_theme_cache");
       if (themeCache) state.theme = themeCache;
-      else localStorage.setItem("tcg_theme_cache", state._theme);
+      else localStorage.setItem("tcg_theme_cache", state.theme);
       document.getElementById("theme-Btn").addEventListener("click", () => {
         if (document.body.dataset.theme === "light") {
           state.theme = "dark";

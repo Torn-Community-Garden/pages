@@ -10,7 +10,7 @@
         <link rel="stylesheet"
             href="https://www.w3schools.com/lib/w3-colors-2025.css">
     </head>
-    <body data-page="guides_tools" class="w3-pale-blue">
+    <body data-page="guides_tools" data-theme class="body-light">
         <script src="index.js" type="module"></script>
         <script src="functions.js" type="module"></script>
         <div id="loadingModal" class="w3-modal">
@@ -20,71 +20,70 @@
         </div>
         <br>
         <nav class="w3-top w3-mobile">
-            <div class="w3-bar w3-card w3-bold w3-2025-orangeade">
+            <div class="w3-bar w3-card w3-bold main-light">
                 <button
                     id="homePage-Btn" data-main="index.html"
-                    class="w3-bar-item w3-button fa fa-home
-                    w3-text-white w3-hover-orange w3-hover-text-white"
+                    class="w3-bar-item w3-button fa fa-home main-light-hover"
                     style="font-size: 23px;"></button>
                 <button
                     id="warPage-Btn" data-main="war.html"
-                    class="w3-bar-item w3-button w3-hide-small
-                    w3-hover-orange w3-hover-text-white">War</button>
+                    class="w3-bar-item w3-button w3-hide-small main-light-hover">War</button>
                 <button id="gntPage-Btn" data-main="guides_tools.html"
-                    class="w3-bar-item w3-button w3-hide-small w3-orange bean-cornerfold-topright
-                w3-hover-orange w3-hover-text-white w3-text-white">Guides/Tools</button>
+                    class="w3-bar-item w3-button w3-hide-small sub-light bean-cornerfold-top">Guides/Tools</button>
                 <button
                     id="abtUsPage-Btn" data-main="about_us.html"
-                    class="w3-bar-item w3-button
-                        w3-text-white w3-hover-orange w3-hover-text-white">About
+                    class="w3-bar-item w3-button main-light-hover">About
                     Us</button>
                 <button
                     id="navCollapse-Btn" data-collapse="navCollapse"
                     class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
-                    fa fa-bars w3-hover-text-white w3-hover-orange"
+                    fa fa-bars main-light-hover"
                     style="font-size: 23px;"></button>
+                <button
+                    id="theme-Btn"
+                    class="w3-bar-item w3-button w3-right fa fa-moon-o main-light-hover"
+                    style="font-size:23px;"></button>
             </div>
             <div id="navCollapse"
                 class="w3-bar-block w3-card w3-hide-large w3-hide-medium
-                w3-animate-right w3-hide w3-2025-orangeade">
+                w3-animate-right w3-hide main-light">
                 <button
                     id="warPage-CBtn" data-main="war.html"
-                    class="w3-bar-item w3-button w3-hover-orange w3-orange
-                w3-text-white w3-hover-orange w3-hover-text-white">War</button>
+                    class="w3-bar-item w3-button main-light-hover">War</button>
                 <button id="gntPage-CBtn" data-main="guides_tools.html"
-                    class="w3-bar-item w3-button w3-hover-orange">Guides/Tools</button>
+                    class="w3-bar-item w3-button main-light-hover">Guides/Tools</button>
                 <button
                     id="abtUsPage-CBtn" data-main="about_us.html"
-                    class="w3-bar-item w3-button w3-hover-orange">About
+                    class="w3-bar-item w3-button main-light-hover">About
                     Us</button>
             </div>
-            <div class="w3-bar w3-card w3-orange">
+            <div class="w3-bar w3-card sub-light">
                 <button id="subCollapse-Btn"
                     data-collapse="subCollapse"
                     class="w3-bar-item w3-button w3-text-white fa fa-chevron-down w3-hide-medium w3-hide-large"
                     style="width: 100%;"></button>
                 <span id="subCollapse">
                     <button id="scriptsPage-Btn" data-sub="scriptsPage"
-                        class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Scripts</button>
+                        class="w3-bar-item w3-button sub-hover w3-mobile w3-hide-small">Scripts</button>
                     <button id="etPage-Btn" data-sub="etPage"
-                        class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">External
+                        class="w3-bar-item w3-button sub-hover w3-mobile w3-hide-small">External
                         Tools</button>
                     <button id="guidesPage-Btn" data-sub="guidesPage"
-                        class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Guides</button>
+                        class="w3-bar-item w3-button sub-hover w3-mobile w3-hide-small">Guides</button>
                     <button id="tpPage-Btn" data-sub="tpPage"
-                        class="w3-bar-item w3-button w3-hover-light-blue w3-text-white w3-mobile w3-hide-small">Tornpedia</button>
+                        class="w3-bar-item w3-button sub-hover w3-mobile w3-hide-small">Tornpedia</button>
                 </span>
             </div>
         </nav>
         <section class="w3-container w3-padding-16">
             <br>
-            <div class="w3-container w3-sand w3-card">
+            <div class="w3-container w3-card page-light">
                 <div class="w3-quarter"></div>
             </div>
         </section>
         <footer id="footer"
             class="w3-container w3-center w3-card-4 w3-cursive
-            w3-2025-orangeade bean-bottom-gradient-orange">
+            main-light bean-bottom-gradient-orange">
             <p>Torn Community Garden 2023-2026<br> A faction and community @
                 <a class="bean-hyperlink"
                     href="https://www.torn.com">https://www.torn.com</a></p>

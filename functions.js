@@ -120,17 +120,13 @@ class Functions {
     try {
       if (isActive) {
         btn.classList.add(
-          "w3-text-white",
-          "w3-hover-text-white",
-          "bean-cornerfold-topright",
-          "w3-light-blue",
+          "sub-active",
+          "bean-cornerfold-top",
         );
       } else {
         btn.classList.remove(
-          "w3-text-white",
-          "w3-hover-text-white",
-          "bean-cornerfold-topright",
-          "w3-light-blue",
+          "sub-active",
+          "bean-cornerfold-top",
         );
       }
     } catch (err) {
@@ -163,7 +159,7 @@ class Functions {
   }
   GetTEPrice(userId ,itemId) {
     const te = new TeApi(userId);
-    const price = te.PullPrice(itemId);
+    const price = te.PullPrice(itemId).data.price;
     return price;
   }
 }

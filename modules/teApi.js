@@ -7,8 +7,8 @@ class TeApi {
     async PullPrice(itemId) {
         const response = await fetch(`${this.base_url}/api/price?user_id=${this.user_id}&item_id=${itemId}`);
         if (!response.ok) throw response;
-        const price = await response.json().then((data) => {return data.data.price});
-        return price;
+        console.log("Response: ", {response: response.json()})
+        return await response.json();
     }
 }
 export { TeApi };
