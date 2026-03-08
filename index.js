@@ -93,81 +93,78 @@ const state = {
   },
   set theme(value) {
     if (this._theme === value) return;
-    const currentlyLight = this._theme === "light";
+    const toDark = value === "dark";
 
     if (currentPage === "index" && this.activeSub === 0) {
       const header = document.getElementById("homePageBanner");
       header.children[0].setAttribute(
         "src",
-        currentlyLight ? themes.headerBanner.dark : themes.headerBanner.light,
+        toDark ? themes.headerBanner.dark : themes.headerBanner.light,
       );
       header.children[1].classList.toggle(
         themes.main.light[0],
-        !currentlyLight,
+        !toDark,
       );
-      header.children[1].classList.toggle(themes.main.dark[0], currentlyLight);
+      header.children[1].classList.toggle(themes.main.dark[0], toDark);
       const news = document.getElementById("newsPanel");
       const newsC = document.getElementById("newsCPanel");
       news.style.background = news.style.background.replace(
-        currentlyLight ? themes.bdrop.light : themes.bdrop.dark,
-        currentlyLight ? themes.bdrop.dark : themes.bdrop.light,
+        toDark ? themes.bdrop.light : themes.bdrop.dark,
+        toDark ? themes.bdrop.dark : themes.bdrop.light,
       );
       newsC.style.background = newsC.style.background.replace(
-        currentlyLight ? themes.bdrop.light : themes.bdrop.dark,
-        currentlyLight ? themes.bdrop.dark : themes.bdrop.light,
+        toDark ? themes.bdrop.light : themes.bdrop.dark,
+        toDark ? themes.bdrop.dark : themes.bdrop.light,
       );
     }
     document
       .getElementById("theme-Btn")
-      .classList.toggle(themes.icon.light, !currentlyLight);
+      .classList.toggle(themes.icon.light, !toDark);
     document
       .getElementById("theme-Btn")
-      .classList.toggle(themes.icon.dark, currentlyLight);
+      .classList.toggle(themes.icon.dark, toDark);
     const mains = document.querySelectorAll(
-      currentlyLight ? themes.main.light[0] : themes.main.d[0],
+      toDark ? themes.main.light[0] : themes.main.dark[0],
     );
     if (mains)
       for (var main of mains) {
         if (main) {
-          main.classList.toggle(themes.main.dark[0], currentlyLight);
-          main.classList.toggle(themes.main.light[0], !currentlyLight);
-          main.classList.toggle(themes.main.dark[1], currentlyLight);
-          main.classList.toggle(themes.main.light[1], !currentlyLight);
+          main.classList.toggle(themes.main.dark[0], toDark);
+          main.classList.toggle(themes.main.light[0], !toDark);
+          main.classList.toggle(themes.main.dark[1], toDark);
+          main.classList.toggle(themes.main.light[1], !toDark);
         }
       }
     const mainsH = document.querySelectorAll(
-      currentlyLight ? themes.main.light[1] : themes.main.dark[1],
+      toDark ? themes.main.light[1] : themes.main.dark[1],
     );
     if (mainsH)
       for (var mainH of mainsH) {
         if (mainH) 
-          mainH.classList.toggle(themes.main.dark[1], currentlyLight);
-          mainH.classList.toggle(themes.main.light[1], !currentlyLight);
+          mainH.classList.toggle(themes.main.dark[1], toDark);
+          mainH.classList.toggle(themes.main.light[1], !toDark);
       }
     const subs = document.querySelectorAll(
-      currentlyLight ? themes.sub.light : themes.sub.dark,
+      toDark ? themes.sub.light : themes.sub.dark,
     );
     if (subs)
       for (var sub of subs) {
         if (sub)
-          sub.classList.toggle(themes.sub.dark, currentlyLight);
-          sub.classList.toggle(themes.sub.light, !currentlyLight);
+          sub.classList.toggle(themes.sub.dark, toDark);
+          sub.classList.toggle(themes.sub.light, !toDark);
       }
     const pages = document.querySelectorAll(
-      currentlyLight ? themes.page.light : themes.page.dark,
+      toDark ? themes.page.light : themes.page.dark,
     );
     if (pages)
       for (var page of pages) {
         if (page)
-          page.classList.toggle(themes.page.dark, currentlyLight);
-          page.classList.toggle(themes.page.light, !currentlyLight);
+          page.classList.toggle(themes.page.dark, toDark);
+          page.classList.toggle(themes.page.light, !toDark);
       }
-    document.body.classList.toggle(themes.body.dark, currentlyLight);
-    document.body.classList.toggle(themes.body.light, !currentlyLight);
-    document.body.dataset.theme.replace(
-      currentlyLight ? "light" : "dark",
-      currentlyLight ? "dark" : "light",
-    );
+    document.body.classList.toggle(themes.body.dark, toDark);
+    document.body.classList.toggle(themes.body.light, !toDark);
+    document.body.dataset.theme = toDark ? "dark" : "light";
     this._theme = value;
     localStorage.setItem("tcg_theme_cache", value);
   },
@@ -296,7 +293,7 @@ try {
             .then((r) => r.json())
             .then((d) => d.data.price);
           if (xanprice === 0) throw xanprice;
-          document.getElementById("price-Xanax").innerHTML = `$${xanprice}`;
+          document.getElementById("price-Xanax").innerHTML = `$${xanprice.price}`;
         } catch (err) {
           f.LogError(`Error updating item price: ${err.message}`);
         }
