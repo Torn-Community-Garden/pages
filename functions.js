@@ -1,5 +1,4 @@
 import reportsData from "./resources/reports.json" with { type: "json" };
-import { TeApi } from "./modules/teApi.js";
 const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
@@ -156,10 +155,6 @@ class Functions {
     } catch (err) {
       this.LogError(`Error hiding loading modal: ${err.message}`);
     }
-  }
-  GetXanaxPrice(userId ,itemId) {
-    const te = new TeApi(userId);
-    return te.PullPrice(itemId);
   }
 }
 export { Functions };
