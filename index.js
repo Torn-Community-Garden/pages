@@ -130,8 +130,6 @@ const state = {
           if (main) {
             main.classList.toggle(themes.main.dark[0], toDark);
             main.classList.toggle(themes.main.light[0], !toDark);
-            main.classList.toggle(themes.main.dark[1], toDark);
-            main.classList.toggle(themes.main.light[1], !toDark);
           }
         }
       const mainsH = document.querySelectorAll(

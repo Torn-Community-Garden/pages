@@ -41,17 +41,9 @@ class TornApi {
       const request = new Request(`${this.baseUrl}${selection}${param}`);
       request.headers.set("authorization", `ApiKey ${key ? key : this.ApiKey.key}`);
       request.headers.set("Content-type", "application/json");
-      const data = await fetch(request)
-        .then((response) => {if (response.ok) return response.json(); else throw response;})
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-          return null;
-        });
-      if (!data || "error" in data) throw data;
-      return data;
+      return await fetch(request);
     } catch (err) {
       console.error(`Error pulling Torn data: ${err.message}`);
-      return null;
     }
   }
 }
