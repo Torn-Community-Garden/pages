@@ -2,6 +2,18 @@
   "reports": {
     "y2026": [
       {
+        "file_name": "SAND2602.html",
+        "result": 1,
+        "opponent": {
+          "name": "Knuckle Sandwich",
+          "tag": "SAND"
+        },
+        "war_date": {
+          "day": 26,
+          "month": 2
+        }
+      },
+      {
         "file_name": "CAPO1402.html",
         "result": 2,
         "opponent": {

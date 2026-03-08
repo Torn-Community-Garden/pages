@@ -157,10 +157,9 @@ class Functions {
       this.LogError(`Error hiding loading modal: ${err.message}`);
     }
   }
-  GetTEPrice(userId ,itemId) {
+  GetXanaxPrice(userId ,itemId) {
     const te = new TeApi(userId);
-    const price = te.PullPrice(itemId).data.price;
-    return price;
+    return te.PullPrice(itemId);
   }
 }
 export { Functions };

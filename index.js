@@ -37,7 +37,10 @@ const themes = {
   },
   sub: { light: "sub-light", dark: "sub-dark" },
   page: { light: "page-light", dark: "page-dark" },
-  bdrop: { light: "resources/Graphics/backdrop_day.jpg", dark: "resources/Graphics/backdrop_night.jpg"}
+  bdrop: {
+    light: "resources/Graphics/backdrop_day.jpg",
+    dark: "resources/Graphics/backdrop_night.jpg",
+  },
 };
 const state = {
   _activeSub: 0,
@@ -90,87 +93,83 @@ const state = {
   },
   set theme(value) {
     if (this._theme === value) return;
-    const themeSwitch = value === "light";
+    const currentlyLight = this._theme === "light";
 
     if (currentPage === "index" && this.activeSub === 0) {
       const header = document.getElementById("homePageBanner");
       header.children[0].setAttribute(
         "src",
-        themeSwitch ? themes.headerBanner.light : themes.headerBanner.dark,
+        currentlyLight ? themes.headerBanner.dark : themes.headerBanner.light,
       );
-      header.children[1].classList.replace(
-        themeSwitch ? themes.main.dark[0] : themes.main.light[0],
-        themeSwitch ? themes.main.light[0] : themes.main.dark[0],
+      header.children[1].classList.toggle(
+        themes.main.light[0],
+        !currentlyLight,
       );
+      header.children[1].classList.toggle(themes.main.dark[0], currentlyLight);
       const news = document.getElementById("newsPanel");
       const newsC = document.getElementById("newsCPanel");
       news.style.background = news.style.background.replace(
-        themeSwitch ? themes.bdrop.dark : themes.bdrop.light,
-        themeSwitch ? themes.bdrop.light : themes.bdrop.dark
+        currentlyLight ? themes.bdrop.light : themes.bdrop.dark,
+        currentlyLight ? themes.bdrop.dark : themes.bdrop.light,
       );
       newsC.style.background = newsC.style.background.replace(
-        themeSwitch ? themes.bdrop.dark : themes.bdrop.light,
-        themeSwitch ? themes.bdrop.light : themes.bdrop.dark
+        currentlyLight ? themes.bdrop.light : themes.bdrop.dark,
+        currentlyLight ? themes.bdrop.dark : themes.bdrop.light,
       );
     }
     document
       .getElementById("theme-Btn")
-      .classList.replace(
-        themeSwitch ? themes.icon.dark : themes.icon.light,
-        themeSwitch ? themes.icon.light : themes.icon.dark,
-      );
-    const mains = document.getElementsByClassName(
-      themeSwitch ? themes.main.dark[0] : themes.main.light[0],
+      .classList.toggle(themes.icon.light, !currentlyLight);
+    document
+      .getElementById("theme-Btn")
+      .classList.toggle(themes.icon.dark, currentlyLight);
+    const mains = document.querySelectorAll(
+      currentlyLight ? themes.main.light[0] : themes.main.d[0],
     );
     if (mains)
       for (var main of mains) {
         if (main) {
-          main.classList.replace(
-            themeSwitch ? themes.main.dark[0] : themes.main.light[0],
-            themeSwitch ? themes.main.light[0] : themes.main.dark[0],
-          );
-          main.classList.replace(
-            themeSwitch ? themes.main.dark[1] : themes.main.light[1],
-            themeSwitch ? themes.main.light[1] : themes.main.dark[1],
-          );
+          main.classList.toggle(themes.main.dark[0], currentlyLight);
+          main.classList.toggle(themes.main.light[0], !currentlyLight);
+          main.classList.toggle(themes.main.dark[1], currentlyLight);
+          main.classList.toggle(themes.main.light[1], !currentlyLight);
         }
       }
-    const mainsH = document.getElementsByClassName(
-      themeSwitch ? themes.main.dark[1] : themes.main.light[1],
+    const mainsH = document.querySelectorAll(
+      currentlyLight ? themes.main.light[1] : themes.main.dark[1],
     );
-    if (mainsH) for (var mainH of mainsH) {
-      if (mainH) mainH.classList.replace(
-        themeSwitch ? themes.main.dark[1] : themes.main.light[1],
-        themeSwitch ? themes.main.light[1] : themes.main.dark[1]
-      );
-    }
-    const subs = document.getElementsByClassName(
-      themeSwitch ? themes.sub.dark : themes.sub.light,
+    if (mainsH)
+      for (var mainH of mainsH) {
+        if (mainH) 
+          mainH.classList.toggle(themes.main.dark[1], currentlyLight);
+          mainH.classList.toggle(themes.main.light[1], !currentlyLight);
+      }
+    const subs = document.querySelectorAll(
+      currentlyLight ? themes.sub.light : themes.sub.dark,
     );
     if (subs)
       for (var sub of subs) {
         if (sub)
-          sub.classList.replace(
-            themeSwitch ? themes.sub.dark : themes.sub.light,
-            themeSwitch ? themes.sub.light : themes.sub.dark,
-          );
+          sub.classList.toggle(themes.sub.dark, currentlyLight);
+          sub.classList.toggle(themes.sub.light, !currentlyLight);
       }
-    const pages = document.getElementsByClassName(
-      themeSwitch ? themes.page.dark : themes.page.light,
+    const pages = document.querySelectorAll(
+      currentlyLight ? themes.page.light : themes.page.dark,
     );
     if (pages)
       for (var page of pages) {
         if (page)
-          page.classList.replace(
-            themeSwitch ? themes.page.dark : themes.page.light,
-            themeSwitch ? themes.page.light : themes.page.dark,
-          );
+          page.classList.toggle(themes.page.dark, currentlyLight);
+          page.classList.toggle(themes.page.light, !currentlyLight);
       }
-    document.body.classList.replace(
-      themeSwitch ? themes.body.dark : themes.body.light,
-      themeSwitch ? themes.body.light : themes.body.dark,
+    document.body.classList.toggle(themes.body.dark, currentlyLight);
+    document.body.classList.toggle(themes.body.light, !currentlyLight);
+    document.body.dataset.theme.replace(
+      currentlyLight ? "light" : "dark",
+      currentlyLight ? "dark" : "light",
     );
-    document.body.dataset.theme = value;
+    this._theme = value;
+    localStorage.setItem("tcg_theme_cache", value);
   },
   get theme() {
     return this._theme;
@@ -228,13 +227,8 @@ try {
       if (themeCache) state.theme = themeCache;
       else localStorage.setItem("tcg_theme_cache", state.theme);
       document.getElementById("theme-Btn").addEventListener("click", () => {
-        if (document.body.dataset.theme === "light") {
-          state.theme = "dark";
-          localStorage.setItem("tcg_theme_cache", "dark");
-        } else if (document.body.dataset.theme === "dark") {
-          state.theme = "light";
-          localStorage.setItem("tcg_theme_cache", "light");
-        }
+        if (document.body.dataset.theme === "light") state.theme = "dark";
+        else state.theme = "light";
       });
     } catch (err) {
       f.LogError(`Error setting up main page buttons: ${err.message}`);
@@ -297,7 +291,10 @@ try {
           f.LogError(`Error processing URL parameters: ${err.message}`);
         }
         try {
-          const xanprice = f.GetTEPrice(1759387, 206);
+          const xanprice = f
+            .GetXanaxPrice(1759387, 206)
+            .then((r) => r.json())
+            .then((d) => d.data.price);
           if (xanprice === 0) throw xanprice;
           document.getElementById("price-Xanax").innerHTML = `$${xanprice}`;
         } catch (err) {
