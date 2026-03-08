@@ -137,27 +137,24 @@ const state = {
     );
     if (mainsH)
       for (var mainH of mainsH) {
-        if (mainH) 
-          mainH.classList.toggle(themes.main.dark[1], toDark);
-          mainH.classList.toggle(themes.main.light[1], !toDark);
+        if (mainH) mainH.classList.toggle(themes.main.dark[1], toDark);
+        mainH.classList.toggle(themes.main.light[1], !toDark);
       }
     const subs = document.querySelectorAll(
       toDark ? themes.sub.light : themes.sub.dark,
     );
     if (subs)
       for (var sub of subs) {
-        if (sub)
-          sub.classList.toggle(themes.sub.dark, toDark);
-          sub.classList.toggle(themes.sub.light, !toDark);
+        if (sub) sub.classList.toggle(themes.sub.dark, toDark);
+        sub.classList.toggle(themes.sub.light, !toDark);
       }
     const pages = document.querySelectorAll(
       toDark ? themes.page.light : themes.page.dark,
     );
     if (pages)
       for (var page of pages) {
-        if (page)
-          page.classList.toggle(themes.page.dark, toDark);
-          page.classList.toggle(themes.page.light, !toDark);
+        if (page) page.classList.toggle(themes.page.dark, toDark);
+        page.classList.toggle(themes.page.light, !toDark);
       }
     document.body.classList.toggle(themes.body.dark, toDark);
     document.body.classList.toggle(themes.body.light, !toDark);
@@ -285,10 +282,17 @@ try {
           f.LogError(`Error processing URL parameters: ${err.message}`);
         }
         try {
-          const xanprice = f
-            .GetXanaxPrice(1759387, 206)
-            .then((r) => r.json(), (r) => console.error(r));
-          document.getElementById("price-Xanax").innerHTML = `$${xanprice.data.price}`;
+          fetch(
+            `https://tornexchange.com/api/price?user_id=1759387&item_id=206`,
+            {
+              headers: { "Content-Type": "application/json" },
+            },
+          )
+            .then((r) => r.json())
+            .then((d) => {
+              document.getElementById("price-Xanax").innerHTML =
+                `$${d.data.price}`;
+            });
         } catch (err) {
           f.LogError(`Error updating item price: ${err.message}`);
         }
