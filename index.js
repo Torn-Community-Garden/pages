@@ -121,7 +121,7 @@ const state = {
       .getElementById("theme-Btn")
       .classList.toggle(themes.icon.dark, toDark);
     const mains = document.querySelectorAll(
-      toDark ? themes.main.light[0] : themes.main.dark[0],
+      toDark ? `.${themes.main.light[0]}` : `.${themes.main.dark[0]}`,
     );
     if (mains)
       for (var main of mains) {
@@ -133,7 +133,7 @@ const state = {
         }
       }
     const mainsH = document.querySelectorAll(
-      toDark ? themes.main.light[1] : themes.main.dark[1],
+      toDark ? `.${themes.main.light[1]}` : `.${themes.main.dark[1]}`,
     );
     if (mainsH)
       for (var mainH of mainsH) {
@@ -141,7 +141,7 @@ const state = {
         mainH.classList.toggle(themes.main.light[1], !toDark);
       }
     const subs = document.querySelectorAll(
-      toDark ? themes.sub.light : themes.sub.dark,
+      toDark ? `.${themes.sub.light}` : `.${themes.sub.dark}`,
     );
     if (subs)
       for (var sub of subs) {
@@ -149,7 +149,7 @@ const state = {
         sub.classList.toggle(themes.sub.light, !toDark);
       }
     const pages = document.querySelectorAll(
-      toDark ? themes.page.light : themes.page.dark,
+      toDark ? `.${themes.page.light}` : `.${themes.page.dark}`,
     );
     if (pages)
       for (var page of pages) {
