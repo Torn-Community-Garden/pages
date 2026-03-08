@@ -93,74 +93,96 @@ const state = {
   },
   set theme(value) {
     if (this._theme === value) return;
-    const toDark = value === "dark";
+    try {
+      this.isLoading = true;
+      const toDark = value === "dark";
 
-    if (currentPage === "index" && this.activeSub === 0) {
-      const header = document.getElementById("homePageBanner");
-      header.children[0].setAttribute(
-        "src",
-        toDark ? themes.headerBanner.dark : themes.headerBanner.light,
+      if (currentPage === "index" && this.activeSub === 0) {
+        const header = document.getElementById("homePageBanner");
+        header.children[0].setAttribute(
+          "src",
+          toDark ? themes.headerBanner.dark : themes.headerBanner.light,
+        );
+        header.children[1].classList.toggle(themes.main.light[0], !toDark);
+        header.children[1].classList.toggle(themes.main.dark[0], toDark);
+        const news = document.getElementById("newsPanel");
+        const newsC = document.getElementById("newsCPanel");
+        news.style.background = news.style.background.replace(
+          toDark ? themes.bdrop.light : themes.bdrop.dark,
+          toDark ? themes.bdrop.dark : themes.bdrop.light,
+        );
+        newsC.style.background = newsC.style.background.replace(
+          toDark ? themes.bdrop.light : themes.bdrop.dark,
+          toDark ? themes.bdrop.dark : themes.bdrop.light,
+        );
+      }
+      document
+        .getElementById("theme-Btn")
+        .classList.toggle(themes.icon.light, !toDark);
+      document
+        .getElementById("theme-Btn")
+        .classList.toggle(themes.icon.dark, toDark);
+      const mains = document.querySelectorAll(
+        toDark ? `.${themes.main.light[0]}` : `.${themes.main.dark[0]}`,
       );
-      header.children[1].classList.toggle(themes.main.light[0], !toDark);
-      header.children[1].classList.toggle(themes.main.dark[0], toDark);
-      const news = document.getElementById("newsPanel");
-      const newsC = document.getElementById("newsCPanel");
-      news.style.background = news.style.background.replace(
-        toDark ? themes.bdrop.light : themes.bdrop.dark,
-        toDark ? themes.bdrop.dark : themes.bdrop.light,
-      );
-      newsC.style.background = newsC.style.background.replace(
-        toDark ? themes.bdrop.light : themes.bdrop.dark,
-        toDark ? themes.bdrop.dark : themes.bdrop.light,
-      );
-    }
-    document
-      .getElementById("theme-Btn")
-      .classList.toggle(themes.icon.light, !toDark);
-    document
-      .getElementById("theme-Btn")
-      .classList.toggle(themes.icon.dark, toDark);
-    const mains = document.querySelectorAll(
-      toDark ? `.${themes.main.light[0]}` : `.${themes.main.dark[0]}`,
-    );
-    if (mains)
-      for (var main of mains) {
-        if (main) {
-          main.classList.toggle(themes.main.dark[0], toDark);
-          main.classList.toggle(themes.main.light[0], !toDark);
-          main.classList.toggle(themes.main.dark[1], toDark);
-          main.classList.toggle(themes.main.light[1], !toDark);
+      if (mains)
+        for (var main of mains) {
+          if (main) {
+            main.classList.toggle(themes.main.dark[0], toDark);
+            main.classList.toggle(themes.main.light[0], !toDark);
+            main.classList.toggle(themes.main.dark[1], toDark);
+            main.classList.toggle(themes.main.light[1], !toDark);
+          }
         }
-      }
-    const mainsH = document.querySelectorAll(
-      toDark ? `.${themes.main.light[1]}` : `.${themes.main.dark[1]}`,
-    );
-    if (mainsH)
-      for (var mainH of mainsH) {
-        if (mainH) mainH.classList.toggle(themes.main.dark[1], toDark);
-        mainH.classList.toggle(themes.main.light[1], !toDark);
-      }
-    const subs = document.querySelectorAll(
-      toDark ? `.${themes.sub.light}` : `.${themes.sub.dark}`,
-    );
-    if (subs)
-      for (var sub of subs) {
-        if (sub) sub.classList.toggle(themes.sub.dark, toDark);
-        sub.classList.toggle(themes.sub.light, !toDark);
-      }
-    const pages = document.querySelectorAll(
-      toDark ? `.${themes.page.light}` : `.${themes.page.dark}`,
-    );
-    if (pages)
-      for (var page of pages) {
-        if (page) page.classList.toggle(themes.page.dark, toDark);
-        page.classList.toggle(themes.page.light, !toDark);
-      }
-    document.body.classList.toggle(themes.body.dark, toDark);
-    document.body.classList.toggle(themes.body.light, !toDark);
-    document.body.dataset.theme = toDark ? "dark" : "light";
-    this._theme = value;
-    localStorage.setItem("tcg_theme_cache", value);
+      const mainsH = document.querySelectorAll(
+        toDark ? `.${themes.main.light[1]}` : `.${themes.main.dark[1]}`,
+      );
+      if (mainsH)
+        for (var mainH of mainsH) {
+          if (mainH) {
+            mainH.classList.toggle(themes.main.dark[1], toDark);
+            mainH.classList.toggle(themes.main.light[1], !toDark);
+          }
+        }
+      const subs = document.querySelectorAll(
+        toDark ? `.${themes.sub.light}` : `.${themes.sub.dark}`,
+      );
+      if (subs)
+        for (var sub of subs) {
+          if (sub) {
+            sub.classList.toggle(themes.sub.dark, toDark);
+            sub.classList.toggle(themes.sub.light, !toDark);
+          }
+        }
+      const pages = document.querySelectorAll(
+        toDark ? `.${themes.page.light}` : `.${themes.page.dark}`,
+      );
+      if (pages)
+        for (var page of pages) {
+          if (page) {
+            page.classList.toggle(themes.page.dark, toDark);
+            page.classList.toggle(themes.page.light, !toDark);
+          }
+        }
+      const botGrads = document.querySelectorAll(
+        toDark ? ".bottom-grad-orange" : ".bottom-grad-blue",
+      );
+      if (botGrads)
+        for (var botGrad of botGrads) {
+          if (botGrad) {
+            botGrad.classList.toggle("bottom-grad-orange", !toDark);
+            botGrad.classList.toggle("bottom-grad-blue", toDark);
+          }
+        }
+      document.body.classList.toggle(themes.body.dark, toDark);
+      document.body.classList.toggle(themes.body.light, !toDark);
+      document.body.dataset.theme = toDark ? "dark" : "light";
+      this._theme = value;
+      localStorage.setItem("tcg_theme_cache", value);
+      this.isLoading = false;
+    } catch (err) {
+      console.error("Error loading theme:", err);
+    }
   },
   get theme() {
     return this._theme;
@@ -208,10 +230,12 @@ try {
       pageMappings.main.forEach((mapping) => {
         mapping.buttons.forEach((btnId) => {
           const btn = document.getElementById(btnId);
-          if (btn)
-            btn.addEventListener("click", () => {
-              window.location.assign(`./${btn.dataset.main}`);
-            });
+          if (btn) {
+            if (!btn.classList.contains("w3-disabled"))
+              btn.addEventListener("click", () => {
+                window.location.assign(`./${btn.dataset.main}`);
+              });
+          }
         });
       });
       const themeCache = localStorage.getItem("tcg_theme_cache");
@@ -259,9 +283,10 @@ try {
             mapping.buttons.forEach((btnId) => {
               const btn = document.getElementById(btnId);
               if (btn) {
-                btn.addEventListener("click", () => {
-                  state.activeSub = index;
-                });
+                if (!btn.classList.contains("w3-disabled"))
+                  btn.addEventListener("click", () => {
+                    state.activeSub = index;
+                  });
               }
             });
           });
@@ -341,11 +366,11 @@ try {
             const resultColor = () => {
               switch (report.result) {
                 case 1:
-                  return "bean-loss";
+                  return "grad-loss";
                 case 2:
-                  return "bean-win";
+                  return "grad-win";
                 case 3:
-                  return "bean-draw";
+                  return "grad-draw";
               }
             };
             if (resultColor() != undefined) btn.classList.add(resultColor());
