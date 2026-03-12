@@ -10,10 +10,10 @@ const pageMappings = {
   ],
   sub: {
     home: [
-      { buttons: ["homeMainPage-Btn"] },
-      { buttons: ["newspaperPage-Btn"] },
-      { buttons: ["rulesPage-Btn"] },
-      { buttons: ["calendarPage-Btn"] },
+      { buttons: ["homeMainPage-Btn", "homeMainPage-CBtn"] },
+      { buttons: ["newspaperPage-Btn", "newspaperPage-CBtn"] },
+      { buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
+      { buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
     ],
   },
 };
@@ -244,7 +244,7 @@ try {
         else state.theme = "light";
       });
     } catch (err) {
-      f.LogError(`Error setting up main page buttons: ${err.message}`);
+      f.LogError(`Error initializing main UI elements: ${err.message}`);
     }
 
     switch (
@@ -252,6 +252,7 @@ try {
     ) {
       case "index":
         try {
+          // Collapses
           collapseBtns.sub.home.forEach((btnId) => {
             const btn = document.getElementById(btnId);
             if (btn) {
@@ -266,6 +267,7 @@ try {
           );
         }
         try {
+          // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -277,6 +279,7 @@ try {
           f.LogError(`Error setting up popstate listener: ${err.message}`);
         }
         try {
+          // Sub buttons
           pageMappings.sub.home.forEach((mapping, index) => {
             mapping.buttons.forEach((btnId) => {
               const btn = document.getElementById(btnId);
@@ -391,9 +394,29 @@ try {
                 f.LogError(`Error handling button click: ${err}`);
               }
             });
+            const cbtn = btn.cloneNode(false);
+            cbtn.textContent = btn.textContent;
+            cbtn.addEventListener("click", () => {
+              state.isLoading = true;
+              try {
+                const frame = document.getElementById("repFrame");
+                if (frame)
+                  frame.setAttribute("src", `./WarReports/${report.file_name}`);
+                const buttons = document
+                  .getElementById("reportMenu")
+                  .getElementsByTagName("button");
+                for (const b of buttons) {
+                  b.classList.remove("w3-gray");
+                }
+                btn.classList.add("w3-gray");
+                state.isLoading = false;
+              } catch (err) {
+                f.LogError(`Error handling button click: ${err}`);
+              }
+            });
 
             if (menu) menu.appendChild(btn);
-            if (cMenu) cMenu.appendChild(btn.cloneNode(false));
+            if (cMenu) cMenu.appendChild(cbtn);
           }
         } catch (err) {
           f.LogError(`Error loading war reports: ${err.message}`);

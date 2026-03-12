@@ -25,7 +25,7 @@
                 <button
                     id="homePage-Btn" data-main="index.html"
                     class="w3-bar-item w3-button fa fa-home sub-light
-                    bean-cornerfold-top" style="font-size: 23px;"></button>
+                    cornerfold-top" style="font-size: 23px;"></button>
                 <button
                     id="warPage-Btn" data-main="war.html"
                     class="w3-bar-item w3-button w3-hide-small main-light-hover">War</button>
@@ -79,10 +79,10 @@
                     id="warPage-CBtn" data-main="war.html"
                     class="w3-bar-item w3-button main-light-hover">War</button>
                 <button id="gntPage-CBtn" data-main="guides_tools.html"
-                    class="w3-bar-item w3-button main-light-hover">Guides/Tools</button>
+                    class="w3-bar-item w3-button main-light-hover w3-disabled">Guides/Tools</button>
                 <button
                     id="abtUsPage-CBtn" data-main="about_us.html"
-                    class="w3-bar-item w3-button main-light-hover">About
+                    class="w3-bar-item w3-button main-light-hover w3-disabled">About
                     Us</button>
             </div>
             <div class="w3-bar w3-card sub-light">
@@ -121,24 +121,24 @@
         </header>
         <section id="subPages" class="w3-container">
             <div id="homeMainPage"
-                class="w3-container">
+                class="w3-container w3-hide">
                 <div>
-                    <div class="w3-center w3-margin-bottom page-light">
+                    <div class="w3-center w3-margin-bottom w3-card page-light">
                         <h1>Welcome to the Garden!</h1>
                         <div style="height:2px;width:100%;"
                             class="main-light v-grad-blue"></div>
                     </div>
                     <div class="w3-flex">
                         <div id="newsPanel"
-                            class="w3-container w3-mobile w3-hide-small w3-margin-right"
+                            class="w3-container w3-mobile w3-hide-small w3-margin-right w3-card"
                             style="width: 30%;background: url(./resources/Graphics/backdrop_day.jpg) center no-repeat;">
                             <h2 class="w3-center">Garden News</h2>
-                            <div class="w3-padding bean-cornerfold-all"
+                            <div class="w3-padding cornerfold-all"
                                 style="background-color: rgba(255, 255, 255, 0.7);height: 40%;color: black;">
                                 <span>News here...</span>
                             </div>
                         </div>
-                        <div class="w3-mobile page-light"
+                        <div class="w3-mobile w3-card page-light"
                             style="width: 70%;">
                             <h2 class="w3-center">Pinboard</h2>
                             <div class="w3-flex w3-border-top w3-mobile">
@@ -147,7 +147,7 @@
                                     <h3>Faction Trading</h3>
                                     <span>
                                         <p>Current prices.</p>
-                                        <div class="w3-flex w3-border-bottom">
+                                        <div class="w3-flex">
                                             <div
                                                 class="w3-padding w3-border-right"
                                                 style="width: 30%;min-width: 95px;">
@@ -179,10 +179,17 @@
                         style="background: url(./resources/Graphics/backdrop_day.jpg) center no-repeat;">
                         <h2 class="w3-mobile w3-center">Garden
                             News</h2>
-                        <div class="w3-padding bean-cornerfold-all"
+                        <div class="w3-padding cornerfold-all"
                             style="background-color: rgba(255, 255, 255, 0.7);height: 40%;">
                             <span>News here...</span>
                         </div>
+                    </div>
+                    <div class="w3-panel page-light">
+                        <span class="w3-center">
+                            <h2>Got suggestions?</h2>
+                            <p>We would love to hear them!</p>
+                        </span>
+                        <input class="w3-input">
                     </div>
                 </div>
             </div>
@@ -196,10 +203,10 @@
             </div>
             <div id="rulesPage"
                 class="w3-container">
-                <div class="w3-padding page-light w3-hide">
+                <div class="w3-padding page-dark">
                     <div class="w3-flex">
-                        <span style="width: 50%;"
-                            class="w3-padding w3-border-right">
+                        <span style="width: 50%;border-right: dotted 1px;"
+                            class="w3-padding">
                             <h1 class="w3-center w3-bold">Rules</h1>
                             <ol>
                                 <li><p><span class="w3-text-red w3-bold">We are
@@ -256,10 +263,10 @@
                             </ol>
                         </span>
                         <span style="width: 50%;" class="w3-padding">
-                            <h1 class="w3-center">Expectations</h1>
+                            <h1 class="w3-center w3-bold">Expectations</h1>
                             <h2>Organized Crimes</h2>
-                            <ol class="w3-border-bottom">
-                                <li><p>Follow our <a class="bean-hyperlink"
+                            <ol style="border-bottom: dotted 1px;">
+                                <li><p>Follow our <a class="light-hyperlink"
                                             href="https://docs.google.com/document/d/1nsNJO-as2ekFEtUj5bt5Dwf5O40SHzGEkTml09b58oc/edit?usp=sharing">OC
                                             guidelines</a>.</p></li>
                                 <p><li>OC Delays - Organized Crimes are a great
@@ -303,9 +310,9 @@
                                 </p>
                             </ol>
                             <h2>Armory</h2>
-                            <ol class="w3-border-bottom w3-padding">
+                            <ol class="w3-padding" style="border-bottom: dotted 1px;">
                                 <p><li><span
-                                            class="w3-bold w3-text-deep-purple">Gear</span>
+                                            class="w3-bold rule-text">Gear</span>
                                         - Weapon/Armor loaning is open to
                                         all.
                                         <ul>
@@ -353,7 +360,7 @@
                                                 Rose+)</li></ul>
                                     </li></p>
                                 <p><li><span
-                                            class="w3-bold w3-text-deep-purple">Blood
+                                            class="w3-bold rule-text">Blood
                                             bags</span> - To use blood bags, you
                                         need
                                         to
@@ -573,16 +580,15 @@
                 </div>
             </div>
         </section>
-        <footer id="footer"
+        <footer
             class="w3-container w3-center w3-card-4 w3-cursive main-light bottom-grad-orange">
             <p>Torn Community Garden 2023-2026<br> A faction and community @
-                <a class="bean-hyperlink"
-                    href="https://www.torn.com">https://www.torn.com</a></p>
+                <a href="https://www.torn.com">https://www.torn.com</a></p>
             <img style="width: 200px;" alt="Logo"
                 src="resources/Graphics/logo.svg">
             <p>For help or questions regarding the
                 website, contact Scatterbean on Discord or
-                <a class="bean-hyperlink"
+                <a
                     href="https://www.torn.com/users.php?XID=3383329">Scatterbean[3383329]</a>
                 on Torn.</p>
         </footer>

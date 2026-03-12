@@ -312,15 +312,18 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .color-win{background-color:rgb(141, 241, 163);padding: 3px;border-radius:7px 7px 7px 7px;}
 .color-loss{background-color:rgb(212, 66, 66);padding: 3px;border-radius:7px 7px 7px 7px;}
 .color-draw{background-color:rgb(94, 112, 163);padding: 3px;border-radius:7px 7px 7px 7px;}
-.bean-hyperlink{color: rgb(72, 128, 233)}
-.bean-cornerfold-all{border-radius:10px 10px 10px 10px}
-.bean-cornerfold-top{border-radius:10px 10px 0px 0px}
+.cornerfold-all{border-radius:10px 10px 10px 10px}
+.cornerfold-top{border-radius:10px 10px 0px 0px}
 .body-light{color:#000!important;background-color:#ddffff!important}
-.body-dark{color:#ffffff!important;background-color:#272a31!important}
+.body-dark{color:#ffffff!important;background-color:#26252b!important}
 .main-light{color:#fff!important;background-color: #e07152!important}
+.main-light > a, .main-light > * > a{color: rgb(72, 128, 233)}
+.main-dark > a, .main-dark > * > a{color: rgb(149, 186, 255)}
 .main-dark{color:#fff!important;background-color:#1b2936!important}
 .sub-light, .sub-light:hover, .main-light-hover:hover{color:#fff!important;background-color:#ffb648!important}
 .sub-dark, .sub-dark:hover, .main-dark-hover:hover{color:#fff!important;background-color:#006480!important}
 .sub-active, .sub-active:hover, .sub-hover:hover{color:#fff!important;background-color:#87CEEB!important}
 .page-light{color:#000!important;background-color:#fff!important}
-.page-dark{color: #fff!important;background-color:#3e4c55!important}
+.page-dark{color: #fff!important;background-color:#3d415c!important}
+.alt{color: #fff!important;background-color:#6d4b8a!important}
+.rule-text{color: #8c71b8!important}
