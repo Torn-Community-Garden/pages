@@ -309,9 +309,9 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 {background-image:linear-gradient(to right,rgb(212, 66, 66),rgba(255,0,0,0),rgba(255,0,0,0),rgb(212, 66, 66));}
 .grad-draw
 {background-image:linear-gradient(to right,rgb(94, 112, 163),rgba(255,0,0,0),rgba(255,0,0,0),rgb(94, 112, 163));}
-.color-win{background-color:rgb(141, 241, 163);padding: 3px;border-radius:7px 7px 7px 7px;}
-.color-loss{background-color:rgb(212, 66, 66);padding: 3px;border-radius:7px 7px 7px 7px;}
-.color-draw{background-color:rgb(94, 112, 163);padding: 3px;border-radius:7px 7px 7px 7px;}
+.color-win{color: #fff;background-color:rgb(141, 241, 163);padding: 3px;border-radius:7px 7px 7px 7px;}
+.color-loss{color: #fff;background-color:rgb(212, 66, 66);padding: 3px;border-radius:7px 7px 7px 7px;}
+.color-draw{color: #fff;background-color:rgb(94, 112, 163);padding: 3px;border-radius:7px 7px 7px 7px;}
 .cornerfold-all{border-radius:10px 10px 10px 10px}
 .cornerfold-top{border-radius:10px 10px 0px 0px}
 .body-light{color:#000!important;background-color:#ddffff!important}
@@ -324,6 +324,6 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .sub-dark, .sub-dark:hover, .main-dark-hover:hover{color:#fff!important;background-color:#006480!important}
 .sub-active, .sub-active:hover, .sub-hover:hover{color:#fff!important;background-color:#87CEEB!important}
 .page-light{color:#000!important;background-color:#fff!important}
-.page-dark{color: #fff!important;background-color:#3d415c!important}
+.page-dark{color: #fff!important;background-color:#47476b!important}
 .alt{color: #fff!important;background-color:#6d4b8a!important}
 .rule-text{color: #8c71b8!important}
