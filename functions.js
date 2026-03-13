@@ -70,10 +70,6 @@ class Functions {
       this.LogError(`Error reading reports data: ${err.message}`);
     }
   }
-  LogError(message) {
-    console.error(message);
-    //window.location.assign(`oops.html`);
-  }
   syncPageUI(pageIndex) {
     try {
       switch (currentPage) {

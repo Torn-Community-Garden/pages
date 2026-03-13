@@ -62,7 +62,7 @@ const state = {
       window.history.pushState({ sub: value }, "", newUrl);
       this.isLoading = false;
     } catch (err) {
-      f.LogError(`Error setting active subpage: ${err.message}`);
+      console.error(`Error setting active subpage: ${err.message}`);
     }
   },
   get activeSub() {
@@ -214,8 +214,7 @@ const authState = {
 
 try {
   document.addEventListener("DOMContentLoaded", () => {
-    try {
-      // Global pageloading
+    try { // Global pageloading
       state.isLoading = true;
       collapseBtns.main.forEach((btnId) => {
         const btn = document.getElementById(btnId);
@@ -244,7 +243,7 @@ try {
         else state.theme = "light";
       });
     } catch (err) {
-      f.LogError(`Error initializing main UI elements: ${err.message}`);
+      console.error(`Error initializing main UI elements: ${err.message}`);
     }
 
     switch (
@@ -262,7 +261,7 @@ try {
             }
           });
         } catch (err) {
-          f.LogError(
+          console.error(
             `Error setting up collapse button listener for home: ${err.message}`,
           );
         }
@@ -276,7 +275,7 @@ try {
             state.isLoading = false;
           });
         } catch (err) {
-          f.LogError(`Error setting up popstate listener: ${err.message}`);
+          console.error(`Error setting up popstate listener: ${err.message}`);
         }
         try {
           // Sub buttons
@@ -292,9 +291,10 @@ try {
             });
           });
         } catch (err) {
-          f.LogError(`Error setting up subpage buttons: ${err.message}`);
+          console.error(`Error setting up subpage buttons: ${err.message}`);
         }
         try {
+          // Query params
           const s =
             f.catchUrlParams(
               window.location.search,
@@ -305,9 +305,10 @@ try {
             f.syncPageUI(s);
           }
         } catch (err) {
-          f.LogError(`Error processing URL parameters: ${err.message}`);
+          console.error(`Error processing URL parameters: ${err.message}`);
         }
         try {
+          // Price fetch
           fetch(
             `https://tornexchange.com/api/price?user_id=1759387&item_id=206`,
             {
@@ -316,15 +317,18 @@ try {
           )
             .then((r) => r.json())
             .then((d) => {
+              if (!d || "error" in d)
+                console.warn("Xanax price could not be fetched.");
               document.getElementById("price-Xanax").innerHTML =
                 `$${d.data.price}`;
             });
         } catch (err) {
-          f.LogError(`Error updating item price: ${err.message}`);
+          console.error(`Error updating item price: ${err.message}`);
         }
         break;
       case "war":
         try {
+          // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -333,9 +337,10 @@ try {
             state.isLoading = false;
           });
         } catch (err) {
-          f.LogError(`Error setting up war page popstate: ${err.message}`);
+          console.error(`Error setting up war page popstate: ${err.message}`);
         }
         try {
+          // Collapses
           collapseBtns.sub.war.forEach((btnId) => {
             const btn = document.getElementById(btnId);
             if (btn) {
@@ -345,24 +350,25 @@ try {
             }
           });
         } catch (err) {
-          f.LogError(`Error setting up war page collapseBtns: ${err.message}`);
+          console.error(
+            `Error setting up war page collapseBtns: ${err.message}`,
+          );
         }
-        try {
+        try { // Reports loading
           const reports = f.getReports(2026);
-          if (reports === undefined) {
-            console.warn("Reports data not found.");
-            return;
-          }
           const menu = document.getElementById("reportMenu");
           const cMenu = document.getElementById("rmCollapse");
           for (const report of reports) {
+            if (reports === undefined) {
+              console.warn("Reports data not found.");
+            }
             const btn = document.createElement("button");
             btn.textContent = `(${report.opponent.tag}) ${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
             btn.classList.add(
+              "w3-bar-item",
               "w3-button",
               "w3-border-top",
               "w3-border-bottom",
-              "w3-mobile",
             );
             const resultColor = () => {
               switch (report.result) {
@@ -375,7 +381,6 @@ try {
               }
             };
             if (resultColor() != undefined) btn.classList.add(resultColor());
-            btn.style.width = "100%";
             btn.addEventListener("click", () => {
               state.isLoading = true;
               try {
@@ -391,7 +396,7 @@ try {
                 btn.classList.add("w3-gray");
                 state.isLoading = false;
               } catch (err) {
-                f.LogError(`Error handling button click: ${err}`);
+                console.error(`Error handling button click: ${err}`);
               }
             });
             const cbtn = btn.cloneNode(false);
@@ -411,7 +416,7 @@ try {
                 btn.classList.add("w3-gray");
                 state.isLoading = false;
               } catch (err) {
-                f.LogError(`Error handling button click: ${err}`);
+                console.error(`Error handling button click: ${err}`);
               }
             });
 
@@ -419,7 +424,7 @@ try {
             if (cMenu) cMenu.appendChild(cbtn);
           }
         } catch (err) {
-          f.LogError(`Error loading war reports: ${err.message}`);
+          console.error(`Error loading war reports: ${err.message}`);
         }
         break;
       case "guides_tools":
@@ -430,5 +435,5 @@ try {
     state.isLoading = false;
   });
 } catch (err) {
-  f.LogError(`Error initializing page: ${err.message}`);
+  console.error(`Error initializing page: ${err.message}`);
 }
