@@ -325,6 +325,13 @@ try {
         } catch (err) {
           console.error(`Error updating item price: ${err.message}`);
         }
+        try {
+          document.querySelector("#suggSubmit-Btn").addEventListener(() => {
+            const inpt = document.querySelector("input");
+          });
+        } catch (err) {
+          console.error("Failed to initialize additional button: ", err.message)
+        }
         break;
       case "war":
         try {
