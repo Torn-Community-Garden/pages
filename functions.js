@@ -115,12 +115,12 @@ class Functions {
       if (isActive) {
         btn.classList.add(
           "sub-active",
-          "bean-cornerfold-top",
+          "cornerfold-top",
         );
       } else {
         btn.classList.remove(
           "sub-active",
-          "bean-cornerfold-top",
+          "cornerfold-top",
         );
       }
     } catch (err) {
