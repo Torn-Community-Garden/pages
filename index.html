@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Home | TCG</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="/resources/Graphics/fav.png">
+        <link rel="icon" type="image/png" href="./resources/Graphics/fav.png">
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet"
@@ -18,7 +18,6 @@
                 class="w3-center w3-display-middle fa fa-spinner w3-spin w3-xxxlarge"
                 style="color: white;"></span>
         </div>
-        <br><br>
         <nav class="w3-top w3-mobile">
             <div class="w3-bar w3-card w3-bold main-light">
                 <button
@@ -111,7 +110,7 @@
                 </div>
             </div>
         </nav>
-        <header class="w3-center" id="homePageBanner">
+        <header style="margin-top: 70px;" class="w3-center" id="homePageBanner">
             <img class="w3-image" src="resources/Graphics/graphic_day.svg"
                 alt="TCG" style="width: 100%;">
             <div style="height: 5px;"
@@ -183,20 +182,12 @@
                             <span>News here...</span>
                         </div>
                     </div>
-                    <div class="w3-panel w3-padding w3-card page-light">
-                        <span class="w3-center">
-                            <h2>Got suggestions?</h2>
-                            <p>We would love to hear them!</p>
-                        </span>
-                        <input id="suggInput" style="height: 100px" class="w3-input" placeholder="Your suggestion...">
-                        <button id="suggSubmit-Btn" class="w3-button w3-margin w3-right main-light main-light-hover">Submit</button>
-                    </div>
                 </div>
             </div>
             <div id="newspaperPage"
-                class="w3-container">
+                class="w3-container w3-hide">
                 <br>
-                <div class="w3-padding page-light w3-hide">
+                <div class="w3-padding page-light">
                     <h1>Garden Newspaper</h1>
                     <p>Coming soon!</p>
                 </div>
@@ -557,8 +548,8 @@
                 </div>
             </div>
             <div id="calendarPage"
-                class="w3-container">
-                <div class="w3-padding page-light w3-hide">
+                class="w3-container w3-hide">
+                <div class="w3-padding page-light">
                     <h1>Garden Calendar</h1>
                     <p>Upcoming events and activities.</p>
                     <div>
@@ -579,7 +570,7 @@
             </div>
         </section>
         <footer
-            class="w3-container w3-center w3-card-4 w3-cursive main-light bottom-grad-orange">
+            class="w3-container w3-center w3-card-4 w3-cursive w3-margin-top main-light bottom-grad-orange">
             <p>Torn Community Garden 2023-2026<br> A faction and community @
                 <a href="https://www.torn.com">https://www.torn.com</a></p>
             <img style="width: 200px;" alt="Logo"

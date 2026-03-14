@@ -250,8 +250,7 @@ try {
       currentPage // Per page loading
     ) {
       case "index":
-        try {
-          // Collapses
+        try { // Collapses
           collapseBtns.sub.home.forEach((btnId) => {
             const btn = document.getElementById(btnId);
             if (btn) {
@@ -265,8 +264,7 @@ try {
             `Error setting up collapse button listener for home: ${err.message}`,
           );
         }
-        try {
-          // Popstate listener
+        try { // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -277,11 +275,10 @@ try {
         } catch (err) {
           console.error(`Error setting up popstate listener: ${err.message}`);
         }
-        try {
-          // Sub buttons
+        try { // Sub buttons
           pageMappings.sub.home.forEach((mapping, index) => {
             mapping.buttons.forEach((btnId) => {
-              const btn = document.getElementById(btnId);
+              const btn = document.querySelector(`#${btnId}`);
               if (btn) {
                 if (!btn.classList.contains("w3-disabled"))
                   btn.addEventListener("click", () => {
@@ -293,8 +290,7 @@ try {
         } catch (err) {
           console.error(`Error setting up subpage buttons: ${err.message}`);
         }
-        try {
-          // Query params
+        try { // Query params
           const s =
             f.catchUrlParams(
               window.location.search,
@@ -307,8 +303,7 @@ try {
         } catch (err) {
           console.error(`Error processing URL parameters: ${err.message}`);
         }
-        try {
-          // Price fetch
+        try { // Price fetch
           fetch(
             `https://tornexchange.com/api/price?user_id=1759387&item_id=206`,
             {
@@ -317,25 +312,20 @@ try {
           )
             .then((r) => r.json())
             .then((d) => {
-              if (!d || "error" in d)
+              if (!d || "error" in d) {
                 console.warn("Xanax price could not be fetched.");
+                document.getElementById("price-Xanax").innerHTML =
+                  `Unavailable`;
+              }
               document.getElementById("price-Xanax").innerHTML =
                 `$${d.data.price}`;
             });
         } catch (err) {
           console.error(`Error updating item price: ${err.message}`);
         }
-        try {
-          document.querySelector("#suggSubmit-Btn").addEventListener(() => {
-            const inpt = document.querySelector("input");
-          });
-        } catch (err) {
-          console.error("Failed to initialize additional button: ", err.message)
-        }
         break;
       case "war":
-        try {
-          // Popstate listener
+        try { // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -346,8 +336,7 @@ try {
         } catch (err) {
           console.error(`Error setting up war page popstate: ${err.message}`);
         }
-        try {
-          // Collapses
+        try { // Collapses
           collapseBtns.sub.war.forEach((btnId) => {
             const btn = document.getElementById(btnId);
             if (btn) {

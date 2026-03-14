@@ -78,8 +78,7 @@ class Functions {
             page.buttons.forEach((btnId) => {
               const btn = document.getElementById(btnId);
               if (btn) {
-                const pageElem = document.getElementById(btn.dataset.sub)
-                  .children[0];
+                const pageElem = document.getElementById(btn.dataset.sub);
                 const isActive = index === pageIndex;
 
                 if (pageElem) {
