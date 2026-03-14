@@ -309,6 +309,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 {background-image:linear-gradient(to right,rgba(212, 66, 66, 0.6),rgba(255,0,0,0),rgba(255,0,0,0),rgba(212, 66, 66, 0.6));}
 .grad-draw
 {background-image:linear-gradient(to right,rgba(94, 112, 163, 0.6),rgba(255,0,0,0),rgba(255,0,0,0),rgba(94, 112, 163, 0.6));}
+a{color: rgb(72, 128, 233)}
 .color-win{color: #fff;background-color:rgb(141, 241, 163);padding: 3px;border-radius:7px 7px 7px 7px;}
 .color-loss{color: #fff;background-color:rgb(212, 66, 66);padding: 3px;border-radius:7px 7px 7px 7px;}
 .color-draw{color: #fff;background-color:rgb(94, 112, 163);padding: 3px;border-radius:7px 7px 7px 7px;}
@@ -325,5 +326,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .sub-active, .sub-active:hover, .sub-hover:hover{color:#fff!important;background-color:#87CEEB!important}
 .page-light{color:#000!important;background-color:#fff!important}
 .page-dark{color: #fff!important;background-color:#47476b!important}
+.page-light > a, .page-light > * > a{color: rgb(72, 128, 233)}
+.page-dark > a, .page-dark > * > a{color: rgb(149, 186, 255)}
 .alt{color: #fff!important;background-color:#6d4b8a!important}
 .rule-text{color: #8c71b8!important}
