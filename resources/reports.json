@@ -2,6 +2,30 @@
   "reports": {
     "y2026": [
       {
+        "file_name": "GDI0904.html",
+        "result": 1,
+        "opponent": {
+          "name": "Green Dragon Inn",
+          "tag": "GDI"
+        },
+        "war_date": {
+          "day": 9,
+          "month": 4
+        }
+      },
+      {
+        "file_name": "SR0404.html",
+        "result": 2,
+        "opponent": {
+          "name": "Shadow Reapers",
+          "tag": "SR"
+        },
+        "war_date": {
+          "day": 4,
+          "month": 4
+        }
+      },
+      {
         "file_name": "SAND2602.html",
         "result": 1,
         "opponent": {

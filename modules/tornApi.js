@@ -1,34 +1,122 @@
 class TornApi {
-  ApiKey = {
+  Api = {
     key: "",
     user: {
       id: 0,
       faction_id: 0,
-      company_id: 0,
     },
     access: {
       level: 0,
       type: "",
       faction: false,
-      company: false,
     },
   };
-  storageKey = "torn_api_key";
+  isLoggedIn = false;
+  persist = false;
+  storageKey = "tcg_key_cache";
   baseUrl = "https://api.torn.com/v2/";
-  constructor(apikey) {
-    this.setKey(apikey);
+  comment = "comment=TCGWebsite";
+  ppm = 0;
+  timer = 0;
+  async initTimer() {
+    try {
+      if (this.timer > 0) clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.ppm = 0;
+      }, 60000);
+    } catch (err) {
+      console.error(`Error starting timer: ${err.message}`);
+    }
   }
-  async setKey(newKey) {
-    const keyInfo = await this.verifyKey(newKey);
-    this.ApiKey.key = newKey;
-    localStorage.setItem(this.storageKey, newKey);
+  async callOverLimit() {
+    try {
+      console.warn("API call limit reached. Please wait before making more calls.");
+      setTimeout(() => {
+        this.ppm = 0;
+        console.info("You can now make API calls again.");
+      }, 10000);
+    } catch (err) {
+      console.error(`Error handling API call limit: ${err.message}`);
+    }
+  }
+  async authenticateUser(newKey, persist = false) {
+    try {
+      const keyInfo = this.verifyKey(newKey);
+      if (keyInfo && !("error" in keyInfo)) {
+        this.Api.user.id = keyInfo.user_id;
+        this.Api.user.faction_id = keyInfo.faction_id;
+        this.Api.access.level = keyInfo.access_level;
+        this.Api.access.type = keyInfo.access_type;
+        this.Api.access.faction = keyInfo.faction;
+        this.persist = persist;
+        this.Api.key = newKey;
+        this.PullData("user/basic")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          document.getElementById("authUsername").textContent =
+            `Logged in as: ${data.profile.name} [${data.profile.id}]`;
+        });
+        document.getElementById("logInRoot").classList.toggle("w3-hide", true);
+        document.getElementById("authRoot").classList.toggle("w3-hide", false);
+        if (persist) {
+          localStorage.setItem(this.storageKey, newKey);
+          sessionStorage.removeItem(this.storageKey);
+        } else {
+          localStorage.removeItem(this.storageKey);
+          sessionStorage.setItem(this.storageKey, newKey);
+        }
+        this.isLoggedIn = true;
+      }
+    } catch (err) {
+      console.error(`Error authenticating user: ${err.message}`);
+    }
+  }
+  async logoutUser() {
+    try {
+      this.Api = {
+        key: "",
+        user: {
+          id: 0,
+          faction_id: 0,
+        },
+        access: {
+          level: 0,
+          type: "",
+          faction: false,
+        },
+      };
+      this.isLoggedIn = false;
+      this.persist = false;
+      localStorage.removeItem(this.storageKey);
+      sessionStorage.removeItem(this.storageKey);
+      document.getElementById("authRoot").classList.toggle("w3-hide", true);
+      document.getElementById("logInRoot").classList.toggle("w3-hide", false);
+    } catch (err) {
+      console.error(`Error logging out user: ${err.message}`);
+    }
   }
   async verifyKey(key) {
-    const data = await this.PullData("key/info", key);
-    if (!data || "error" in data) throw data;
-
-    const access = data.info.access;
-
+    const response = this.PullData("key/info", key)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (!data || "error" in data) {
+          throw new Error(
+            `API error: ${data.error ? data.error.message : "Unknown error"}`,
+          );
+        }
+        return data;
+      });
+    return response;
   }
   /**
    * @param {string} key
@@ -37,10 +125,21 @@ class TornApi {
    */
   async PullData(selection, key = null, parameters = null) {
     try {
-      const param = parameters ? "?" + parameters.join("&") : "";
+      if (this.timer === 0) await this.initTimer();
+      if (this.ppm >= 50 && this.timer > 0) {
+        await this.callOverLimit();
+        return;
+      }
+      const param = parameters
+        ? `?${parameters.join("&")}&${this.comment}`
+        : `?${this.comment}`;
       const request = new Request(`${this.baseUrl}${selection}${param}`);
-      request.headers.set("authorization", `ApiKey ${key ? key : this.ApiKey.key}`);
+      request.headers.set(
+        "authorization",
+        `ApiKey ${key ? key : this.Api.key}`,
+      );
       request.headers.set("Content-type", "application/json");
+      this.ppm += 1;
       return await fetch(request);
     } catch (err) {
       console.error(`Error pulling Torn data: ${err.message}`);

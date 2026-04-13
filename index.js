@@ -1,5 +1,7 @@
 import { Functions } from "./functions.js";
+import { TornApi } from "./modules/tornApi.js";
 const f = new Functions();
+const tApi = new TornApi();
 const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
@@ -14,6 +16,10 @@ const pageMappings = {
       { buttons: ["newspaperPage-Btn", "newspaperPage-CBtn"] },
       { buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
       { buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
+    ],
+    war: [
+      { buttons: ["warSPage-Btn", "warSPage-CBtn"] },
+      { buttons: ["reportsPage-Btn", "reportsPage-CBtn"] },
     ],
   },
 };
@@ -172,6 +178,16 @@ const state = {
             botGrad.classList.toggle("bottom-grad-blue", toDark);
           }
         }
+      const hGrads = document.querySelectorAll(
+        toDark ? ".h-grad-orange" : ".h-grad-blue",
+      );
+      if (hGrads)
+        for (var hGrad of hGrads) {
+          if (hGrad) {
+            hGrad.classList.toggle("h-grad-orange", !toDark);
+            hGrad.classList.toggle("h-grad-blue", toDark);
+          }
+        }
       document.body.classList.toggle(themes.body.dark, toDark);
       document.body.classList.toggle(themes.body.light, !toDark);
       document.body.dataset.theme = toDark ? "dark" : "light";
@@ -186,35 +202,11 @@ const state = {
     return this._theme;
   },
 };
-const authState = {
-  _user: {
-    key: "",
-    identity: {
-      username: "",
-      id: 0,
-    },
-  },
-  _isLoggedIn: false,
-
-  set user(value) {
-    this._user = value;
-
-    if (this._user.identity.id != 0) this.isLoggedIn = true;
-  },
-  get user() {
-    return this._user;
-  },
-  set isLoggedIn(value) {
-    this._isLoggedIn = value;
-  },
-  get isLoggedIn() {
-    return this._isLoggedIn;
-  },
-};
 
 try {
   document.addEventListener("DOMContentLoaded", () => {
-    try { // Global pageloading
+    try {
+      // Global pageloading
       state.isLoading = true;
       collapseBtns.main.forEach((btnId) => {
         const btn = document.getElementById(btnId);
@@ -235,13 +227,33 @@ try {
           }
         });
       });
+      // Theme loading
       const themeCache = localStorage.getItem("tcg_theme_cache");
       if (themeCache) state.theme = themeCache;
       else localStorage.setItem("tcg_theme_cache", state.theme);
-      document.getElementById("theme-Btn").addEventListener("click", () => {
+      document.querySelector("#theme-Btn").addEventListener("click", () => {
         if (document.body.dataset.theme === "light") state.theme = "dark";
         else state.theme = "light";
       });
+      // Auth loading
+      const keyCache = localStorage.getItem("tcg_key_cache");
+      if (keyCache && keyCache !== "") tApi.authenticateUser(keyCache, true);
+      else {
+        const sessionKeyCache = sessionStorage.getItem("tcg_key_cache");
+        if (sessionKeyCache) tApi.authenticateUser(sessionKeyCache, false);
+      }
+      document.querySelector("#logIn-Btn").addEventListener("click", () => {
+        const keyInput = document.querySelector("#keyInput");
+        if (keyInput && keyInput.value != "") {
+          const persistCheckbox = document.querySelector("#persistCheckbox");
+          tApi.authenticateUser(keyInput.value, persistCheckbox.checked);
+        } else {
+          alert("Please enter a valid API key.");
+        }
+      });
+      document
+        .querySelector("#logOut-Btn")
+        .addEventListener("click", () => tApi.logoutUser());
     } catch (err) {
       console.error(`Error initializing main UI elements: ${err.message}`);
     }
@@ -250,7 +262,8 @@ try {
       currentPage // Per page loading
     ) {
       case "index":
-        try { // Collapses
+        try {
+          // Collapses
           collapseBtns.sub.home.forEach((btnId) => {
             const btn = document.getElementById(btnId);
             if (btn) {
@@ -264,7 +277,8 @@ try {
             `Error setting up collapse button listener for home: ${err.message}`,
           );
         }
-        try { // Popstate listener
+        try {
+          // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -275,7 +289,8 @@ try {
         } catch (err) {
           console.error(`Error setting up popstate listener: ${err.message}`);
         }
-        try { // Sub buttons
+        try {
+          // Sub buttons
           pageMappings.sub.home.forEach((mapping, index) => {
             mapping.buttons.forEach((btnId) => {
               const btn = document.querySelector(`#${btnId}`);
@@ -290,7 +305,8 @@ try {
         } catch (err) {
           console.error(`Error setting up subpage buttons: ${err.message}`);
         }
-        try { // Query params
+        try {
+          // Query params
           const s =
             f.catchUrlParams(
               window.location.search,
@@ -303,40 +319,50 @@ try {
         } catch (err) {
           console.error(`Error processing URL parameters: ${err.message}`);
         }
-        try { // Price fetch
-          fetch(
-            `https://tornexchange.com/api/price?user_id=1759387&item_id=206`,
-            {
-              headers: { "Content-Type": "application/json" },
-            },
-          )
-            .then((r) => r.json())
-            .then((d) => {
-              if (!d || "error" in d) {
-                console.warn("Xanax price could not be fetched.");
-                document.getElementById("price-Xanax").innerHTML =
-                  `Unavailable`;
+        try {
+          // Price fetch
+          if (tApi.isLoggedIn) {
+            tApi.PullData("torn/206/items")
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(`API request failed with status ${response.status}`);
+                }
+                return response.json();
+              })
+              .then((data) => {
+              if (data && !("error" in data)) {
+                const priceElem = document.getElementById("price-Xanax");
+                const total = Math.round(
+                  (data.items[0].value.market_price * 0.97)
+                );
+                let price = total.toString();
+                if (price.length < 7) {
+                  for (let i = price.length - 3; i > 0; i -= 3) {
+                    price = price.slice(0, i) + "," + price.slice(i); // Add commas for thousands
+                  }
+                } else {
+                  price = (total / 1000000).toFixed(2) + "M"; // Convert to millions with 2 decimal places
+                }
+                if (priceElem) priceElem.textContent = "$" + price;
+              } else {
+                document.querySelector("#infoPgph").textContent =
+                  "Log in to view current prices.";
+                console.info(
+                  "Could not fetch item data. Price will not be displayed.",
+                );
               }
-              document.getElementById("price-Xanax").innerHTML =
-                `$${d.data.price}`;
             });
+          } else {
+            const priceElem = document.getElementById("price-Xanax");
+            if (priceElem) priceElem.textContent = "N/A";
+          }
         } catch (err) {
           console.error(`Error updating item price: ${err.message}`);
         }
         break;
       case "war":
-        try { // Popstate listener
-          window.addEventListener("popstate", (ev) => {
-            state.isLoading = true;
-            const index = ev.state.sub ?? 0;
-            state._activeSub = index;
-            f.syncPageUI(index);
-            state.isLoading = false;
-          });
-        } catch (err) {
-          console.error(`Error setting up war page popstate: ${err.message}`);
-        }
-        try { // Collapses
+        try {
+          // Collapses
           collapseBtns.sub.war.forEach((btnId) => {
             const btn = document.getElementById(btnId);
             if (btn) {
@@ -350,7 +376,20 @@ try {
             `Error setting up war page collapseBtns: ${err.message}`,
           );
         }
-        try { // Reports loading
+        try {
+          // Popstate listener
+          window.addEventListener("popstate", (ev) => {
+            state.isLoading = true;
+            const index = ev.state.sub ?? 0;
+            state._activeSub = index;
+            f.syncPageUI(index);
+            state.isLoading = false;
+          });
+        } catch (err) {
+          console.error(`Error setting up war page popstate: ${err.message}`);
+        }
+        try {
+          // Reports loading
           const reports = f.getReports(2026);
           const menu = document.getElementById("reportMenu");
           const cMenu = document.getElementById("rmCollapse");
@@ -359,24 +398,18 @@ try {
               console.warn("Reports data not found.");
             }
             const btn = document.createElement("button");
-            btn.textContent = `(${report.opponent.tag}) ${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
-            btn.classList.add(
-              "w3-bar-item",
-              "w3-button",
-              "w3-border-top",
-              "w3-border-bottom",
+            const p = document.createElement("p");
+            const span = document.createElement("span");
+            p.textContent = `(${report.opponent.tag}) ${report.opponent.name} (${report.war_date.month}/${report.war_date.day})`;
+            span.classList.add(
+              `color-${report.result === 1 ? "loss" : report.result === 2 ? "win" : "draw"}`,
+              "w3-medium",
+              "fa",
+              `fa-${report.result < 3 ? "circle" : "adjust"}`,
             );
-            const resultColor = () => {
-              switch (report.result) {
-                case 1:
-                  return "grad-loss";
-                case 2:
-                  return "grad-win";
-                case 3:
-                  return "grad-draw";
-              }
-            };
-            if (resultColor() != undefined) btn.classList.add(resultColor());
+            p.appendChild(span);
+            btn.appendChild(p);
+            btn.classList.add("w3-bar-item", "w3-button", "w3-border-top");
             btn.addEventListener("click", () => {
               state.isLoading = true;
               try {
@@ -396,6 +429,9 @@ try {
               }
             });
             const cbtn = btn.cloneNode(false);
+            cbtn.classList.add(
+              `color-${report.result === 1 ? "loss" : report.result === 2 ? "win" : "draw"}`,
+            );
             cbtn.textContent = btn.textContent;
             cbtn.addEventListener("click", () => {
               state.isLoading = true;
@@ -421,6 +457,35 @@ try {
           }
         } catch (err) {
           console.error(`Error loading war reports: ${err.message}`);
+        }
+        try { // Sub buttons
+          pageMappings.sub.war.forEach((mapping, index) => {
+            mapping.buttons.forEach((btnId) => {
+              const btn = document.querySelector(`#${btnId}`);
+              if (btn) {
+                if (!btn.classList.contains("w3-disabled"))
+                  btn.addEventListener("click", () => {
+                    state.activeSub = index;
+                  });
+              }
+            });
+          });
+        } catch (err) {
+          console.error(`Error setting up war subpage buttons: ${err.message}`);
+        }
+        try {
+          // Query params
+          const s =
+            f.catchUrlParams(
+              window.location.search,
+              pageMappings.sub.war.length,
+            ) ?? 0;
+          if (s && s != undefined) {
+            state._activeSub = s;
+            f.syncPageUI(s);
+          }
+        } catch (err) {
+          console.error(`Error processing URL parameters: ${err.message}`);
         }
         break;
       case "guides_tools":

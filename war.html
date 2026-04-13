@@ -19,29 +19,94 @@
 		</div>
 		<br><br>
 		<nav class="w3-top w3-mobile">
-			<div class="w3-bar w3-card w3-bold main-light">
-				<button
-					id="homePage-Btn" data-main="index.html"
-					class="w3-bar-item w3-button fa fa-home main-light-hover"
-					style="font-size: 23px;"></button>
-				<button
-					id="warPage-Btn" data-main="war.html"
-					class="w3-bar-item w3-button w3-hide-small cornerfold-top sub-light">War</button>
-				<button id="gntPage-Btn" data-main="guides_tools.html"
-					class="w3-bar-item w3-button w3-hide-small main-light-hover w3-disabled">Guides/Tools</button>
-				<button
-					id="abtUsPage-Btn" data-main="about_us.html"
-					class="w3-bar-item w3-button w3-hide-small main-light-hover w3-disabled">About
-					Us</button>
-				<button
-					id="navCollapse-Btn" data-collapse="navCollapse"
-					class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium fa fa-bars main-light-hover"
-					style="font-size:23px;"></button>
-				<button
-					id="theme-Btn"
-					class="w3-bar-item w3-button w3-right fa fa-moon-o main-light-hover"
-					style="font-size:23px;"></button>
+            <!-- Main top bar -->
+            <div class="w3-bar w3-card w3-bold main-light"
+                style="max-height: 39px;">
+                <!-- Left side -->
+                <button
+                    id="homePage-Btn" data-main="index.html"
+                    class="w3-bar-item w3-button fa fa-home main-light-hover" style="font-size: 23px;"></button>
+                <button
+                    id="warPage-Btn" data-main="war.html"
+                    class="w3-bar-item w3-button w3-hide-small sub-light
+                    cornerfold-top">War</button>
+                <button id="gntPage-Btn" data-main="guides_tools.html"
+                    class="w3-bar-item w3-button w3-hide-small main-light-hover w3-disabled">Guides/Tools</button>
+                <button
+                    id="abtUsPage-Btn" data-main="about_us.html"
+                    class="w3-bar-item w3-button w3-hide-small main-light-hover w3-disabled">About
+                    Us</button>
+                <!-- Right side -->
+                <button
+                    id="navCollapse-Btn" data-collapse="navCollapse"
+                    class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium
+                    fa fa-bars main-light-hover"
+                    style="font-size: 23px;"></button>
+                <button
+                    id="theme-Btn"
+                    class="w3-bar-item w3-button w3-right fa fa-moon-o main-light-hover"
+                    style="font-size: 23px;"></button>
+                <!-- Authentication -->
+                <div id="authRoot" class="w3-flex w3-right main-light w3-hide"
+                    style="margin-top: -6px;">
+                    <p id="authUsername"
+                        style="padding: 0px 10px 0px 10px;">Logged in as:
+                        $username$</p>
+                    <button id="logOut-Btn"
+                        class="w3-bar-item w3-button fa fa-sign-out w3-right main-light-hover"
+                        style="font-size: 23px;"></button>
+                </div>
+                <div id="logInRoot"
+                    class="w3-dropdown-click w3-right w3-animate-top main-light">
+                    <button
+                        data-collapse="logInCollapse"
+                        id="logInCollapse-Btn"
+                        class="w3-bar-item w3-button
+                            fa fa-key main-light-hover"
+                        title="Log in using an API key"
+                        style="font-size: 23px;"></button>
+                    <div
+                        id="logInCollapse"
+                        class="w3-dropdown-content w3-bar-block w3-padding main-light h-grad-orange"
+                        style="right: 0;top: 39px;">
+                        <button id="logInClose-Btn"
+                            data-collapse="logInCollapse"
+                            class="w3-button w3-right fa fa-close w3-transparent"></button>
+                        <h2 class="w3-center">Log in</h2>
+                        <input id="keyInput" class="w3-input"
+                            style="font-weight: 100;margin-bottom: 20px;"
+                            placeholder="Key">
+                        <label>
+                            <input class="w3-check" value="true" type="checkbox" id="persistCheckbox"> Stay logged in
+                        </label>
+                        <br><br>
+                        <a href="./key_usage.html">Key usage & storing</a>
+                        <button id="logIn-Btn" title="Log in"
+                            style="width: 100%;margin-top: 20px;"
+                            class="w3-button sub-light sub-hover">Log in</button>
+                    </div>
+                </div>
+            </div>
+			<!-- Sub nav -->
+			<div class="w3-bar w3-card sub-light">
+                <button id="warSPage-Btn" data-sub="warPage"
+                    class="w3-bar-item w3-button w3-hide-small cornerfold-top">War</button>
+				<button id="reportsPage-Btn" data-sub="reportsPage"
+					class="w3-bar-item w3-button w3-mobile w3-hide-small cornerfold-top">Reports</button>
+				<div class="w3-dropdown-click w3-mobile">
+					<button id="subCollapse-Btn"
+						data-collapse="subCollapse"
+						class="w3-bar-item w3-button fa fa-chevron-down w3-hide-medium w3-hide-large sub-hover"
+						style="width: 100%;"></button>
+					<span id="subCollapse" class="w3-dropdown-content sub-light">
+                        <button id="warSPage-CBtn" data-sub="warPage"
+                            class="w3-bar-item w3-button w3-mobile sub-active">War</button>
+						<button id="reportsPage-CBtn" data-sub="reportsPage"
+							class="w3-bar-item w3-button w3-mobile sub-active">Reports</button>
+					</span>
+				</div>
 			</div>
+			<!-- Collapsed main nav -->
 			<div id="navCollapse"
 				class="w3-bar-block w3-card w3-animate-right main-light w3-hide">
 				<button
@@ -53,34 +118,26 @@
 					id="abtUsPage-CBtn" data-main="about_us.html"
 					class="w3-bar-item w3-button main-light-hover w3-disabled">About Us</button>
 			</div>
-			<div class="w3-bar w3-card sub-light">
-				<button id="reportsPage-Btn" data-sub="reportsPage"
-					class="w3-bar-item w3-button w3-mobile w3-hide-small sub-active cornerfold-top">Reports</button>
-				<div class="w3-dropdown-click w3-mobile">
-					<button id="subCollapse-Btn"
-						data-collapse="subCollapse"
-						class="w3-bar-item w3-button fa fa-chevron-down w3-hide-medium w3-hide-large sub-hover"
-						style="width: 100%;"></button>
-					<span id="subCollapse" class="w3-dropdown-content sub-light">
-						<button id="reportsPage-CBtn" data-sub="reportsPage"
-							class="w3-bar-item w3-button w3-mobile sub-active">Reports</button>
-					</span>
-				</div>
-			</div>
 		</nav>
 		<section class="w3-container w3-padding-16">
 			<br>
-			<div class="w3-container page-light w3-card">
+            <div id="warPage" class="w3-container page-light w3-card">
+                <h1 class="w3-center">War</h1>
+                <p>Welcome to the War page! Here you can find reports from our recent wars, as well as information on our current war status and upcoming wars.</p>
+            </div>
+			<div id="reportsPage" class="w3-container page-light w3-card w3-hide">
 				<p>Select a report below to view it.
 					<br>
-					*
-					<span class="w3-border color-win w3-small">Win</span>
-					<span class="w3-border color-loss w3-small">Loss</span>
-					<span class="w3-border color-draw w3-small">Draw</span>
+					* Win
+					<span class="color-win w3-large fa fa-circle"></span>
+					Loss
+					<span class="color-loss w3-large fa fa-circle"></span>
+					Draw
+					<span class="color-draw w3-large fa fa-adjust"></span>
 				</p>
 				<div class="w3-quarter w3-hide-small w3-padding alt">
 					<div id="reportMenu" class="w3-bar-block">
-						<h5 class="w3-center">Opponent Faction (month/day)</h5>
+						<h5 class="w3-center">Opponent (month/day)</h5>
 					</div>
 				</div>
 				<div
@@ -102,7 +159,9 @@
 		</section>
         <footer
             class="w3-container w3-center w3-card-4 w3-cursive main-light bottom-grad-orange">
-            <p>Torn Community Garden 2023-2026<br> A faction and community @
+            <p><a
+                    href="https://www.torn.com/factions.php?step=profile&ID=48684">Torn
+                    Community Garden</a> 2023-2026<br> A faction and community @
                 <a href="https://www.torn.com">https://www.torn.com</a></p>
             <img style="width: 200px;" alt="Logo"
                 src="resources/Graphics/logo.svg">

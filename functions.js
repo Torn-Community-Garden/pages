@@ -14,6 +14,10 @@ const pageMappings = {
       { buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
       { buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
     ],
+    war: [
+      { buttons: ["warSPage-Btn", "warSPage-CBtn"] },
+      { buttons: ["reportsPage-Btn", "reportsPage-CBtn"] },
+    ],
   },
 };
 
@@ -98,7 +102,22 @@ class Functions {
             });
           });
           break;
-
+        case "war":
+          pageMappings.sub.war.forEach((page, index) => {
+            page.buttons.forEach((btnId) => {
+              const btn = document.getElementById(btnId);
+              if (btn) {
+                const pageElem = document.getElementById(btn.dataset.sub);
+                const isActive = index === pageIndex;
+                if (pageElem) {
+                  pageElem.classList.toggle("w3-show", isActive);
+                  pageElem.classList.toggle("w3-hide", !isActive);
+                }
+                this.updateActiveBtnStyle(btn, isActive);
+              }
+            });
+          });
+          break;
         default:
           break;
       }
