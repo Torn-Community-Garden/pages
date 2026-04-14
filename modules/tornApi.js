@@ -58,11 +58,18 @@ class TornApi {
           return response.json();
         })
         .then((data) => {
-          document.getElementById("authUsername").textContent =
+          if (!data || "error" in data) {
+            document.querySelector("#authError").textContent =
+              `API error: ${data.error ? data.error.error : "Unknown error"}`;
+            throw new Error(
+              `API error: ${data.error ? data.error.error : "Unknown error"}`,
+            );
+          }
+          document.querySelector("#authUsername").textContent =
             `Logged in as: ${data.profile.name} [${data.profile.id}]`;
         });
-        document.getElementById("logInRoot").classList.toggle("w3-hide", true);
-        document.getElementById("authRoot").classList.toggle("w3-hide", false);
+        document.querySelector("#logInRoot").classList.toggle("w3-hide", true);
+        document.querySelector("#authRoot").classList.toggle("w3-hide", false);
         if (persist) {
           localStorage.setItem(this.storageKey, newKey);
           sessionStorage.removeItem(this.storageKey);
@@ -94,8 +101,8 @@ class TornApi {
       this.persist = false;
       localStorage.removeItem(this.storageKey);
       sessionStorage.removeItem(this.storageKey);
-      document.getElementById("authRoot").classList.toggle("w3-hide", true);
-      document.getElementById("logInRoot").classList.toggle("w3-hide", false);
+      document.querySelector("#authRoot").classList.toggle("w3-hide", true);
+      document.querySelector("#logInRoot").classList.toggle("w3-hide", false);
     } catch (err) {
       console.error(`Error logging out user: ${err.message}`);
     }
@@ -110,8 +117,10 @@ class TornApi {
       })
       .then((data) => {
         if (!data || "error" in data) {
+          document.querySelector("#authError").textContent =
+            `API error: ${data.error ? data.error.error : "Unknown error"}`;
           throw new Error(
-            `API error: ${data.error ? data.error.message : "Unknown error"}`,
+            `API error: ${data.error ? data.error.error : "Unknown error"}`,
           );
         }
         return data;

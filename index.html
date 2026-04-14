@@ -76,6 +76,7 @@
                         <input id="keyInput" class="w3-input"
                             style="font-weight: 100;margin-bottom: 20px;"
                             placeholder="Key">
+                        <p id="authError" class="w3-text-red"></p>
                         <label>
                             <input class="w3-check" value="true" type="checkbox" id="persistCheckbox"> Stay logged in
                         </label>
@@ -163,8 +164,11 @@
                                     style="width: 50%;">
                                     <h3>Faction Trading</h3>
                                     <span>
-                                        <p id="infoPgph">Current prices.</p>
-                                        <div class="w3-flex">
+                                        <p id="infoPgph">Our current prices.<br>To trade with the faction, deposit the items and ping a banker on Discord.</p>
+                                        <button id="depBtn" class="w3-button sub-light sub-hover">
+                                            Deposit <span class="fa fa-external-link"></span>
+                                        </button>
+                                        <div class="w3-flex w3-padding w3-margin-top">
                                             <div
                                                 class="w3-padding w3-border-right"
                                                 style="width: 30%;min-width: 95px;">
@@ -175,6 +179,45 @@
                                             <div class="w3-padding"
                                                 style="width: 70%">
                                                 <span id="price-Xanax">$0</span>
+                                            </div>
+                                        </div>
+                                        <div class="w3-flex w3-border-top w3-padding">
+                                            <div
+                                                class="w3-padding w3-border-right"
+                                                style="width: 30%;min-width: 95px;">
+                                                <span
+                                                    class="fa fa-lemon-o"></span>
+                                                <span>Empty Blood Bag</span>
+                                            </div>
+                                            <div class="w3-padding"
+                                                style="width: 70%">
+                                                <span id="price-EBB">Coming Soon</span>
+                                            </div>
+                                        </div>
+                                        <div class="w3-flex w3-border-top w3-padding">
+                                            <div
+                                                class="w3-padding w3-border-right"
+                                                style="width: 30%;min-width: 95px;">
+                                                <span
+                                                    class="fa fa-lemon-o"></span>
+                                                <span>Smoke Grenade</span>
+                                            </div>
+                                            <div class="w3-padding"
+                                                style="width: 70%">
+                                                <span id="price-smokeGrenade">Coming Soon</span>
+                                            </div>
+                                        </div>
+                                        <div class="w3-flex w3-border-top w3-padding">
+                                            <div
+                                                class="w3-padding w3-border-right"
+                                                style="width: 30%;min-width: 95px;">
+                                                <span
+                                                    class="fa fa-lemon-o"></span>
+                                                <span>Tear Gas</span>
+                                            </div>
+                                            <div class="w3-padding"
+                                                style="width: 70%">
+                                                <span id="price-tearGas">Coming Soon</span>
                                             </div>
                                         </div>
                                     </span>

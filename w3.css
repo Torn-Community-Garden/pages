@@ -320,6 +320,8 @@ a{color: rgb(72, 128, 233)}
 .main-light{color:#fff!important;background-color: #e07152!important}
 .main-light > a, .main-light > * > a{color: rgb(72, 128, 233)}
 .main-dark > a, .main-dark > * > a{color: rgb(149, 186, 255)}
+.sub-light > a, .sub-light > * > a{color: rgb(72, 128, 233)}
+.sub-dark > a, .sub-dark > * > a{color: rgb(149, 186, 255)}
 .main-dark{color:#fff!important;background-color:#1b2936!important}
 .sub-light, .sub-light:hover, .main-light-hover:hover{color:#fff!important;background-color:#ffb648!important}
 .sub-dark, .sub-dark:hover, .main-dark-hover:hover{color:#fff!important;background-color:#006480!important}

@@ -30,6 +30,11 @@ const collapseBtns = {
     war: ["rmCollapse-Btn", "subCollapse-Btn"],
   },
 };
+const linkBtns = {
+  home: [
+    { id: "depBtn", url: "" },
+  ]
+};
 const themes = {
   icon: { light: "fa-moon-o", dark: "fa-sun-o" },
   headerBanner: {
@@ -205,8 +210,7 @@ const state = {
 
 try {
   document.addEventListener("DOMContentLoaded", () => {
-    try {
-      // Global pageloading
+    try { // Global pageloading
       state.isLoading = true;
       collapseBtns.main.forEach((btnId) => {
         const btn = document.getElementById(btnId);
@@ -247,6 +251,7 @@ try {
         if (keyInput && keyInput.value != "") {
           const persistCheckbox = document.querySelector("#persistCheckbox");
           tApi.authenticateUser(keyInput.value, persistCheckbox.checked);
+          loadCurrentPage();
         } else {
           alert("Please enter a valid API key.");
         }
@@ -257,28 +262,31 @@ try {
     } catch (err) {
       console.error(`Error initializing main UI elements: ${err.message}`);
     }
+    loadCurrentPage();
+    state.isLoading = false;
+  });
+} catch (err) {
+  console.error(`Error initializing page: ${err.message}`);
+}
 
-    switch (
-      currentPage // Per page loading
-    ) {
+function loadCurrentPage() {
+  try {
+    switch (currentPage) {
       case "index":
-        try {
-          // Collapses
-          collapseBtns.sub.home.forEach((btnId) => {
-            const btn = document.getElementById(btnId);
-            if (btn) {
-              btn.addEventListener("click", () => {
-                f.toggleCollapse(btn.dataset.collapse);
-              });
-            }
-          });
+        try { // Query params
+          const s =
+            f.catchUrlParams(
+              window.location.search,
+              pageMappings.sub.home.length,
+            ) ?? 0;
+          if (s && s != undefined) {
+            state._activeSub = s;
+            f.syncPageUI(s);
+          }
         } catch (err) {
-          console.error(
-            `Error setting up collapse button listener for home: ${err.message}`,
-          );
+          console.error(`Error processing URL parameters: ${err.message}`);
         }
-        try {
-          // Popstate listener
+        try { // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -289,8 +297,7 @@ try {
         } catch (err) {
           console.error(`Error setting up popstate listener: ${err.message}`);
         }
-        try {
-          // Sub buttons
+        try { // Sub buttons
           pageMappings.sub.home.forEach((mapping, index) => {
             mapping.buttons.forEach((btnId) => {
               const btn = document.querySelector(`#${btnId}`);
@@ -305,53 +312,67 @@ try {
         } catch (err) {
           console.error(`Error setting up subpage buttons: ${err.message}`);
         }
-        try {
-          // Query params
-          const s =
-            f.catchUrlParams(
-              window.location.search,
-              pageMappings.sub.home.length,
-            ) ?? 0;
-          if (s && s != undefined) {
-            state._activeSub = s;
-            f.syncPageUI(s);
-          }
+        try { // Link buttons
+          linkBtns.home.forEach((btn) => {
+            const btnElem = document.querySelector(`#${btn.id}`);
+            if (btnElem) {
+              btnElem.addEventListener("click", () => {
+                if (btn.url) window.open(btn.url, "_blank");
+              });
+            }
+           }); 
         } catch (err) {
-          console.error(`Error processing URL parameters: ${err.message}`);
+          console.error(`Error setting up link buttons: ${err.message}`);
         }
-        try {
-          // Price fetch
+        try { // Collapses
+          collapseBtns.sub.home.forEach((btnId) => {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+              btn.addEventListener("click", () => {
+                f.toggleCollapse(btn.dataset.collapse);
+              });
+            }
+          });
+        } catch (err) {
+          console.error(
+            `Error setting up collapse button listener for home: ${err.message}`,
+          );
+        }
+        try { // Price fetch
           if (tApi.isLoggedIn) {
-            tApi.PullData("torn/206/items")
+            tApi
+              .PullData("torn/206/items")
               .then((response) => {
                 if (!response.ok) {
-                  throw new Error(`API request failed with status ${response.status}`);
+                  throw new Error(
+                    `API request failed with status ${response.status}`,
+                  );
                 }
                 return response.json();
               })
               .then((data) => {
-              if (data && !("error" in data)) {
-                const priceElem = document.getElementById("price-Xanax");
-                const total = Math.round(
-                  (data.items[0].value.market_price * 0.97)
-                );
-                let price = total.toString();
-                if (price.length < 7) {
-                  for (let i = price.length - 3; i > 0; i -= 3) {
-                    price = price.slice(0, i) + "," + price.slice(i); // Add commas for thousands
+                if (data && !("error" in data)) {
+                  const priceElem = document.getElementById("price-Xanax");
+                  const total = Math.round(
+                    data.items[0].value.market_price * 0.97,
+                  );
+                  let price = total.toString();
+                  if (price.length < 7) {
+                    for (let i = price.length - 3; i > 0; i -= 3) {
+                      price = price.slice(0, i) + "," + price.slice(i); // Add commas for thousands
+                    }
+                  } else {
+                    price = (total / 1000000).toFixed(2) + "M"; // Convert to millions with 2 decimal places
                   }
+                  if (priceElem) priceElem.textContent = "$" + price;
                 } else {
-                  price = (total / 1000000).toFixed(2) + "M"; // Convert to millions with 2 decimal places
+                  document.querySelector("#infoPgph").textContent =
+                    "Log in to view current prices.";
+                  console.info(
+                    "Could not fetch item data. Price will not be displayed.",
+                  );
                 }
-                if (priceElem) priceElem.textContent = "$" + price;
-              } else {
-                document.querySelector("#infoPgph").textContent =
-                  "Log in to view current prices.";
-                console.info(
-                  "Could not fetch item data. Price will not be displayed.",
-                );
-              }
-            });
+              });
           } else {
             const priceElem = document.getElementById("price-Xanax");
             if (priceElem) priceElem.textContent = "N/A";
@@ -361,8 +382,7 @@ try {
         }
         break;
       case "war":
-        try {
-          // Collapses
+        try { // Collapses
           collapseBtns.sub.war.forEach((btnId) => {
             const btn = document.getElementById(btnId);
             if (btn) {
@@ -376,8 +396,7 @@ try {
             `Error setting up war page collapseBtns: ${err.message}`,
           );
         }
-        try {
-          // Popstate listener
+        try { // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -388,8 +407,7 @@ try {
         } catch (err) {
           console.error(`Error setting up war page popstate: ${err.message}`);
         }
-        try {
-          // Reports loading
+        try { // Reports loading
           const reports = f.getReports(2026);
           const menu = document.getElementById("reportMenu");
           const cMenu = document.getElementById("rmCollapse");
@@ -473,8 +491,7 @@ try {
         } catch (err) {
           console.error(`Error setting up war subpage buttons: ${err.message}`);
         }
-        try {
-          // Query params
+        try { // Query params
           const s =
             f.catchUrlParams(
               window.location.search,
@@ -493,8 +510,7 @@ try {
       case "abtUs":
         break;
     }
-    state.isLoading = false;
-  });
-} catch (err) {
-  console.error(`Error initializing page: ${err.message}`);
+  } catch (err) {
+    console.error(`Error loading current page: ${err.message}`);
+  }
 }
