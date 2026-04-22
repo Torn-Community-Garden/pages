@@ -271,7 +271,8 @@ try {
     } catch (err) {
       console.error(`Error initializing main UI elements: ${err.message}`);
     }
-    try { // Auth loading
+    try {
+      // Auth loading
       const keyCache = localStorage.getItem("tcg_key_cache");
       if (keyCache && keyCache !== "") {
         tApi.authenticateUser(keyCache, true);
@@ -298,9 +299,9 @@ try {
     } catch (err) {
       console.error(`Error initializing authentication: ${err.message}`);
     }
+    loadCurrentPage();
+    state.isLoading = false;
   });
-  loadCurrentPage();
-  state.isLoading = false;
 } catch (err) {
   console.error(`Error initializing page: ${err.message}`);
 }
