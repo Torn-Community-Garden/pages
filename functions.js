@@ -25,30 +25,27 @@ class Functions {
   /**
    * @param {number | null} pageLength
    */
-  catchUrlParams(urlSearch, pageLength = null) {
+  catchUrlParams(urlSearch, pageLength) {
     try {
       const urlParams = new URLSearchParams(urlSearch);
       for (const paramKey of urlParams.keys()) {
         switch (paramKey) {
           case "sub":
-            if (!pageLength) return;
             const pageParam = urlParams.get("sub");
             if (pageParam) {
               const index = parseInt(pageParam);
               if (index >= 0 && index < pageLength) {
-                return index;
+                this.syncPageUI(index);
               }
             }
-            return 0;
+            break;
           default:
             console.warn(`Unknown URL parameter: ${paramKey}`);
             break;
         }
       }
-      return null;
     } catch (err) {
       this.LogError(`Error parsing URL parameters: ${err.message}`);
-      return null;
     }
   }
   toggleCollapse(id) {
@@ -97,7 +94,7 @@ class Functions {
                   document
                     .getElementById("homePageBanner")
                     .classList.add("w3-hide");
-              this.updateActiveBtnStyle(btn, isActive);
+                this.updateActiveBtnStyle(btn, isActive);
               }
             });
           });
@@ -132,18 +129,12 @@ class Functions {
   updateActiveBtnStyle(btn, isActive) {
     try {
       if (isActive) {
-        btn.classList.add(
-          "sub-active",
-          "cornerfold-top",
-        );
+        btn.classList.add("sub-active", "cornerfold-top");
       } else {
-        btn.classList.remove(
-          "sub-active",
-          "cornerfold-top",
-        );
+        btn.classList.remove("sub-active", "cornerfold-top");
       }
     } catch (err) {
-      this.LogError(`Error updating button style: ${err.message}`);
+      console.error(`Error updating button style: ${err.message}`);
     }
   }
   onLoad() {

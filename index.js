@@ -5,36 +5,42 @@ const tApi = new TornApi();
 const currentPage = document.body.dataset.page;
 const pageMappings = {
   main: [
-    { buttons: ["homePage-Btn"] },
-    { buttons: ["warPage-Btn", "warPage-CBtn"] },
-    { buttons: ["gntPage-Btn", "gntPage-CBtn"] },
-    { buttons: ["abtUsPage-Btn", "abtUsPage-CBtn"] },
+    "homePage-Btn",
+    "warPage-Btn",
+    "warPage-CBtn",
+    "gntPage-Btn",
+    "gntPage-CBtn",
+    "abtUsPage-Btn",
+    "abtUsPage-CBtn",
   ],
-  sub: {
-    home: [
-      { buttons: ["homeMainPage-Btn", "homeMainPage-CBtn"] },
-      { buttons: ["newspaperPage-Btn", "newspaperPage-CBtn"] },
-      { buttons: ["rulesPage-Btn", "rulesPage-CBtn"] },
-      { buttons: ["calendarPage-Btn", "calendarPage-CBtn"] },
+  sub: [
+    [
+      ["homeMainPage-Btn", "homeMainPage-CBtn"],
+      ["newspaperPage-Btn", "newspaperPage-CBtn"],
+      ["rulesPage-Btn", "rulesPage-CBtn"],
+      ["calendarPage-Btn", "calendarPage-CBtn"],
     ],
-    war: [
-      { buttons: ["warSPage-Btn", "warSPage-CBtn"] },
-      { buttons: ["reportsPage-Btn", "reportsPage-CBtn"] },
+    [
+      ["warSPage-Btn", "warSPage-CBtn"],
+      ["reportsPage-Btn", "reportsPage-CBtn"],
     ],
-  },
+  ],
 };
 const collapseBtns = {
-  main: ["navCollapse-Btn", "logInCollapse-Btn", "logInClose-Btn"],
-  sub: {
-    home: ["subCollapse", "subCollapse-Btn"],
-    war: ["rmCollapse-Btn", "subCollapse-Btn"],
+  buttons: [
+    "navCollapse-Btn",
+    "logInCollapse-Btn",
+    "logInClose-Btn",
+    "rmCollapse-Btn",
+    "subCollapse-Btn",
+  ],
+};
+const linkBtns = [
+  {
+    id: "depBtn",
+    url: "https://www.torn.com/factions.php?step=your#/tab=armoury&start=0&sub=donate",
   },
-};
-const linkBtns = {
-  home: [
-    { id: "depBtn", url: "" },
-  ]
-};
+];
 const themes = {
   icon: { light: "fa-moon-o", dark: "fa-sun-o" },
   headerBanner: {
@@ -210,9 +216,10 @@ const state = {
 
 try {
   document.addEventListener("DOMContentLoaded", () => {
-    try { // Global pageloading
+    try {
+      // Global pageloading
       state.isLoading = true;
-      collapseBtns.main.forEach((btnId) => {
+      collapseBtns.buttons.forEach((btnId) => {
         const btn = document.getElementById(btnId);
         if (btn) {
           btn.addEventListener("click", () => {
@@ -220,15 +227,28 @@ try {
           });
         }
       });
-      pageMappings.main.forEach((mapping) => {
-        mapping.buttons.forEach((btnId) => {
-          const btn = document.getElementById(btnId);
-          if (btn) {
-            if (!btn.classList.contains("w3-disabled"))
-              btn.addEventListener("click", () => {
-                window.location.assign(`./${btn.dataset.main}`);
-              });
-          }
+      // Main buttons
+      pageMappings.main.forEach((btnId) => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          if (!btn.classList.contains("w3-disabled"))
+            btn.addEventListener("click", () => {
+              window.location.assign(`./${btn.dataset.main}`);
+            });
+        }
+      });
+      // Sub buttons
+      pageMappings.sub.forEach((page) => {
+        page.forEach((btnArr, index) => {
+          btnArr.forEach((btnId) => {
+            const btn = document.querySelector(`#${btnId}`);
+            if (btn) {
+              if (!btn.classList.contains("w3-disabled"))
+                btn.addEventListener("click", () => {
+                  state.activeSub = index;
+                });
+            }
+          });
         });
       });
       // Theme loading
@@ -239,32 +259,48 @@ try {
         if (document.body.dataset.theme === "light") state.theme = "dark";
         else state.theme = "light";
       });
-      // Auth loading
+      // Link buttons
+      linkBtns.forEach((btn) => {
+        const btne = document.querySelector(`#${btn.id}`);
+        if (btne) {
+          btne.addEventListener("click", () => {
+            if (btne.url) window.open(btne.url, "_blank");
+          });
+        }
+      });
+    } catch (err) {
+      console.error(`Error initializing main UI elements: ${err.message}`);
+    }
+    try { // Auth loading
       const keyCache = localStorage.getItem("tcg_key_cache");
-      if (keyCache && keyCache !== "") tApi.authenticateUser(keyCache, true);
-      else {
+      if (keyCache && keyCache !== "") {
+        tApi.authenticateUser(keyCache, true);
+        if (tApi.isLoggedIn) loadAPIData();
+      } else {
         const sessionKeyCache = sessionStorage.getItem("tcg_key_cache");
         if (sessionKeyCache) tApi.authenticateUser(sessionKeyCache, false);
+        if (tApi.isLoggedIn) loadAPIData();
       }
       document.querySelector("#logIn-Btn").addEventListener("click", () => {
         const keyInput = document.querySelector("#keyInput");
         if (keyInput && keyInput.value != "") {
           const persistCheckbox = document.querySelector("#persistCheckbox");
           tApi.authenticateUser(keyInput.value, persistCheckbox.checked);
-          loadCurrentPage();
+          if (tApi.isLoggedIn) loadAPIData();
         } else {
           alert("Please enter a valid API key.");
         }
       });
-      document
-        .querySelector("#logOut-Btn")
-        .addEventListener("click", () => tApi.logoutUser());
+      document.querySelector("#logOut-Btn").addEventListener("click", () => {
+        tApi.logoutUser();
+        loadAPIData();
+      });
     } catch (err) {
-      console.error(`Error initializing main UI elements: ${err.message}`);
+      console.error(`Error initializing authentication: ${err.message}`);
     }
-    loadCurrentPage();
-    state.isLoading = false;
   });
+  loadCurrentPage();
+  state.isLoading = false;
 } catch (err) {
   console.error(`Error initializing page: ${err.message}`);
 }
@@ -273,12 +309,11 @@ function loadCurrentPage() {
   try {
     switch (currentPage) {
       case "index":
-        try { // Query params
+        try {
+          // Query params
           const s =
-            f.catchUrlParams(
-              window.location.search,
-              pageMappings.sub.home.length,
-            ) ?? 0;
+            f.catchUrlParams(window.location.search, pageMappings.sub.length) ??
+            0;
           if (s && s != undefined) {
             state._activeSub = s;
             f.syncPageUI(s);
@@ -286,7 +321,8 @@ function loadCurrentPage() {
         } catch (err) {
           console.error(`Error processing URL parameters: ${err.message}`);
         }
-        try { // Popstate listener
+        try {
+          // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -297,106 +333,10 @@ function loadCurrentPage() {
         } catch (err) {
           console.error(`Error setting up popstate listener: ${err.message}`);
         }
-        try { // Sub buttons
-          pageMappings.sub.home.forEach((mapping, index) => {
-            mapping.buttons.forEach((btnId) => {
-              const btn = document.querySelector(`#${btnId}`);
-              if (btn) {
-                if (!btn.classList.contains("w3-disabled"))
-                  btn.addEventListener("click", () => {
-                    state.activeSub = index;
-                  });
-              }
-            });
-          });
-        } catch (err) {
-          console.error(`Error setting up subpage buttons: ${err.message}`);
-        }
-        try { // Link buttons
-          linkBtns.home.forEach((btn) => {
-            const btnElem = document.querySelector(`#${btn.id}`);
-            if (btnElem) {
-              btnElem.addEventListener("click", () => {
-                if (btn.url) window.open(btn.url, "_blank");
-              });
-            }
-           }); 
-        } catch (err) {
-          console.error(`Error setting up link buttons: ${err.message}`);
-        }
-        try { // Collapses
-          collapseBtns.sub.home.forEach((btnId) => {
-            const btn = document.getElementById(btnId);
-            if (btn) {
-              btn.addEventListener("click", () => {
-                f.toggleCollapse(btn.dataset.collapse);
-              });
-            }
-          });
-        } catch (err) {
-          console.error(
-            `Error setting up collapse button listener for home: ${err.message}`,
-          );
-        }
-        try { // Price fetch
-          if (tApi.isLoggedIn) {
-            tApi
-              .PullData("torn/206/items")
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(
-                    `API request failed with status ${response.status}`,
-                  );
-                }
-                return response.json();
-              })
-              .then((data) => {
-                if (data && !("error" in data)) {
-                  const priceElem = document.getElementById("price-Xanax");
-                  const total = Math.round(
-                    data.items[0].value.market_price * 0.97,
-                  );
-                  let price = total.toString();
-                  if (price.length < 7) {
-                    for (let i = price.length - 3; i > 0; i -= 3) {
-                      price = price.slice(0, i) + "," + price.slice(i); // Add commas for thousands
-                    }
-                  } else {
-                    price = (total / 1000000).toFixed(2) + "M"; // Convert to millions with 2 decimal places
-                  }
-                  if (priceElem) priceElem.textContent = "$" + price;
-                } else {
-                  document.querySelector("#infoPgph").textContent =
-                    "Log in to view current prices.";
-                  console.info(
-                    "Could not fetch item data. Price will not be displayed.",
-                  );
-                }
-              });
-          } else {
-            const priceElem = document.getElementById("price-Xanax");
-            if (priceElem) priceElem.textContent = "N/A";
-          }
-        } catch (err) {
-          console.error(`Error updating item price: ${err.message}`);
-        }
         break;
       case "war":
-        try { // Collapses
-          collapseBtns.sub.war.forEach((btnId) => {
-            const btn = document.getElementById(btnId);
-            if (btn) {
-              btn.addEventListener("click", () => {
-                f.toggleCollapse(btn.dataset.collapse);
-              });
-            }
-          });
-        } catch (err) {
-          console.error(
-            `Error setting up war page collapseBtns: ${err.message}`,
-          );
-        }
-        try { // Popstate listener
+        try {
+          // Popstate listener
           window.addEventListener("popstate", (ev) => {
             state.isLoading = true;
             const index = ev.state.sub ?? 0;
@@ -407,7 +347,8 @@ function loadCurrentPage() {
         } catch (err) {
           console.error(`Error setting up war page popstate: ${err.message}`);
         }
-        try { // Reports loading
+        try {
+          // Reports loading
           const reports = f.getReports(2026);
           const menu = document.getElementById("reportMenu");
           const cMenu = document.getElementById("rmCollapse");
@@ -476,22 +417,8 @@ function loadCurrentPage() {
         } catch (err) {
           console.error(`Error loading war reports: ${err.message}`);
         }
-        try { // Sub buttons
-          pageMappings.sub.war.forEach((mapping, index) => {
-            mapping.buttons.forEach((btnId) => {
-              const btn = document.querySelector(`#${btnId}`);
-              if (btn) {
-                if (!btn.classList.contains("w3-disabled"))
-                  btn.addEventListener("click", () => {
-                    state.activeSub = index;
-                  });
-              }
-            });
-          });
-        } catch (err) {
-          console.error(`Error setting up war subpage buttons: ${err.message}`);
-        }
-        try { // Query params
+        try {
+          // Query params
           const s =
             f.catchUrlParams(
               window.location.search,
@@ -512,5 +439,74 @@ function loadCurrentPage() {
     }
   } catch (err) {
     console.error(`Error loading current page: ${err.message}`);
+  }
+}
+
+function loadAPIData() {
+  try {
+    try {
+      // Price fetch
+      if (tApi.isLoggedIn) {
+        tApi
+          .PullData("torn/206,731,226,256/items")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `API request failed with status ${response.status}`,
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data && !("error" in data)) {
+              const items = data.items;
+              var itemElem = "";
+              for (const item of items) {
+                switch (item.name) {
+                  case "Xanax":
+                    itemElem = "price-Xanax";
+                    break;
+                  case "Empty Blood Bag":
+                    itemElem = "price-EBB";
+                    break;
+                  case "Smoke Grenade":
+                    itemElem = "price-smokeGrenade";
+                    break;
+                  case "Tear Gas":
+                    itemElem = "price-tearGas";
+                    break;
+                }
+                const priceElem = document.querySelector(`#${itemElem}`);
+                const total = Math.round(item.value.market_price * 0.96);
+                let priceString = total.toString();
+                if (priceString.length < 7) {
+                  for (let i = priceString.length - 3; i > 0; i -= 3) {
+                    priceString =
+                      priceString.slice(0, i) + "," + priceString.slice(i); // Add commas for thousands
+                  }
+                } else {
+                  priceString = (total / 1000000).toFixed(2) + "M"; // Convert to millions with 2 decimal places
+                }
+                if (priceElem) priceElem.textContent = "$" + priceString;
+              }
+            } else {
+              document.querySelector("#infoPgph").textContent =
+                "Log in to view current prices.";
+              console.info(
+                "Could not fetch item data. Price will not be displayed.",
+              );
+            }
+          });
+      } else {
+        document.querySelector("#price-Xanax").textContent = "N/A";
+        document.querySelector("#price-EBB").textContent = "N/A";
+        document.querySelector("#price-smokeGrenade").textContent = "N/A";
+        document.querySelector("#price-tearGas").textContent = "N/A";
+      }
+    } catch (err) {
+      console.error(`Error updating item price: ${err.message}`);
+    }
+  } catch (err) {
+    console.error(`Error loading API data: ${err.message}`);
   }
 }

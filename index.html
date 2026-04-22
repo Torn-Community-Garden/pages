@@ -67,7 +67,7 @@
                         style="font-size: 23px;"></button>
                     <div
                         id="logInCollapse"
-                        class="w3-dropdown-content w3-bar-block w3-padding main-light h-grad-orange"
+                        class="w3-dropdown-content w3-bar-block w3-padding main-light bottom-grad-orange"
                         style="right: 0;top: 39px;">
                         <button id="logInClose-Btn"
                             data-collapse="logInCollapse"
@@ -78,13 +78,15 @@
                             placeholder="Key">
                         <p id="authError" class="w3-text-red"></p>
                         <label>
-                            <input class="w3-check" value="true" type="checkbox" id="persistCheckbox"> Stay logged in
+                            <input class="w3-check" value="true" type="checkbox"
+                                id="persistCheckbox"> Stay logged in
                         </label>
                         <br><br>
                         <a href="./key_usage.html">Key usage & storing</a>
                         <button id="logIn-Btn" title="Log in"
                             style="width: 100%;margin-top: 20px;"
-                            class="w3-button sub-light sub-hover">Log in</button>
+                            class="w3-button sub-light sub-hover">Log
+                            in</button>
                     </div>
                 </div>
             </div>
@@ -116,7 +118,7 @@
                 </div>
             </div>
             <!-- Collapsed main nav -->
-             <div id="navCollapse"
+            <div id="navCollapse"
                 class="w3-bar-block w3-card w3-hide-large w3-hide-medium
                     w3-animate-right w3-hide main-light">
                 <button
@@ -153,7 +155,7 @@
                             <h2 class="w3-center">Garden News</h2>
                             <div class="w3-padding cornerfold-all"
                                 style="background-color: rgba(255, 255, 255, 0.7);height: 40%;color: black;">
-                                <span>News here...</span>
+                                <span>Nothing new... for now.</span>
                             </div>
                         </div>
                         <div class="w3-mobile w3-card page-light"
@@ -164,66 +166,78 @@
                                     style="width: 50%;">
                                     <h3>Faction Trading</h3>
                                     <span>
-                                        <p id="infoPgph">Our current prices.<br>To trade with the faction, deposit the items and ping a banker on Discord.</p>
-                                        <button id="depBtn" class="w3-button sub-light sub-hover">
-                                            Deposit <span class="fa fa-external-link"></span>
-                                        </button>
-                                        <div class="w3-flex w3-padding w3-margin-top">
+                                        <p id="infoPgph">Our current
+                                            prices.<br>To trade with the
+                                            faction, deposit the items and ping
+                                            a banker on Discord for payment.</p>
+                                        <a
+                                            href="https://www.torn.com/factions.php?step=your#/tab=armoury&start=0&sub=donate"
+                                            target="_blank"><button id="depBtn"
+                                                class="w3-button sub-light sub-hover">
+                                                Deposit <span
+                                                    class="fa fa-external-link"></span>
+                                            </button></a>
+                                        <div
+                                            class="w3-flex w3-padding w3-margin-top">
                                             <div
                                                 class="w3-padding w3-border-right"
                                                 style="width: 30%;min-width: 95px;">
                                                 <span
-                                                    class="fa fa-lemon-o"></span>
+                                                    class="fa fa-certificate w3-large" style="color: palevioletred;"></span>
                                                 <span>Xanax</span>
                                             </div>
                                             <div class="w3-padding"
                                                 style="width: 70%">
-                                                <span id="price-Xanax">$0</span>
+                                                <span id="price-Xanax">N/A</span>
                                             </div>
                                         </div>
-                                        <div class="w3-flex w3-border-top w3-padding">
+                                        <div
+                                            class="w3-flex w3-border-top w3-padding">
                                             <div
                                                 class="w3-padding w3-border-right"
                                                 style="width: 30%;min-width: 95px;">
                                                 <span
-                                                    class="fa fa-lemon-o"></span>
+                                                    class="fa fa-certificate w3-large" style="color: palevioletred;"></span>
                                                 <span>Empty Blood Bag</span>
                                             </div>
                                             <div class="w3-padding"
                                                 style="width: 70%">
-                                                <span id="price-EBB">Coming Soon</span>
+                                                <span id="price-EBB">N/A</span>
                                             </div>
                                         </div>
-                                        <div class="w3-flex w3-border-top w3-padding">
+                                        <div
+                                            class="w3-flex w3-border-top w3-padding">
                                             <div
                                                 class="w3-padding w3-border-right"
                                                 style="width: 30%;min-width: 95px;">
                                                 <span
-                                                    class="fa fa-lemon-o"></span>
+                                                    class="fa fa-certificate w3-large" style="color: palevioletred;"></span>
                                                 <span>Smoke Grenade</span>
                                             </div>
                                             <div class="w3-padding"
                                                 style="width: 70%">
-                                                <span id="price-smokeGrenade">Coming Soon</span>
+                                                <span
+                                                    id="price-smokeGrenade">N/A</span>
                                             </div>
                                         </div>
-                                        <div class="w3-flex w3-border-top w3-padding">
+                                        <div
+                                            class="w3-flex w3-border-top w3-padding">
                                             <div
                                                 class="w3-padding w3-border-right"
                                                 style="width: 30%;min-width: 95px;">
                                                 <span
-                                                    class="fa fa-lemon-o"></span>
+                                                    class="fa fa-certificate w3-large" style="color: palevioletred;"></span>
                                                 <span>Tear Gas</span>
                                             </div>
                                             <div class="w3-padding"
                                                 style="width: 70%">
-                                                <span id="price-tearGas">Coming Soon</span>
+                                                <span id="price-tearGas">N/A</span>
                                             </div>
                                         </div>
                                     </span>
                                 </div>
                                 <div
-                                    class="w3-padding w3-center w3-border-left w3-mobile"
+                                    class="w3-padding w3-center w3-border-left w3-hide-small"
                                     style="width: 50%">
                                     <h3>Member Ads</h3>
                                     <span>
@@ -233,6 +247,13 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="page-light w3-margin-top w3-padding w3-center w3-hide-medium w3-hide-large">
+                        <h3>Member Ads</h3>
+                        <span>
+                            <p>Want your ad displayed here? Contact
+                                a council member.</p>
+                        </span>
                     </div>
                     <div id="newsCPanel"
                         class="w3-hide-large w3-hide-medium w3-padding w3-margin-top"
@@ -256,7 +277,7 @@
             </div>
             <div id="rulesPage"
                 class="w3-container w3-hide"
-                style="margin-top: 50px;">
+                style="margin-top: 50px;"">
                 <div class="w3-padding page-light">
                     <span class="w3-padding">
                         <h1 class="w3-center w3-bold">Rules</h1>
