@@ -139,7 +139,7 @@ class Functions {
   }
   onLoad() {
     try {
-      const loadingModal = document.getElementById("loadingModal");
+      const loadingModal = document.querySelector("#loadingModal");
       if (loadingModal) {
         if (!loadingModal.classList.contains("w3-show")) {
           loadingModal.classList.add("w3-show");
@@ -151,7 +151,7 @@ class Functions {
   }
   onLoadComplete() {
     try {
-      const loadingModal = document.getElementById("loadingModal");
+      const loadingModal = document.querySelector("#loadingModal");
       if (loadingModal) {
         if (loadingModal.classList.contains("w3-show")) {
           loadingModal.classList.remove("w3-show");

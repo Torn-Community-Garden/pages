@@ -89,7 +89,7 @@ const state = {
     if (value === this._isLoading) return;
     this._isLoading = value;
 
-    if (this.isLoading) {
+    if (this._isLoading) {
       f.onLoad();
       this.loadingTimeout = setTimeout(() => {
         throw new Error("Loading timed out. Try again.");
