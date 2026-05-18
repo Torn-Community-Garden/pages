@@ -68,7 +68,7 @@ class Functions {
       if (!data) console.warn("Reports data not found.");
       return data;
     } catch (err) {
-      this.LogError(`Error reading reports data: ${err.message}`);
+      console.error(`Error reading reports data: ${err.message}`);
     }
   }
   syncPageUI(pageIndex) {

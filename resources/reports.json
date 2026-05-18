@@ -2,6 +2,30 @@
   "reports": {
     "y2026": [
       {
+        "file_name": "CROW1505.html",
+        "result": 2,
+        "opponent": {
+          "name": "Crows",
+          "tag": "Crow"
+        },
+        "war_date": {
+          "day": 15,
+          "month": 5
+        }
+      },
+      {
+        "file_name": "N0205.html",
+        "result": 2,
+        "opponent": {
+          "name": "Nirvana",
+          "tag": "N"
+        },
+        "war_date": {
+          "day": 2,
+          "month": 5
+        }
+      },
+      {
         "file_name": "GDI0904.html",
         "result": 1,
         "opponent": {
