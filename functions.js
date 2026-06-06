@@ -45,7 +45,7 @@ class Functions {
         }
       }
     } catch (err) {
-      this.LogError(`Error parsing URL parameters: ${err.message}`);
+      console.error(`Error parsing URL parameters: ${err.message}`);
     }
   }
   toggleCollapse(id) {
@@ -119,7 +119,7 @@ class Functions {
           break;
       }
     } catch (err) {
-      this.LogError(`Error syncing UI: ${err.message}`);
+      console.error(`Error syncing UI: ${err.message}`);
     }
   }
   /**

@@ -246,6 +246,9 @@ try {
               if (!btn.classList.contains("w3-disabled"))
                 btn.addEventListener("click", () => {
                   state.activeSub = index;
+                  if (btn.dataset.collapse) {
+                    f.toggleCollapse(btn.dataset.collapse);
+                  }
                 });
             }
           });
@@ -351,8 +354,8 @@ function loadCurrentPage() {
         try {
           // Reports loading
           const reports = f.getReports(2026);
-          const menu = document.getElementById("reportMenu");
-          const cMenu = document.getElementById("rmCollapse");
+          const menu = document.querySelector("#reportMenu");
+          const cMenu = document.querySelector("#rmCollapse");
           for (const report of reports) {
             if (reports === undefined) {
               console.warn("Reports data not found.");
@@ -383,6 +386,7 @@ function loadCurrentPage() {
                   b.classList.remove("w3-gray");
                 }
                 btn.classList.add("w3-gray");
+                f.toggleCollapse("rmCollapse");
                 state.isLoading = false;
               } catch (err) {
                 console.error(`Error handling button click: ${err}`);
@@ -406,6 +410,7 @@ function loadCurrentPage() {
                   b.classList.remove("w3-gray");
                 }
                 btn.classList.add("w3-gray");
+                f.toggleCollapse("rmCollapse");
                 state.isLoading = false;
               } catch (err) {
                 console.error(`Error handling button click: ${err}`);

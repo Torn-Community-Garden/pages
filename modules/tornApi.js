@@ -30,7 +30,9 @@ class TornApi {
   }
   async callOverLimit() {
     try {
-      console.warn("API call limit reached. Please wait before making more calls.");
+      console.warn(
+        "API call limit reached. Please wait before making more calls.",
+      );
       setTimeout(() => {
         this.ppm = 0;
         console.info("You can now make API calls again.");
@@ -50,34 +52,43 @@ class TornApi {
         this.Api.access.faction = keyInfo.faction;
         this.persist = persist;
         this.Api.key = newKey;
+        var successfulLogin = false;
         this.PullData("user/basic")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`API request failed with status ${response.status}`);
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `API request failed with status ${response.status}`,
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (!data || "error" in data) {
+              document.querySelector("#authError").textContent =
+                `API error: ${data.error ? data.error.error : "Unknown error"}`;
+              return;
+            } else {
+              document.querySelector("#authUsername").textContent =
+                `Logged in as: ${data.profile.name} [${data.profile.id}]`;
+              successfulLogin = true;
+            }
+          });
+        if (successfulLogin) {
+          document
+            .querySelector("#logInRoot")
+            .classList.toggle("w3-hide", true);
+          document
+            .querySelector("#authRoot")
+            .classList.toggle("w3-hide", false);
+          if (persist) {
+            localStorage.setItem(this.storageKey, newKey);
+            sessionStorage.removeItem(this.storageKey);
+          } else {
+            localStorage.removeItem(this.storageKey);
+            sessionStorage.setItem(this.storageKey, newKey);
           }
-          return response.json();
-        })
-        .then((data) => {
-          if (!data || "error" in data) {
-            document.querySelector("#authError").textContent =
-              `API error: ${data.error ? data.error.error : "Unknown error"}`;
-            throw new Error(
-              `API error: ${data.error ? data.error.error : "Unknown error"}`,
-            );
-          }
-          document.querySelector("#authUsername").textContent =
-            `Logged in as: ${data.profile.name} [${data.profile.id}]`;
-        });
-        document.querySelector("#logInRoot").classList.toggle("w3-hide", true);
-        document.querySelector("#authRoot").classList.toggle("w3-hide", false);
-        if (persist) {
-          localStorage.setItem(this.storageKey, newKey);
-          sessionStorage.removeItem(this.storageKey);
-        } else {
-          localStorage.removeItem(this.storageKey);
-          sessionStorage.setItem(this.storageKey, newKey);
+          this.isLoggedIn = true;
         }
-        this.isLoggedIn = true;
       }
     } catch (err) {
       console.error(`Error authenticating user: ${err.message}`);
