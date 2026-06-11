@@ -2,6 +2,18 @@
   "reports": {
     "y2026": [
       {
+        "file_name": "AOA0606.html",
+        "result": 1,
+        "opponent": {
+          "name": "Aurora",
+          "tag": "AoA"
+        },
+        "war_date": {
+          "day": 6,
+          "month": 6
+        }
+      },
+      {
         "file_name": "CROW1505.html",
         "result": 2,
         "opponent": {
