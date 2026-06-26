@@ -2,6 +2,18 @@
   "reports": {
     "y2026": [
       {
+        "file_name": "IRC2006.html",
+        "result": 1,
+        "opponent": {
+          "name": "Iron Rose Cartel",
+          "tag": "IRC"
+        },
+        "war_date": {
+          "day": 20,
+          "month": 6
+        }
+      },
+      {
         "file_name": "AOA0606.html",
         "result": 1,
         "opponent": {
