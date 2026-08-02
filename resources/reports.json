@@ -2,6 +2,18 @@
   "reports": {
     "y2026": [
       {
+        "file_name": "LM2407.html",
+        "result": 2,
+        "opponent": {
+          "name": "Ludus Magnus",
+          "tag": "IRC"
+        },
+        "war_date": {
+          "day": 24,
+          "month": 7
+        }
+      },
+      {
         "file_name": "IRC2006.html",
         "result": 1,
         "opponent": {
